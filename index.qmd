@@ -1,0 +1,33 @@
+---
+title: "Capstone"
+author: "Cristian Sandoval y Constanza Trujillo"
+date: "`r Sys.Date()`" #este es un comando para que aparezca la fecha actual
+lang: es
+format: 
+  html:
+    title-block-banner: "#ffffff" #el color de fondo del banner
+    smooth-scroll: true
+    toc: true #tabla de contenido
+    toc-depth: 6 #niveles de la tabla de contenido
+    toc-location: right #la ubicación de la tabla
+    number-sections: true #que enumere las secciones
+    number-depth: 6
+    code-fold: true #que los códigos se muestren pero ocultos
+    bibliography: ref.bib #se refiere a citas en formato BibTeX
+    csl: apa-numeric-superscript.csl #Formato de la cita
+    theme: cosmo #el tema general, hay muchos tipos
+    fig-cap-location: bottom #la ubicación del pie de nota de las figuras/gráficos
+    self-contained: false
+    df_print: paged
+editor: visual
+
+#    css: styles.css
+execute:
+  warning: false #que no se muestren los warning
+  message: false #que no se muestren otros mensajes
+  fig-width: 8 #el ancho de la figura/gráfico
+  fig-height: 6 #el alto de la figura/gráfico
+---
+
+
+## 
