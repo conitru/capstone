@@ -29,5 +29,169 @@ execute:
   fig-height: 6 #el alto de la figura/gráfico
 ---
 
+```{r}
+install_and_load <- function(package) {
+  if (!require(package, character.only = TRUE)) {
+    utils::install.packages(package)
+    library(package, character.only = TRUE)
+  }
+}
 
-## 
+# Lista de paquetes para ser instalados y cargados
+packages <- c("knitr",
+              "kableExtra", 
+              "DT", 
+              "table1",
+            "reticulate",
+            "gapminder",
+            "latex2exp",
+            "tidyverse", 
+            "plotly", 
+            "sf",
+            "dplyr",
+            "haven",
+            "scales",
+            "readxl",
+            "stringr",
+            "writexl",
+            "openxlsx",
+            "tidyr",
+            "readr",
+            "flextable",
+            "DT",
+            "ggplot2",
+            "DiagrammeR",
+            "leaflet",
+            "geojsonio",
+            "httr"
+            )
+
+# Aplica la función a cada paquete
+invisible(capture.output(sapply(packages, install_and_load)))
+```
+
+```{css}
+body {
+  font-family: 'Roboto', Arial, sans-serif; /* Fuente moderna */
+  line-height: 1.6; /* Mayor legibilidad */
+  background-color: #f9f9f9; /* Fondo suave */
+  color: #2c3e50; /* Texto en tono oscuro */
+  margin: 1em;
+}
+
+h1 {
+  color: #1a5276; /* Color distintivo para títulos */
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h2, h3, h4 {
+  color: #2980b9; /* Diferentes tonos para subtítulos */
+}
+
+p {
+  text-align: justify;
+  text-indent: 1em; /* Sangría al inicio del párrafo */
+  margin-bottom: 1.2em;
+}
+
+a {
+  color: #e74c3c; /* Enlaces en rojo para destacar */
+  text-decoration: none;
+}
+
+a:hover {
+  color: #c0392b; /* Cambio de color al pasar el mouse */
+  text-decoration: underline;
+}
+
+code {
+  font-family: 'Courier New', monospace; /* Código con fuente clásica */
+  background-color: #ecf0f1; /* Fondo claro para código */
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+blockquote {
+  font-style: italic;
+  border-left: 4px solid #7f8c8d;
+  padding-left: 1em;
+  color: #7f8c8d;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 0.5em;
+  text-align: left;
+}
+
+th {
+  background-color: #34495e;
+  color: white;
+}
+
+td {
+  background-color: #ecf0f1;
+}
+
+```
+
+# Más allá de la percepción: Análisis de victimización en Chile mediante datos sociales y técnicas predictivas
+
+## Contexto
+
+El fenómeno de la victimización es un objeto central de análisis en diversas disciplinas de las ciencias sociales, particularmente en la criminología, la sociología y la ciencia política. Este proyecto se fundamenta en un marco teórico que combina estas perspectivas para entender los factores que determinan la probabilidad de que una persona sea víctima de un delito en el contexto chileno.
+
+La victimización, más allá de sus implicancias materiales o físicas inmediatas, tiene efectos profundos a nivel psicológico y social. La teoría de las oportunidades rutinarias, propuesta por Cohen y Felson en 1979, ofrece un marco útil para entender este fenómeno, al postular que la ocurrencia de un delito depende de la convergencia de tres elementos: un objetivo atractivo, un delincuente motivado y la ausencia de guardianes eficaces. Este enfoque pone de relieve la importancia de las características individuales y contextuales en la exposición al riesgo.
+
+En Chile, un país marcado por una elevada desigualdad social, la relación entre factores socioeconómicos y victimización adquiere especial relevancia. Desde la perspectiva de la teoría de la tensión, formulada por Merton en 1938, se puede interpretar que las disparidades en el acceso a recursos y oportunidades generan frustraciones que incrementan la propensión al delito, ya sea como perpetrador o como víctima. En este sentido, las diferencias en ingresos, nivel educativo, situación laboral y acceso a servicios de seguridad podrían ser determinantes clave en la distribución del riesgo de victimización.
+
+La percepción de inseguridad y la confianza en las instituciones constituyen dimensiones fundamentales en este análisis. La percepción de inseguridad, aunque subjetiva, refleja experiencias individuales y colectivas de victimización y afecta la calidad de vida de las personas. Según Skogan, en su análisis de 1986, existe una relación directa entre las experiencias de victimización y el aumento de la sensación de inseguridad. Por otro lado, la confianza en instituciones como la policía y el sistema judicial, siguiendo los planteamientos de Putnam en 1993, puede influir en la disposición de las personas para buscar protección, denunciar delitos o participar en estrategias comunitarias de seguridad.
+
+Además de los factores individuales y socioeconómicos, los aspectos geográficos y comunitarios también desempeñan un papel crítico. La ecología del delito, inspirada en las teorías de la Escuela de Chicago, sugiere que el entorno físico y social de una comunidad afecta la incidencia y la percepción del delito. En el caso chileno, las diferencias entre zonas urbanas y rurales, regiones y comunas, junto con los niveles de cohesión social y acceso a servicios, ofrecen un campo fértil para el análisis de patrones de victimización.
+
+En conjunto, este marco teórico sustenta el análisis de los factores que influyen en la victimización en Chile, integrando perspectivas que abarcan tanto las dinámicas individuales como las estructuras sociales más amplias. Al hacerlo, el proyecto busca no solo aportar al entendimiento académico del fenómeno, sino también generar insumos prácticos para el diseño de políticas públicas orientadas a la prevención del delito y la promoción de la seguridad ciudadana.
+
+## Objetivo del estudio
+
+El objetivo del proyecto es identificar los factores individuales, socioeconómicos y geográficos que influyen en la probabilidad de que una persona sea víctima de un delito en Chile.
+
+## Metodología
+
+**Variables del modelo**
+
+Variable dependiente: Victimización en los últimos 12 meses (h1 de EBS)
+
+Variables independientes: 
+
+-   Edad
+
+-   Sexo
+
+-   Nivel educacional (Casen)
+
+-   Situación laboral: empleado, desempleado, informal (Casen)
+
+-   Ingresos (Casen)
+
+-   Zona de residencia: urbana/rural (zona en Casen) 
+
+-   Exposición a situaciones de riesgo (h3 y h5 en EBS)
+
+-   Percepción de inseguridad (h4 en EBS)
+
+-   Accesibilidad a instancias de seguridad (h6 en EBS)
+
+-   Accesibilidad a servicios: k5 en EBS
+
+-   Confianza interpersonal (e4 en EBS)
+
+-   Confianza en instituciones (f1 en EBS)
+
+-   Situación de discapacidad (i4 en EBS)
