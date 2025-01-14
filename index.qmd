@@ -29,6 +29,16 @@ execute:
   fig-height: 6 #el alto de la figura/gráfico
 ---
 
+```{r, results = 'hide', echo=TRUE, eval=FALSE}
+renv::init()
+```
+```{r, results = 'hide', echo=TRUE, eval=FALSE}
+# Restaurar las dependencias según el archivo renv.lock
+renv::restore()
+```
+
+
+
 ```{r}
 install_and_load <- function(package) {
   if (!require(package, character.only = TRUE)) {
@@ -69,6 +79,10 @@ packages <- c("knitr",
 # Aplica la función a cada paquete
 invisible(capture.output(sapply(packages, install_and_load)))
 ```
+```{r}
+renv::snapshot()
+```
+
 
 ```{css}
 body {
@@ -164,6 +178,8 @@ El objetivo del proyecto es identificar los factores individuales, socioeconómi
 
 ## Metodología
 
+El proyecto utiliza un enfoque cuantitativo basado en el análisis de datos secundarios provenientes de la Encuesta de Bienestar Social 2021 y la Encuesta CASEN en Pandemia 2020. Se aplicarán técnicas predictivas para identificar los factores que influyen en la probabilidad de victimización en Chile.
+
 **Variables del modelo**
 
 Variable dependiente: Victimización en los últimos 12 meses (h1 de EBS)
@@ -197,6 +213,7 @@ Variables independientes:
 -   Situación de discapacidad (i4 en EBS)
 
 ## Carga de bases de datos
+
 ```{r, results = 'hide'}
 #Carga de base de datos
 
@@ -225,15 +242,16 @@ head(casen)
 
 
 ```
+
 ```{r, results = 'hide', echo=TRUE, eval=FALSE}
 
-invisible({
 # Resumen estadístico de la base EBS
 summary(ebs)
 
 # Resumen estadístico de la base CASEN
 summary(casen)
 ```
+
 ```{r, results = 'hide', echo=TRUE, eval=FALSE}
 
 # Estructura de la base EBS
@@ -245,4 +263,5 @@ glimpse(casen)
 ```
 
 ## Transformación y limpieza de datos
+
 
