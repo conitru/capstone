@@ -168,7 +168,7 @@ El objetivo del proyecto es identificar los factores individuales, socioeconómi
 
 Variable dependiente: Victimización en los últimos 12 meses (h1 de EBS)
 
-Variables independientes: 
+Variables independientes:
 
 -   Edad
 
@@ -180,7 +180,7 @@ Variables independientes: 
 
 -   Ingresos (Casen)
 
--   Zona de residencia: urbana/rural (zona en Casen) 
+-   Zona de residencia: urbana/rural (zona en Casen)
 
 -   Exposición a situaciones de riesgo (h3 y h5 en EBS)
 
@@ -195,3 +195,54 @@ Variables independientes: 
 -   Confianza en instituciones (f1 en EBS)
 
 -   Situación de discapacidad (i4 en EBS)
+
+## Carga de bases de datos
+```{r, results = 'hide'}
+#Carga de base de datos
+
+ebs <- read_dta("data/EBS2021.dta")
+casen <- read_dta("data/CASEN2020.dta")
+
+```
+
+## Exploración de datos
+
+```{r, results = 'hide', echo=TRUE, eval=FALSE}
+
+# Revisar estructura de las bases
+str(ebs)
+str(casen)
+
+```
+
+```{r, results = 'hide', echo=TRUE, eval=FALSE}
+
+# Primeras filas de la base EBS
+head(ebs)
+
+# Primeras filas de la base CASEN
+head(casen)
+
+
+```
+```{r, results = 'hide', echo=TRUE, eval=FALSE}
+
+invisible({
+# Resumen estadístico de la base EBS
+summary(ebs)
+
+# Resumen estadístico de la base CASEN
+summary(casen)
+```
+```{r, results = 'hide', echo=TRUE, eval=FALSE}
+
+# Estructura de la base EBS
+glimpse(ebs)
+
+# Estructura de la base CASEN
+glimpse(casen)
+
+```
+
+## Transformación y limpieza de datos
+

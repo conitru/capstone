@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">13 de enero de 2025</p>
+        <p class="date">14 de enero de 2025</p>
       </div>
     </div>
     
@@ -120,6 +120,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#contexto" id="toc-contexto" class="nav-link" data-scroll-target="#contexto"><span class="header-section-number">1.1</span> Contexto</a></li>
   <li><a href="#objetivo-del-estudio" id="toc-objetivo-del-estudio" class="nav-link" data-scroll-target="#objetivo-del-estudio"><span class="header-section-number">1.2</span> Objetivo del estudio</a></li>
   <li><a href="#metodología" id="toc-metodología" class="nav-link" data-scroll-target="#metodología"><span class="header-section-number">1.3</span> Metodología</a></li>
+  <li><a href="#carga-de-bases-de-datos" id="toc-carga-de-bases-de-datos" class="nav-link" data-scroll-target="#carga-de-bases-de-datos"><span class="header-section-number">1.4</span> Carga de bases de datos</a></li>
+  <li><a href="#exploración-de-datos" id="toc-exploración-de-datos" class="nav-link" data-scroll-target="#exploración-de-datos"><span class="header-section-number">1.5</span> Exploración de datos</a></li>
+  <li><a href="#transformación-y-limpieza-de-datos" id="toc-transformación-y-limpieza-de-datos" class="nav-link" data-scroll-target="#transformación-y-limpieza-de-datos"><span class="header-section-number">1.6</span> Transformación y limpieza de datos</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -336,14 +339,14 @@ td {
 <h2 data-number="1.3" class="anchored" data-anchor-id="metodología"><span class="header-section-number">1.3</span> Metodología</h2>
 <p><strong>Variables del modelo</strong></p>
 <p>Variable dependiente: Victimización en los últimos 12 meses (h1 de EBS)</p>
-<p>Variables independientes:&nbsp;</p>
+<p>Variables independientes:</p>
 <ul>
 <li><p>Edad</p></li>
 <li><p>Sexo</p></li>
 <li><p>Nivel educacional (Casen)</p></li>
 <li><p>Situación laboral: empleado, desempleado, informal (Casen)</p></li>
 <li><p>Ingresos (Casen)</p></li>
-<li><p>Zona de residencia: urbana/rural (zona en Casen)&nbsp;</p></li>
+<li><p>Zona de residencia: urbana/rural (zona en Casen)</p></li>
 <li><p>Exposición a situaciones de riesgo (h3 y h5 en EBS)</p></li>
 <li><p>Percepción de inseguridad (h4 en EBS)</p></li>
 <li><p>Accesibilidad a instancias de seguridad (h6 en EBS)</p></li>
@@ -352,6 +355,63 @@ td {
 <li><p>Confianza en instituciones (f1 en EBS)</p></li>
 <li><p>Situación de discapacidad (i4 en EBS)</p></li>
 </ul>
+</section>
+<section id="carga-de-bases-de-datos" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="carga-de-bases-de-datos"><span class="header-section-number">1.4</span> Carga de bases de datos</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Carga de base de datos</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ebs <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"data/EBS2021.dta"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>casen <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"data/CASEN2020.dta"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="exploración-de-datos" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="exploración-de-datos"><span class="header-section-number">1.5</span> Exploración de datos</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Revisar estructura de las bases</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ebs)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(casen)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primeras filas de la base EBS</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ebs)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Primeras filas de la base CASEN</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(casen)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>({</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumen estadístico de la base EBS</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ebs)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumen estadístico de la base CASEN</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(casen)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estructura de la base EBS</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ebs)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Estructura de la base CASEN</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(casen)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="transformación-y-limpieza-de-datos" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="transformación-y-limpieza-de-datos"><span class="header-section-number">1.6</span> Transformación y limpieza de datos</h2>
 </section>
 </section>
 

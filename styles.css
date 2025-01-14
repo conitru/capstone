@@ -1,12 +1,68 @@
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.5;
+  font-family: 'Roboto', Arial, sans-serif; /* Fuente moderna */
+  line-height: 1.6; /* Mayor legibilidad */
+  background-color: #f9f9f9; /* Fondo suave */
+  color: #2c3e50; /* Texto en tono oscuro */
+  margin: 1em;
 }
 
 h1 {
-  color: #333333;
+  color: #1a5276; /* Color distintivo para títulos */
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h2, h3, h4 {
+  color: #2980b9; /* Diferentes tonos para subtítulos */
 }
 
 p {
   text-align: justify;
+  text-indent: 1em; /* Sangría al inicio del párrafo */
+  margin-bottom: 1.2em;
+}
+
+a {
+  color: #e74c3c; /* Enlaces en rojo para destacar */
+  text-decoration: none;
+}
+
+a:hover {
+  color: #c0392b; /* Cambio de color al pasar el mouse */
+  text-decoration: underline;
+}
+
+code {
+  font-family: 'Courier New', monospace; /* Código con fuente clásica */
+  background-color: #ecf0f1; /* Fondo claro para código */
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+blockquote {
+  font-style: italic;
+  border-left: 4px solid #7f8c8d;
+  padding-left: 1em;
+  color: #7f8c8d;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 0.5em;
+  text-align: left;
+}
+
+th {
+  background-color: #34495e;
+  color: white;
+}
+
+td {
+  background-color: #ecf0f1;
 }
