@@ -75,6 +75,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         background: #ffffff;
       }
 </style>
+<link href="index_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="index_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="index_files/libs/viz-1.8.2/viz.js"></script>
+
+<link href="index_files/libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+
+<script src="index_files/libs/grViz-binding-1.0.11/grViz.js"></script>
+
 
 
 </head>
@@ -101,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">14 de enero de 2025</p>
+        <p class="date">15 de enero de 2025</p>
       </div>
     </div>
     
@@ -119,7 +129,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#contexto" id="toc-contexto" class="nav-link" data-scroll-target="#contexto"><span class="header-section-number">1.1</span> Contexto</a></li>
   <li><a href="#objetivo-del-estudio" id="toc-objetivo-del-estudio" class="nav-link" data-scroll-target="#objetivo-del-estudio"><span class="header-section-number">1.2</span> Objetivo del estudio</a></li>
-  <li><a href="#metodología" id="toc-metodología" class="nav-link" data-scroll-target="#metodología"><span class="header-section-number">1.3</span> Metodología</a></li>
+  <li><a href="#metodología" id="toc-metodología" class="nav-link" data-scroll-target="#metodología"><span class="header-section-number">1.3</span> Metodología</a>
+  <ul>
+  <li><a href="#modelo-conceptual" id="toc-modelo-conceptual" class="nav-link" data-scroll-target="#modelo-conceptual"><span class="header-section-number">1.3.1</span> Modelo Conceptual</a></li>
+  <li><a href="#modelo-lógico" id="toc-modelo-lógico" class="nav-link" data-scroll-target="#modelo-lógico"><span class="header-section-number">1.3.2</span> Modelo lógico</a></li>
+  </ul></li>
   <li><a href="#carga-de-bases-de-datos" id="toc-carga-de-bases-de-datos" class="nav-link" data-scroll-target="#carga-de-bases-de-datos"><span class="header-section-number">1.4</span> Carga de bases de datos</a></li>
   <li><a href="#exploración-de-datos" id="toc-exploración-de-datos" class="nav-link" data-scroll-target="#exploración-de-datos"><span class="header-section-number">1.5</span> Exploración de datos</a></li>
   <li><a href="#transformación-y-limpieza-de-datos" id="toc-transformación-y-limpieza-de-datos" class="nav-link" data-scroll-target="#transformación-y-limpieza-de-datos"><span class="header-section-number">1.6</span> Transformación y limpieza de datos</a></li>
@@ -194,99 +208,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>- The lockfile is already up to date.</code></pre>
-</div>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>body {</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Roboto'</span><span class="op">,</span> <span class="dv">Arial</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span> <span class="co">/* Fuente moderna */</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">line-height</span><span class="ch">:</span> <span class="dv">1.6</span><span class="op">;</span> <span class="co">/* Mayor legibilidad */</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#f9f9f9</span><span class="op">;</span> <span class="co">/* Fondo suave */</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#2c3e50</span><span class="op">;</span> <span class="co">/* Texto en tono oscuro */</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>h1 {</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#1a5276</span><span class="op">;</span> <span class="co">/* Color distintivo para títulos */</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">bold</span><span class="op">;</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-transform</span><span class="ch">:</span> <span class="dv">uppercase</span><span class="op">;</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>h2<span class="op">,</span> h3<span class="op">,</span> h4 {</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#2980b9</span><span class="op">;</span> <span class="co">/* Diferentes tonos para subtítulos */</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>p {</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">justify</span><span class="op">;</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-indent</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span> <span class="co">/* Sangría al inicio del párrafo */</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin-bottom</span><span class="ch">:</span> <span class="dv">1.2</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>a {</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#e74c3c</span><span class="op">;</span> <span class="co">/* Enlaces en rojo para destacar */</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-decoration</span><span class="ch">:</span> <span class="dv">none</span><span class="op">;</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>a<span class="in">:hover</span> {</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#c0392b</span><span class="op">;</span> <span class="co">/* Cambio de color al pasar el mouse */</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-decoration</span><span class="ch">:</span> <span class="dv">underline</span><span class="op">;</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>code {</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Courier New'</span><span class="op">,</span> <span class="dv">monospace</span><span class="op">;</span> <span class="co">/* Código con fuente clásica */</span></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#ecf0f1</span><span class="op">;</span> <span class="co">/* Fondo claro para código */</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span><span class="ch">:</span> <span class="dv">0.2</span><span class="dt">em</span> <span class="dv">0.4</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-radius</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>blockquote {</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">italic</span><span class="op">;</span></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-left</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#7f8c8d</span><span class="op">;</span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding-left</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#7f8c8d</span><span class="op">;</span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>table {</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span><span class="ch">:</span> <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-collapse</span><span class="ch">:</span> <span class="dv">collapse</span><span class="op">;</span></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>th<span class="op">,</span> td {</span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#bdc3c7</span><span class="op">;</span></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span><span class="ch">:</span> <span class="dv">0.5</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">left</span><span class="op">;</span></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>th {</span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#34495e</span><span class="op">;</span></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">white</span><span class="op">;</span></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>td {</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#ecf0f1</span><span class="op">;</span></span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>body {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Roboto'</span><span class="op">,</span> <span class="dv">Arial</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span> <span class="co">/* Fuente moderna */</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">line-height</span><span class="ch">:</span> <span class="dv">1.6</span><span class="op">;</span> <span class="co">/* Mayor legibilidad */</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#f4f0fa</span><span class="op">;</span> <span class="co">/* Fondo suave en tono lila claro */</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#4a235a</span><span class="op">;</span> <span class="co">/* Texto en un tono morado oscuro */</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>h1 {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#6c3483</span><span class="op">;</span> <span class="co">/* Morado intenso para títulos principales */</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">bold</span><span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-transform</span><span class="ch">:</span> <span class="dv">uppercase</span><span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>h2<span class="op">,</span> h3<span class="op">,</span> h4 {</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#8e44ad</span><span class="op">;</span> <span class="co">/* Morado para subtítulos */</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>p {</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">justify</span><span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-indent</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span> <span class="co">/* Sangría al inicio del párrafo */</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin-bottom</span><span class="ch">:</span> <span class="dv">1.2</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>a {</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#af7ac5</span><span class="op">;</span> <span class="co">/* Enlaces en morado brillante */</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-decoration</span><span class="ch">:</span> <span class="dv">none</span><span class="op">;</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>a<span class="in">:hover</span> {</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#884ea0</span><span class="op">;</span> <span class="co">/* Cambio de color al pasar el mouse */</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-decoration</span><span class="ch">:</span> <span class="dv">underline</span><span class="op">;</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>code {</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Courier New'</span><span class="op">,</span> <span class="dv">monospace</span><span class="op">;</span> <span class="co">/* Código con fuente clásica */</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#dcd3ee</span><span class="op">;</span> <span class="co">/* Fondo claro en tono lila */</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span><span class="ch">:</span> <span class="dv">0.2</span><span class="dt">em</span> <span class="dv">0.4</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-radius</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>blockquote {</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">italic</span><span class="op">;</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-left</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#8e44ad</span><span class="op">;</span> <span class="co">/* Borde en morado */</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding-left</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#5d3b76</span><span class="op">;</span> <span class="co">/* Texto de cita en morado oscuro */</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>table {</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span><span class="ch">:</span> <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-collapse</span><span class="ch">:</span> <span class="dv">collapse</span><span class="op">;</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>th<span class="op">,</span> td {</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#bb8fce</span><span class="op">;</span> <span class="co">/* Borde en lila claro */</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span><span class="ch">:</span> <span class="dv">0.5</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">left</span><span class="op">;</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>th {</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#6c3483</span><span class="op">;</span> <span class="co">/* Fondo de encabezado en morado oscuro */</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">white</span><span class="op">;</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>td {</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#f4f0fa</span><span class="op">;</span> <span class="co">/* Fondo de celdas en lila claro */</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <style type="text/css">
 body {
   font-family: 'Roboto', Arial, sans-serif; /* Fuente moderna */
   line-height: 1.6; /* Mayor legibilidad */
-  background-color: #f9f9f9; /* Fondo suave */
-  color: #2c3e50; /* Texto en tono oscuro */
+  background-color: #f4f0fa; /* Fondo suave en tono lila claro */
+  color: #4a235a; /* Texto en un tono morado oscuro */
   margin: 1em;
 }
 
 h1 {
-  color: #1a5276; /* Color distintivo para títulos */
+  color: #6c3483; /* Morado intenso para títulos principales */
   font-weight: bold;
   text-transform: uppercase;
 }
 
 h2, h3, h4 {
-  color: #2980b9; /* Diferentes tonos para subtítulos */
+  color: #8e44ad; /* Morado para subtítulos */
 }
 
 p {
@@ -296,27 +307,27 @@ p {
 }
 
 a {
-  color: #e74c3c; /* Enlaces en rojo para destacar */
+  color: #af7ac5; /* Enlaces en morado brillante */
   text-decoration: none;
 }
 
 a:hover {
-  color: #c0392b; /* Cambio de color al pasar el mouse */
+  color: #884ea0; /* Cambio de color al pasar el mouse */
   text-decoration: underline;
 }
 
 code {
   font-family: 'Courier New', monospace; /* Código con fuente clásica */
-  background-color: #ecf0f1; /* Fondo claro para código */
+  background-color: #dcd3ee; /* Fondo claro en tono lila */
   padding: 0.2em 0.4em;
   border-radius: 4px;
 }
 
 blockquote {
   font-style: italic;
-  border-left: 4px solid #7f8c8d;
+  border-left: 4px solid #8e44ad; /* Borde en morado */
   padding-left: 1em;
-  color: #7f8c8d;
+  color: #5d3b76; /* Texto de cita en morado oscuro */
 }
 
 table {
@@ -326,18 +337,18 @@ table {
 }
 
 th, td {
-  border: 1px solid #bdc3c7;
+  border: 1px solid #bb8fce; /* Borde en lila claro */
   padding: 0.5em;
   text-align: left;
 }
 
 th {
-  background-color: #34495e;
+  background-color: #6c3483; /* Fondo de encabezado en morado oscuro */
   color: white;
 }
 
 td {
-  background-color: #ecf0f1;
+  background-color: #f4f0fa; /* Fondo de celdas en lila claro */
 }
 
 </style>
@@ -378,6 +389,45 @@ td {
 <li><p>Confianza en instituciones (f1 en EBS)</p></li>
 <li><p>Situación de discapacidad (i4 en EBS)</p></li>
 </ul>
+<section id="modelo-conceptual" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="modelo-conceptual"><span class="header-section-number">1.3.1</span> Modelo Conceptual</h3>
+<p><strong>Diagrama Entidad - Relación.</strong> El diseño del diagrama de entidad-relación (DER) responde a la necesidad de modelar las complejidades inherentes al análisis de victimización en Chile, capturando las relaciones entre variables individuales, socioeconómicas y geográficas, así como las percepciones y exposiciones a riesgos. La decisión de estructurar <strong>Seguridad, Confianza y Victimización</strong> como entidades independientes se basa en su relevancia conceptual y operativa dentro del estudio. Estas entidades agrupan conjuntos de atributos que son interdependientes y que, en conjunto, representan fenómenos complejos que no se limitan a características individuales, sino que requieren análisis independientes y conexiones con otras dimensiones.</p>
+<p>Por ejemplo, Seguridad incluye atributos como la accesibilidad a servicios y la percepción de inseguridad, los cuales son factores clave para comprender cómo los entornos influyen en la victimización. De manera similar, Confianza incorpora dimensiones como la confianza interpersonal e institucional, que tienen implicaciones significativas para la cohesión social y la interacción con políticas públicas. Al tratarlas como entidades, se logra una estructura más flexible y escalable, que permite vincular estos conceptos con otras tablas y realizar análisis detallados. Este enfoque no solo reduce redundancias y facilita la normalización, sino que también prepara el modelo para futuras expansiones, como el análisis de cambios temporales o la incorporación de nuevas encuestas.</p>
+<p>El uso de relaciones <strong>1:N (uno a muchos)</strong> en el modelo de entidad-relación se justifica por la necesidad de capturar de manera precisa y eficiente las interacciones entre diferentes entidades en el análisis de victimización en Chile. Este tipo de relación permite modelar situaciones en las que una entidad principal puede estar asociada con múltiples registros en otra entidad, asegurando una estructura clara y escalable.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph ERDiagram {</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [rankdir=LR]</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = box, style = filled, fillcolor = lightblue, fontsize = 10]</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">  Personas [label = 'Personas</span><span class="sc">\\</span><span class="st">n- ID_Persona (PK)</span><span class="sc">\\</span><span class="st">n- Edad</span><span class="sc">\\</span><span class="st">n- Sexo</span><span class="sc">\\</span><span class="st">n- Nivel educacional</span><span class="sc">\\</span><span class="st">n- Situación laboral</span><span class="sc">\\</span><span class="st">n- Ingresos']</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">  Geografica [label = 'Geográfica</span><span class="sc">\\</span><span class="st">n- ID_Zona (PK)</span><span class="sc">\\</span><span class="st">n- Zona de residencia</span><span class="sc">\\</span><span class="st">n- Región</span><span class="sc">\\</span><span class="st">n- Comuna']</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">  Seguridad [label = 'Seguridad</span><span class="sc">\\</span><span class="st">n- ID_Seguridad (PK)</span><span class="sc">\\</span><span class="st">n- Exposición a situaciones de riesgo</span><span class="sc">\\</span><span class="st">n- Percepción de inseguridad</span><span class="sc">\\</span><span class="st">n- Accesibilidad a instancias de seguridad</span><span class="sc">\\</span><span class="st">n- Accesibilidad a servicios']</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st">  Confianza [label = 'Confianza</span><span class="sc">\\</span><span class="st">n- ID_Confianza (PK)</span><span class="sc">\\</span><span class="st">n- Confianza interpersonal</span><span class="sc">\\</span><span class="st">n- Confianza en instituciones']</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">  Victimizacion [label = 'Victimización</span><span class="sc">\\</span><span class="st">n- ID_Victimización (PK)</span><span class="sc">\\</span><span class="st">n- ID_Persona (FK)</span><span class="sc">\\</span><span class="st">n- ID_Zona (FK)</span><span class="sc">\\</span><span class="st">n- ID_Seguridad (FK)</span><span class="sc">\\</span><span class="st">n- ID_Confianza (FK)</span><span class="sc">\\</span><span class="st">n- Situación de discapacidad']</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">  Encuesta [label = 'Encuesta</span><span class="sc">\\</span><span class="st">n- ID_Encuesta (PK)</span><span class="sc">\\</span><span class="st">n- ID_Persona (FK)</span><span class="sc">\\</span><span class="st">n- ID_Victimización (FK)</span><span class="sc">\\</span><span class="st">n- Fuente (EBS o CASEN)']</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="st">  # Relaciones</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">  Personas -&gt; Victimizacion [label = '1:N']</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">  Geografica -&gt; Victimizacion [label = '1:N']</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">  Seguridad -&gt; Victimizacion [label = '1:N']</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">  Confianza -&gt; Victimizacion [label = '1:N']</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="st">  Victimizacion -&gt; Encuesta [label = '1:N']</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="grViz html-widget html-fill-item" id="htmlwidget-020c86f874ec36816976" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-020c86f874ec36816976">{"x":{"diagram":"\ndigraph ERDiagram {\n  graph [rankdir=LR]\n\n  node [shape = box, style = filled, fillcolor = lightblue, fontsize = 10]\n\n  Personas [label = \"Personas\\n- ID_Persona (PK)\\n- Edad\\n- Sexo\\n- Nivel educacional\\n- Situación laboral\\n- Ingresos\"]\n  Geografica [label = \"Geográfica\\n- ID_Zona (PK)\\n- Zona de residencia\\n- Región\\n- Comuna\"]\n  Seguridad [label = \"Seguridad\\n- ID_Seguridad (PK)\\n- Exposición a situaciones de riesgo\\n- Percepción de inseguridad\\n- Accesibilidad a instancias de seguridad\\n- Accesibilidad a servicios\"]\n  Confianza [label = \"Confianza\\n- ID_Confianza (PK)\\n- Confianza interpersonal\\n- Confianza en instituciones\"]\n  Victimizacion [label = \"Victimización\\n- ID_Victimización (PK)\\n- ID_Persona (FK)\\n- ID_Zona (FK)\\n- ID_Seguridad (FK)\\n- ID_Confianza (FK)\\n- Situación de discapacidad\"]\n  Encuesta [label = \"Encuesta\\n- ID_Encuesta (PK)\\n- ID_Persona (FK)\\n- ID_Victimización (FK)\\n- Fuente (EBS o CASEN)\"]\n\n  # Relaciones\n  Personas -> Victimizacion [label = \"1:N\"]\n  Geografica -> Victimizacion [label = \"1:N\"]\n  Seguridad -> Victimizacion [label = \"1:N\"]\n  Confianza -> Victimizacion [label = \"1:N\"]\n  Victimizacion -> Encuesta [label = \"1:N\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="modelo-lógico" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="modelo-lógico"><span class="header-section-number">1.3.2</span> Modelo lógico</h3>
+</section>
 </section>
 <section id="carga-de-bases-de-datos" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="carga-de-bases-de-datos"><span class="header-section-number">1.4</span> Carga de bases de datos</h2>

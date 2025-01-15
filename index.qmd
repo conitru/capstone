@@ -79,7 +79,7 @@ packages <- c("knitr",
 # Aplica la función a cada paquete
 invisible(capture.output(sapply(packages, install_and_load)))
 ```
-```{r}
+```{r, results = 'hide', echo=TRUE, eval=FALSE}
 renv::snapshot()
 ```
 
@@ -88,19 +88,19 @@ renv::snapshot()
 body {
   font-family: 'Roboto', Arial, sans-serif; /* Fuente moderna */
   line-height: 1.6; /* Mayor legibilidad */
-  background-color: #f9f9f9; /* Fondo suave */
-  color: #2c3e50; /* Texto en tono oscuro */
+  background-color: #f4f0fa; /* Fondo suave en tono lila claro */
+  color: #4a235a; /* Texto en un tono morado oscuro */
   margin: 1em;
 }
 
 h1 {
-  color: #1a5276; /* Color distintivo para títulos */
+  color: #6c3483; /* Morado intenso para títulos principales */
   font-weight: bold;
   text-transform: uppercase;
 }
 
 h2, h3, h4 {
-  color: #2980b9; /* Diferentes tonos para subtítulos */
+  color: #8e44ad; /* Morado para subtítulos */
 }
 
 p {
@@ -110,27 +110,27 @@ p {
 }
 
 a {
-  color: #e74c3c; /* Enlaces en rojo para destacar */
+  color: #af7ac5; /* Enlaces en morado brillante */
   text-decoration: none;
 }
 
 a:hover {
-  color: #c0392b; /* Cambio de color al pasar el mouse */
+  color: #884ea0; /* Cambio de color al pasar el mouse */
   text-decoration: underline;
 }
 
 code {
   font-family: 'Courier New', monospace; /* Código con fuente clásica */
-  background-color: #ecf0f1; /* Fondo claro para código */
+  background-color: #dcd3ee; /* Fondo claro en tono lila */
   padding: 0.2em 0.4em;
   border-radius: 4px;
 }
 
 blockquote {
   font-style: italic;
-  border-left: 4px solid #7f8c8d;
+  border-left: 4px solid #8e44ad; /* Borde en morado */
   padding-left: 1em;
-  color: #7f8c8d;
+  color: #5d3b76; /* Texto de cita en morado oscuro */
 }
 
 table {
@@ -140,18 +140,18 @@ table {
 }
 
 th, td {
-  border: 1px solid #bdc3c7;
+  border: 1px solid #bb8fce; /* Borde en lila claro */
   padding: 0.5em;
   text-align: left;
 }
 
 th {
-  background-color: #34495e;
+  background-color: #6c3483; /* Fondo de encabezado en morado oscuro */
   color: white;
 }
 
 td {
-  background-color: #ecf0f1;
+  background-color: #f4f0fa; /* Fondo de celdas en lila claro */
 }
 
 ```
@@ -211,6 +211,40 @@ Variables independientes:
 -   Confianza en instituciones (f1 en EBS)
 
 -   Situación de discapacidad (i4 en EBS)
+
+### Modelo Conceptual
+**Diagrama Entidad - Relación.**
+El diseño del diagrama de entidad-relación (DER) responde a la necesidad de modelar las complejidades inherentes al análisis de victimización en Chile, capturando las relaciones entre variables individuales, socioeconómicas y geográficas, así como las percepciones y exposiciones a riesgos. La decisión de estructurar **Seguridad, Confianza y Victimización** como entidades independientes se basa en su relevancia conceptual y operativa dentro del estudio. Estas entidades agrupan conjuntos de atributos que son interdependientes y que, en conjunto, representan fenómenos complejos que no se limitan a características individuales, sino que requieren análisis independientes y conexiones con otras dimensiones.
+
+Por ejemplo, Seguridad incluye atributos como la accesibilidad a servicios y la percepción de inseguridad, los cuales son factores clave para comprender cómo los entornos influyen en la victimización. De manera similar, Confianza incorpora dimensiones como la confianza interpersonal e institucional, que tienen implicaciones significativas para la cohesión social y la interacción con políticas públicas. Al tratarlas como entidades, se logra una estructura más flexible y escalable, que permite vincular estos conceptos con otras tablas y realizar análisis detallados. Este enfoque no solo reduce redundancias y facilita la normalización, sino que también prepara el modelo para futuras expansiones, como el análisis de cambios temporales o la incorporación de nuevas encuestas.
+
+El uso de relaciones **1:N (uno a muchos)** en el modelo de entidad-relación se justifica por la necesidad de capturar de manera precisa y eficiente las interacciones entre diferentes entidades en el análisis de victimización en Chile. Este tipo de relación permite modelar situaciones en las que una entidad principal puede estar asociada con múltiples registros en otra entidad, asegurando una estructura clara y escalable.
+
+```{r}
+grViz("
+digraph ERDiagram {
+  graph [rankdir=LR]
+
+  node [shape = box, style = filled, fillcolor = lightblue, fontsize = 10]
+
+  Personas [label = 'Personas\\n- ID_Persona (PK)\\n- Edad\\n- Sexo\\n- Nivel educacional\\n- Situación laboral\\n- Ingresos']
+  Geografica [label = 'Geográfica\\n- ID_Zona (PK)\\n- Zona de residencia\\n- Región\\n- Comuna']
+  Seguridad [label = 'Seguridad\\n- ID_Seguridad (PK)\\n- Exposición a situaciones de riesgo\\n- Percepción de inseguridad\\n- Accesibilidad a instancias de seguridad\\n- Accesibilidad a servicios']
+  Confianza [label = 'Confianza\\n- ID_Confianza (PK)\\n- Confianza interpersonal\\n- Confianza en instituciones']
+  Victimizacion [label = 'Victimización\\n- ID_Victimización (PK)\\n- ID_Persona (FK)\\n- ID_Zona (FK)\\n- ID_Seguridad (FK)\\n- ID_Confianza (FK)\\n- Situación de discapacidad']
+  Encuesta [label = 'Encuesta\\n- ID_Encuesta (PK)\\n- ID_Persona (FK)\\n- ID_Victimización (FK)\\n- Fuente (EBS o CASEN)']
+
+  # Relaciones
+  Personas -> Victimizacion [label = '1:N']
+  Geografica -> Victimizacion [label = '1:N']
+  Seguridad -> Victimizacion [label = '1:N']
+  Confianza -> Victimizacion [label = '1:N']
+  Victimizacion -> Encuesta [label = '1:N']
+}
+")
+```
+
+### Modelo lógico
 
 ## Carga de bases de datos
 
