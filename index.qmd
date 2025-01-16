@@ -305,21 +305,23 @@ ebs2 <- ebs %>%
          h3_5,h3_6, h4_1,h4_2,h4_3,h4_4,h5_1,h5_2,h5_3,h5_4,h5_5,h6_1,h6_2,h6_3,h6_4,k5_1,k5_2,k5_3,e4,f1_1,
          f1_2,f1_3,f1_4,f1_5,l4_1,l4_2,l4_3,l4_4,l4_5,l4_6)
 
+#Seleccionar variables relevantes en Casen 2020
 casen2 <- casen %>% 
-  select(folio, id_persona,zona, sexo, e6a,educ, activ, ocup_inf,ytoth)
+  select(folio, id_persona, zona, sexo, e6a, educ, activ, ocup_inf, ytoth)
 
 ```
 
 ```{r}
 ##Unión de bases de datos
+
 #Paso 1: Cambiar el nombre de las varibles en la base CASEN, para que queden con el mismo nombre de la EBS.
 
 casen2 <- casen2 %>% 
   rename(folio_casen=folio, id_persona_casen=id_persona)
 
-#Paso dos, unir las variables. Debido a la información de la nota técnica sobre la cantidad de casos que deberían mantenerse, se utilizará un left joint, manteniendo la data de la base EBS 2021.
+#Paso 2: Unir las bases. Debido a la información de la nota técnica sobre la cantidad de casos que deberían mantenerse, se utilizará un left join, manteniendo la data de la base EBS 2021.
 
-Base_consolidada <- left_join(ebs2,casen2, by = c("folio_casen", "id_persona_casen"))
+Base_consolidada <- left_join(ebs2, casen2, by = c("folio_casen", "id_persona_casen"))
 
-#La base efectivamente alcanza un total de 10921 observaciones, tal y como indicia la nota técnica, por lo que la unión se considera exitosa.
+#La base efectivamente alcanza un total de 10921 observaciones, tal y como indica la nota técnica, por lo que la unión se considera exitosa.
 ```

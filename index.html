@@ -379,7 +379,7 @@ td {
 <li><p>Sexo</p></li>
 <li><p>Nivel educacional (Casen)</p></li>
 <li><p>Situación laboral: empleado, desempleado, informal (Casen)</p></li>
-<li><p>Ingresos (Casen)</p></li>
+<li><p>Ingresos (Casen: ytoth - Ingreso total del hogar)</p></li>
 <li><p>Zona de residencia: urbana/rural (zona en Casen)</p></li>
 <li><p>Exposición a situaciones de riesgo (h3 y h5 en EBS)</p></li>
 <li><p>Percepción de inseguridad (h4 en EBS)</p></li>
@@ -387,7 +387,7 @@ td {
 <li><p>Accesibilidad a servicios: k5 en EBS</p></li>
 <li><p>Confianza interpersonal (e4 en EBS)</p></li>
 <li><p>Confianza en instituciones (f1 en EBS)</p></li>
-<li><p>Situación de discapacidad (i4 en EBS)</p></li>
+<li><p>Situación de discapacidad (l4 en EBS)</p></li>
 </ul>
 <section id="modelo-conceptual" class="level3" data-number="1.3.1">
 <h3 data-number="1.3.1" class="anchored" data-anchor-id="modelo-conceptual"><span class="header-section-number">1.3.1</span> Modelo Conceptual</h3>
@@ -420,8 +420,8 @@ td {
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-71f436df9cccdd9b8384" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-71f436df9cccdd9b8384">{"x":{"diagram":"\ndigraph ERDiagram {\n  graph [rankdir=LR]\n\n  node [shape = box, style = filled, fillcolor = lightblue, fontsize = 10]\n\n  Personas [label = \"Personas\\n- ID_Persona (PK)\\n- Edad\\n- Sexo\\n- Nivel educacional\\n- Situación laboral\\n- Ingresos\"]\n  Geografica [label = \"Geográfica\\n- ID_Zona (PK)\\n- Zona de residencia\\n- Región\\n- Comuna\"]\n  Seguridad [label = \"Seguridad\\n- ID_Seguridad (PK)\\n- Exposición a situaciones de riesgo\\n- Percepción de inseguridad\\n- Accesibilidad a instancias de seguridad\\n- Accesibilidad a servicios\"]\n  Confianza [label = \"Confianza\\n- ID_Confianza (PK)\\n- Confianza interpersonal\\n- Confianza en instituciones\"]\n  Victimizacion [label = \"Victimización\\n- ID_Victimización (PK)\\n- ID_Persona (FK)\\n- ID_Zona (FK)\\n- ID_Seguridad (FK)\\n- ID_Confianza (FK)\\n- Situación de discapacidad\"]\n  Encuesta [label = \"Encuesta\\n- ID_Encuesta (PK)\\n- ID_Persona (FK)\\n- ID_Victimización (FK)\\n- Fuente (EBS o CASEN)\"]\n\n  # Relaciones\n  Personas -> Victimizacion [label = \"1:N\"]\n  Geografica -> Victimizacion [label = \"1:N\"]\n  Seguridad -> Victimizacion [label = \"1:N\"]\n  Confianza -> Victimizacion [label = \"1:N\"]\n  Victimizacion -> Encuesta [label = \"1:N\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-0f0b469954beb572f3bd" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-0f0b469954beb572f3bd">{"x":{"diagram":"\ndigraph ERDiagram {\n  graph [rankdir=LR]\n\n  node [shape = box, style = filled, fillcolor = lightblue, fontsize = 10]\n\n  Personas [label = \"Personas\\n- ID_Persona (PK)\\n- Edad\\n- Sexo\\n- Nivel educacional\\n- Situación laboral\\n- Ingresos\"]\n  Geografica [label = \"Geográfica\\n- ID_Zona (PK)\\n- Zona de residencia\\n- Región\\n- Comuna\"]\n  Seguridad [label = \"Seguridad\\n- ID_Seguridad (PK)\\n- Exposición a situaciones de riesgo\\n- Percepción de inseguridad\\n- Accesibilidad a instancias de seguridad\\n- Accesibilidad a servicios\"]\n  Confianza [label = \"Confianza\\n- ID_Confianza (PK)\\n- Confianza interpersonal\\n- Confianza en instituciones\"]\n  Victimizacion [label = \"Victimización\\n- ID_Victimización (PK)\\n- ID_Persona (FK)\\n- ID_Zona (FK)\\n- ID_Seguridad (FK)\\n- ID_Confianza (FK)\\n- Situación de discapacidad\"]\n  Encuesta [label = \"Encuesta\\n- ID_Encuesta (PK)\\n- ID_Persona (FK)\\n- ID_Victimización (FK)\\n- Fuente (EBS o CASEN)\"]\n\n  # Relaciones\n  Personas -> Victimizacion [label = \"1:N\"]\n  Geografica -> Victimizacion [label = \"1:N\"]\n  Seguridad -> Victimizacion [label = \"1:N\"]\n  Confianza -> Victimizacion [label = \"1:N\"]\n  Victimizacion -> Encuesta [label = \"1:N\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -487,7 +487,32 @@ td {
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionar variables relevantes en EBS 2021</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionar variables relevantes en EBS 2021</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ebs2 <span class="ot">&lt;-</span> ebs <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(folio, folio_casen, id_persona_casen, region, comuna, zona, sexo, fexp, h1, h3_1, h3_2, h3_3, h3_4,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         h3_5,h3_6, h4_1,h4_2,h4_3,h4_4,h5_1,h5_2,h5_3,h5_4,h5_5,h6_1,h6_2,h6_3,h6_4,k5_1,k5_2,k5_3,e4,f1_1,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         f1_2,f1_3,f1_4,f1_5,l4_1,l4_2,l4_3,l4_4,l4_5,l4_6)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Seleccionar variables relevantes en Casen 2020</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>casen2 <span class="ot">&lt;-</span> casen <span class="sc">%&gt;%</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(folio, id_persona, zona, sexo, e6a, educ, activ, ocup_inf, ytoth)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Unión de bases de datos</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Paso 1: Cambiar el nombre de las varibles en la base CASEN, para que queden con el mismo nombre de la EBS.</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>casen2 <span class="ot">&lt;-</span> casen2 <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">folio_casen=</span>folio, <span class="at">id_persona_casen=</span>id_persona)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Paso 2: Unir las bases. Debido a la información de la nota técnica sobre la cantidad de casos que deberían mantenerse, se utilizará un left join, manteniendo la data de la base EBS 2021.</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> <span class="fu">left_join</span>(ebs2, casen2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"folio_casen"</span>, <span class="st">"id_persona_casen"</span>))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#La base efectivamente alcanza un total de 10921 observaciones, tal y como indica la nota técnica, por lo que la unión se considera exitosa.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
