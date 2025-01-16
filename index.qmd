@@ -298,4 +298,8 @@ glimpse(casen)
 
 ## Transformación y limpieza de datos
 
+```{r}
+# Seleccionar variables relevantes en EBS 2021
+
+```
 

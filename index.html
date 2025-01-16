@@ -111,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">15 de enero de 2025</p>
+        <p class="date">16 de enero de 2025</p>
       </div>
     </div>
     
@@ -420,8 +420,8 @@ td {
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-020c86f874ec36816976" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-020c86f874ec36816976">{"x":{"diagram":"\ndigraph ERDiagram {\n  graph [rankdir=LR]\n\n  node [shape = box, style = filled, fillcolor = lightblue, fontsize = 10]\n\n  Personas [label = \"Personas\\n- ID_Persona (PK)\\n- Edad\\n- Sexo\\n- Nivel educacional\\n- Situación laboral\\n- Ingresos\"]\n  Geografica [label = \"Geográfica\\n- ID_Zona (PK)\\n- Zona de residencia\\n- Región\\n- Comuna\"]\n  Seguridad [label = \"Seguridad\\n- ID_Seguridad (PK)\\n- Exposición a situaciones de riesgo\\n- Percepción de inseguridad\\n- Accesibilidad a instancias de seguridad\\n- Accesibilidad a servicios\"]\n  Confianza [label = \"Confianza\\n- ID_Confianza (PK)\\n- Confianza interpersonal\\n- Confianza en instituciones\"]\n  Victimizacion [label = \"Victimización\\n- ID_Victimización (PK)\\n- ID_Persona (FK)\\n- ID_Zona (FK)\\n- ID_Seguridad (FK)\\n- ID_Confianza (FK)\\n- Situación de discapacidad\"]\n  Encuesta [label = \"Encuesta\\n- ID_Encuesta (PK)\\n- ID_Persona (FK)\\n- ID_Victimización (FK)\\n- Fuente (EBS o CASEN)\"]\n\n  # Relaciones\n  Personas -> Victimizacion [label = \"1:N\"]\n  Geografica -> Victimizacion [label = \"1:N\"]\n  Seguridad -> Victimizacion [label = \"1:N\"]\n  Confianza -> Victimizacion [label = \"1:N\"]\n  Victimizacion -> Encuesta [label = \"1:N\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-71f436df9cccdd9b8384" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-71f436df9cccdd9b8384">{"x":{"diagram":"\ndigraph ERDiagram {\n  graph [rankdir=LR]\n\n  node [shape = box, style = filled, fillcolor = lightblue, fontsize = 10]\n\n  Personas [label = \"Personas\\n- ID_Persona (PK)\\n- Edad\\n- Sexo\\n- Nivel educacional\\n- Situación laboral\\n- Ingresos\"]\n  Geografica [label = \"Geográfica\\n- ID_Zona (PK)\\n- Zona de residencia\\n- Región\\n- Comuna\"]\n  Seguridad [label = \"Seguridad\\n- ID_Seguridad (PK)\\n- Exposición a situaciones de riesgo\\n- Percepción de inseguridad\\n- Accesibilidad a instancias de seguridad\\n- Accesibilidad a servicios\"]\n  Confianza [label = \"Confianza\\n- ID_Confianza (PK)\\n- Confianza interpersonal\\n- Confianza en instituciones\"]\n  Victimizacion [label = \"Victimización\\n- ID_Victimización (PK)\\n- ID_Persona (FK)\\n- ID_Zona (FK)\\n- ID_Seguridad (FK)\\n- ID_Confianza (FK)\\n- Situación de discapacidad\"]\n  Encuesta [label = \"Encuesta\\n- ID_Encuesta (PK)\\n- ID_Persona (FK)\\n- ID_Victimización (FK)\\n- Fuente (EBS o CASEN)\"]\n\n  # Relaciones\n  Personas -> Victimizacion [label = \"1:N\"]\n  Geografica -> Victimizacion [label = \"1:N\"]\n  Seguridad -> Victimizacion [label = \"1:N\"]\n  Confianza -> Victimizacion [label = \"1:N\"]\n  Victimizacion -> Encuesta [label = \"1:N\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -484,6 +484,12 @@ td {
 </section>
 <section id="transformación-y-limpieza-de-datos" class="level2" data-number="1.6">
 <h2 data-number="1.6" class="anchored" data-anchor-id="transformación-y-limpieza-de-datos"><span class="header-section-number">1.6</span> Transformación y limpieza de datos</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionar variables relevantes en EBS 2021</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 </section>
 
