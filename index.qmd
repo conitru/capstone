@@ -273,8 +273,6 @@ head(ebs)
 
 # Primeras filas de la base CASEN
 head(casen)
-
-
 ```
 
 ```{r, results = 'hide', echo=TRUE, eval=FALSE}
@@ -324,4 +322,53 @@ casen2 <- casen2 %>%
 Base_consolidada <- left_join(ebs2, casen2, by = c("folio_casen", "id_persona_casen"))
 
 #La base efectivamente alcanza un total de 10921 observaciones, tal y como indica la nota técnica, por lo que la unión se considera exitosa.
+
+#Se limpia el Environment sacando las bases que ya no se ocuparan
+rm(casen,casen2,ebs,ebs2)
 ```
+
+```{r}
+#Transformación de datos
+
+#Variable dependiente: La victimización se recodifica como una variable dicotómica.
+Base_consolidada <- Base_consolidada %>% 
+  mutate(Victimizacion=case_when(
+    h1==1~"No víctima",
+    h1==2~"Víctima",
+    h1==3~"Víctima"))
+
+table(Base_consolidada$Victimizacion,Base_consolidada$h1)
+
+#
+
+```
+
+Variable dependiente: Victimización en los últimos 12 meses (h1 de EBS)
+
+Variables independientes:
+
+-   Edad
+
+-   Sexo
+
+-   Nivel educacional (Casen)
+
+-   Situación laboral: empleado, desempleado, informal (Casen)
+
+-   Ingresos (Casen: ytoth - Ingreso total del hogar)
+
+-   Zona de residencia: urbana/rural (zona en Casen)
+
+-   Exposición a situaciones de riesgo (h3 y h5 en EBS)
+
+-   Percepción de inseguridad (h4 en EBS)
+
+-   Accesibilidad a instancias de seguridad (h6 en EBS)
+
+-   Accesibilidad a servicios: k5 en EBS
+
+-   Confianza interpersonal (e4 en EBS)
+
+-   Confianza en instituciones (f1 en EBS)
+
+-   Situación de discapacidad (l4 en EBS)
