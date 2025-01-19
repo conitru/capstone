@@ -508,11 +508,6 @@ base_consolidada_2 <- base_consolidada_2 %>%
          disc = as.factor(disc))
 ```
 
-```{r}
-#Limpieza del environment
-rm(aristas, Base_consolidada,casen,casen2,ebs,ebs2,grafo,nodos,Temporal2)
-```
-
 ## Hipótesis de la investigación
 
 1.  Las personas que residen en zonas urbanas tienen **mayor** probabilidad de ser víctimas de delitos en comparación con quienes viven en zonas rurales, debido a la mayor densidad de población y actividad delictual.
@@ -880,6 +875,7 @@ summary(model1)
 pre_risk_model1 <- predict(model1, newdata = t_test, type = "response")
 pre_risk_model1
 ```
+
 ```{r, results='hide'}
 pc1 <- pre_risk_model1[t_test[,8] == 1]
 nc1 <- pre_risk_model1[t_test[,8] == 0]
