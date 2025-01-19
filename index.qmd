@@ -32,12 +32,11 @@ execute:
 ```{r, results = 'hide', echo=TRUE, eval=FALSE}
 renv::init()
 ```
+
 ```{r, results = 'hide', echo=TRUE, eval=FALSE}
 # Restaurar las dependencias según el archivo renv.lock
 renv::restore()
 ```
-
-
 
 ```{r}
 install_and_load <- function(package) {
@@ -73,16 +72,24 @@ packages <- c("knitr",
             "DiagrammeR",
             "leaflet",
             "geojsonio",
-            "httr"
+            "httr",
+            "ggraph",
+            "igraph",
+            "ggcorrplot",
+            "survey",
+            "srvyr",
+            "pROC",
+            "PRROC",
+            "caret"
             )
 
 # Aplica la función a cada paquete
 invisible(capture.output(sapply(packages, install_and_load)))
 ```
+
 ```{r, results = 'hide', echo=TRUE, eval=FALSE}
 renv::snapshot()
 ```
-
 
 ```{css}
 body {
@@ -186,25 +193,25 @@ Variable dependiente: Victimización en los últimos 12 meses (h1 de EBS)
 
 Variables independientes:
 
--   Edad
+-   Edad (l1 en EBS)
 
--   Sexo
+-   Sexo (sexo en Casen)
 
--   Nivel educacional (Casen)
+-   Nivel educacional (educ en Casen)
 
--   Situación laboral: empleado, desempleado, informal (Casen)
+-   Situación laboral: empleado, desempleado, informal (activ en Casen)
 
--   Ingresos (Casen: ytoth - Ingreso total del hogar)
+-   Quintil de Ingresos (qaut en Casen)
 
 -   Zona de residencia: urbana/rural (zona en Casen)
 
--   Exposición a situaciones de riesgo (h3 y h5 en EBS)
+-   Exposición a situaciones de riesgo (h3 en EBS)
+
+-   Conductas de prevención (h5 en EBS)
 
 -   Percepción de inseguridad (h4 en EBS)
 
 -   Accesibilidad a instancias de seguridad (h6 en EBS)
-
--   Accesibilidad a servicios: k5 en EBS
 
 -   Confianza interpersonal (e4 en EBS)
 
@@ -213,38 +220,43 @@ Variables independientes:
 -   Situación de discapacidad (l4 en EBS)
 
 ### Modelo Conceptual
-**Diagrama Entidad - Relación.**
-El diseño del diagrama de entidad-relación (DER) responde a la necesidad de modelar las complejidades inherentes al análisis de victimización en Chile, capturando las relaciones entre variables individuales, socioeconómicas y geográficas, así como las percepciones y exposiciones a riesgos. La decisión de estructurar **Seguridad, Confianza y Victimización** como entidades independientes se basa en su relevancia conceptual y operativa dentro del estudio. Estas entidades agrupan conjuntos de atributos que son interdependientes y que, en conjunto, representan fenómenos complejos que no se limitan a características individuales, sino que requieren análisis independientes y conexiones con otras dimensiones.
 
-Por ejemplo, Seguridad incluye atributos como la accesibilidad a servicios y la percepción de inseguridad, los cuales son factores clave para comprender cómo los entornos influyen en la victimización. De manera similar, Confianza incorpora dimensiones como la confianza interpersonal e institucional, que tienen implicaciones significativas para la cohesión social y la interacción con políticas públicas. Al tratarlas como entidades, se logra una estructura más flexible y escalable, que permite vincular estos conceptos con otras tablas y realizar análisis detallados. Este enfoque no solo reduce redundancias y facilita la normalización, sino que también prepara el modelo para futuras expansiones, como el análisis de cambios temporales o la incorporación de nuevas encuestas.
-
-El uso de relaciones **1:N (uno a muchos)** en el modelo de entidad-relación se justifica por la necesidad de capturar de manera precisa y eficiente las interacciones entre diferentes entidades en el análisis de victimización en Chile. Este tipo de relación permite modelar situaciones en las que una entidad principal puede estar asociada con múltiples registros en otra entidad, asegurando una estructura clara y escalable.
+**Gráfico circular.** Para el modelo conceptual de presentación de variables se utiliza un gráfico circular, similar al modelo de estrella, dado que este permite dar cuenta de manera visualmente clara la relación entre las variables explicativas y la variable dependiente (victimización). Dado que el el objetivo de este proyecto es realizar un análisis explicativo sobre la ocurrencia de un fenómeno concreto (la victimización), el diagrama circular se establece como una mejor alternativa de visualización que el modelo entidad-relación, ya que no se busca estructurar y normalizar una base de datos. Adicionalmente, se tomó en consideración que los factores que se analizarán como potenciales elementos explicativos de la victimización (sexo, edad, percepción de seguridad, zona de residencia, confianza en instituciones, confianza interpersonal, accesibilidad a servicios, entre otras) no constituyen entidades independientes con relaciones jerárquicas, sino que representan variables explicativas que interactúan con el fenómeno central.
 
 ```{r}
-grViz("
-digraph ERDiagram {
-  graph [rankdir=LR]
+#| label: fig-1
+#| fig-cap: "Diagrama Circular: Factores de Victimización en Chile"
 
-  node [shape = box, style = filled, fillcolor = lightblue, fontsize = 10]
+# Definir nodos (variables)
+nodos <- tibble::tibble(
+  name = c("VICTIMIZACIÓN", "Edad", "Sexo", "Nivel Educacional", 
+           "Situación Laboral", "Quintil de Ingresos", "Zona de Residencia",
+           "Región - Comuna", "Exposición a Riesgos", 
+           "Percepción de Inseguridad", "Confianza en Instituciones", "Confianza interpersonal",
+           "Accesibilidad a Seguridad", "Conductas de prevención"),
+  tipo = c("Central", rep("Factor", 13)) # Etiqueta para diferenciar nodo central
+)
+# Crear conexiones entre la variable central y los factores
+aristas <- tibble::tibble(
+  from = "VICTIMIZACIÓN",
+  to = nodos$name[-1]
+)
 
-  Personas [label = 'Personas\\n- ID_Persona (PK)\\n- Edad\\n- Sexo\\n- Nivel educacional\\n- Situación laboral\\n- Ingresos']
-  Geografica [label = 'Geográfica\\n- ID_Zona (PK)\\n- Zona de residencia\\n- Región\\n- Comuna']
-  Seguridad [label = 'Seguridad\\n- ID_Seguridad (PK)\\n- Exposición a situaciones de riesgo\\n- Percepción de inseguridad\\n- Accesibilidad a instancias de seguridad\\n- Accesibilidad a servicios']
-  Confianza [label = 'Confianza\\n- ID_Confianza (PK)\\n- Confianza interpersonal\\n- Confianza en instituciones']
-  Victimizacion [label = 'Victimización\\n- ID_Victimización (PK)\\n- ID_Persona (FK)\\n- ID_Zona (FK)\\n- ID_Seguridad (FK)\\n- ID_Confianza (FK)\\n- Situación de discapacidad']
-  Encuesta [label = 'Encuesta\\n- ID_Encuesta (PK)\\n- ID_Persona (FK)\\n- ID_Victimización (FK)\\n- Fuente (EBS o CASEN)']
+# Crear el gráfico
+grafo <- graph_from_data_frame(aristas, vertices = nodos, directed = FALSE)
 
-  # Relaciones
-  Personas -> Victimizacion [label = '1:N']
-  Geografica -> Victimizacion [label = '1:N']
-  Seguridad -> Victimizacion [label = '1:N']
-  Confianza -> Victimizacion [label = '1:N']
-  Victimizacion -> Encuesta [label = '1:N']
-}
-")
+ggraph(grafo, layout = "circle") +  # Cambio a diseño circular
+  geom_edge_link(color = "gray70", linewidth = 0.5, linetype = "dashed") +
+  geom_node_point(aes(color = tipo, size = tipo), show.legend = FALSE) +
+  geom_node_text(aes(label = name), size = 3, fontface = "bold", repel = TRUE) +
+  scale_color_manual(values = c("Central" = "darkgray", "Factor" = "steelblue")) +
+  scale_size_manual(values = c("Central" = 7, "Factor" = 5)) +
+  theme_void() +
+  ggtitle("Diagrama Circular: Factores de Victimización en Chile") +
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
+  )
 ```
-
-### Modelo lógico
 
 ## Carga de bases de datos
 
@@ -299,76 +311,546 @@ glimpse(casen)
 ```{r}
 # Seleccionar variables relevantes en EBS 2021
 ebs2 <- ebs %>% 
-  select(folio, folio_casen, id_persona_casen, region, comuna, zona, sexo, fexp, h1, h3_1, h3_2, h3_3, h3_4,
-         h3_5,h3_6, h4_1,h4_2,h4_3,h4_4,h5_1,h5_2,h5_3,h5_4,h5_5,h6_1,h6_2,h6_3,h6_4,k5_1,k5_2,k5_3,e4,f1_1,
-         f1_2,f1_3,f1_4,f1_5,l4_1,l4_2,l4_3,l4_4,l4_5,l4_6)
+  select(folio, folio_casen, id_persona_casen, region, comuna, l1, fexp, h1, h3_1, h3_2, h3_3, h3_4,
+         h3_5,h3_6, h4_1,h4_2,h4_3,h4_4,h5_1,h5_2,h5_3,h5_4,h5_5,h6_1,h6_2,h6_3,h6_4,e4,f1_1,
+         f1_2,f1_3,f1_4,f1_5, disc)
 
 #Seleccionar variables relevantes en Casen 2020
 casen2 <- casen %>% 
-  select(folio, id_persona, zona, sexo, e6a, educ, activ, ocup_inf, ytoth)
+  select(folio_casen=folio, id_persona_casen=id_persona, zona, sexo, e6a, educ, activ, ocup_inf, qaut)
 
 ```
 
+### Unión de bases de datos
+
 ```{r}
-##Unión de bases de datos
-
-#Paso 1: Cambiar el nombre de las varibles en la base CASEN, para que queden con el mismo nombre de la EBS.
-
-casen2 <- casen2 %>% 
-  rename(folio_casen=folio, id_persona_casen=id_persona)
-
-#Paso 2: Unir las bases. Debido a la información de la nota técnica sobre la cantidad de casos que deberían mantenerse, se utilizará un left join, manteniendo la data de la base EBS 2021.
+#Paso 1: Unir las bases. Debido a la información de la nota técnica sobre la cantidad de casos que deberían mantenerse, se utilizará un left join, manteniendo la data de la base EBS 2021.
 
 Base_consolidada <- left_join(ebs2, casen2, by = c("folio_casen", "id_persona_casen"))
 
 #La base efectivamente alcanza un total de 10921 observaciones, tal y como indica la nota técnica, por lo que la unión se considera exitosa.
-
-#Se limpia el Environment sacando las bases que ya no se ocuparan
-rm(casen,casen2,ebs,ebs2)
 ```
 
 ```{r}
-#Transformación de datos
+#Se limpia el Environment sacando las bases que ya no se ocuparan
+#rm(casen,casen2,ebs,ebs2)
+```
+
+### Transformación de datos
+
+```{r, results='hide'}
 
 #Variable dependiente: La victimización se recodifica como una variable dicotómica.
 Base_consolidada <- Base_consolidada %>% 
-  mutate(Victimizacion=case_when(
-    h1==1~"No víctima",
-    h1==2~"Víctima",
-    h1==3~"Víctima"))
+  mutate(victimizacion=case_when(
+    h1==1~0,
+    h1==2~1,
+    h1==3~1))
 
-table(Base_consolidada$Victimizacion,Base_consolidada$h1)
+table(Base_consolidada$victimizacion,Base_consolidada$h1)
+```
 
-#
+```{r, results='hide'}
+#Variables independientes.
+
+##1. Edad
+table(Base_consolidada$l1)
+summary(Base_consolidada$l1)
+Base_consolidada <- Base_consolidada %>%
+rename(edad = l1)
+
+##2. Sexo
+table(Base_consolidada$sexo)
+
+##3.Nivel educacional
+###Esta variable presenta 110 valores perdidos (No sabe/No responde)
+table(Base_consolidada$educ)
+
+##4. Situación laboral
+###No hay casos perdidos en esta variable.
+table(Base_consolidada$activ)
+
+##5. Quintil de ingreso nacional
+table(Base_consolidada$qaut)
+Base_consolidada <- Base_consolidada %>%
+rename(quintil = qaut)
+
+##6. Zona de residencia (urbano/rural)
+table(Base_consolidada$zona)
+
+##7. H3: Exposición a riesgos.
+lapply(Base_consolidada[, c("h3_1", "h3_2", "h3_3", "h3_4", "h3_5", "h3_6")], table)
+##No hay casos perdidos en estas variables.
+###Se calcula un promedio simple para crear un indicador único de exposición a riesgos.
+Base_consolidada <- Base_consolidada %>% 
+  mutate(exp_riesgos=((h3_1+h3_2+h3_3+h3_4+h3_5+h3_6)/6))
+
+summary(Base_consolidada$exp_riesgos)
+
+##8.H4. Sensación de seguridad.
+lapply(Base_consolidada[, c("h4_1", "h4_2", "h4_3", "h4_4")], table)
+
+###Se calcula un promedio simple para crear un indicador único de sensación de seguridad.
+Base_consolidada <- Base_consolidada %>% 
+  mutate(sen_seguridad=((h4_1+h4_2+h4_3+h4_4)/4))
+
+summary(Base_consolidada$sen_seguridad)
+
+##9.H5. Conductas de prevención
+lapply(Base_consolidada[, c("h5_1", "h5_2", "h5_3", "h5_4", "h5_5")], table)
+
+###Esta variable tiene alternativas de respuesta "No aplica" y "No sabe/No responde", por lo que se calculará un indicador aditivo, considerando solo la cantidad total de conductas preventivas que ha tomado cada persona (H5=1 para cada indicador).
+Base_consolidada <- Base_consolidada %>%
+  mutate(cond_preventivas = rowSums(select(., h5_1:h5_5) == 1, na.rm = TRUE))
+
+summary(Base_consolidada$cond_preventivas)
+table(Base_consolidada$cond_preventivas)
+
+##9.H5. Accesibilidad a instancias de seguridad
+lapply(Base_consolidada[, c("h6_1", "h6_2", "h6_3", "h6_4")], table)
+
+###Esta variable tiene alternativas de respuesta "No sabe/No responde", por lo que se calculará un indicador aditivo, considerando solo la cantidad total de instancias de seguridad accesibles que tiene cada persona (H6=1 para cada indicador).
+Base_consolidada <- Base_consolidada %>%
+  mutate(acce_seguridad = rowSums(select(., h6_1:h6_4) == 1, na.rm = TRUE))
+
+summary(Base_consolidada$acce_seguridad)
+table(Base_consolidada$acce_seguridad)
+
+##10.e4. Confianza interpersonal
+#No hay casos perdidos, solo se cambia el nombre para que sea más reconocible.
+table(Base_consolidada$e4)
+Base_consolidada <- Base_consolidada %>%
+  rename(conf_interp = e4)
+
+##11. f1: confianza en instituciones.
+lapply(Base_consolidada[, c("f1_1", "f1_2", "f1_3", "f1_4", "f1_5")], table)
+
+##No hay casos perdidos en estas variables.
+
+###Se calcula un promedio simple para crear un indicador único de confianza en instituciones.
+Base_consolidada <- Base_consolidada %>% 
+  mutate(conf_instituciones=((f1_1+f1_2+f1_3+f1_4+f1_5)/5))
+
+summary(Base_consolidada$conf_instituciones)
+
+##12. l4: Discapacidad.
+table(Base_consolidada$disc)
 
 ```
 
-Variable dependiente: Victimización en los últimos 12 meses (h1 de EBS)
+```{r}
+##Limpieza de base de datos
+#Se realiza una nueva selección de variables para conservar una base de datos que sólo contenga las bases de interés para el estudio.
 
-Variables independientes:
+base_consolidada_2 <- Base_consolidada %>% 
+  select(folio,
+folio_casen,
+id_persona_casen,
+region,
+comuna,
+edad,
+fexp,
+victimizacion,
+sexo,
+educ,
+activ,
+quintil,
+zona,
+exp_riesgos,
+sen_seguridad,
+cond_preventivas,
+acce_seguridad,
+conf_interp,
+conf_instituciones,
+disc)
+```
 
--   Edad
 
--   Sexo
+```{r}
+##Se transforman las variables a factor, para poder usarlas en las gráficas posteriores (actualmente están como haven_labelled al haber sido importadas de stata)
+base_consolidada_2 <- base_consolidada_2 %>%
+  mutate(victimizacion = as_factor(victimizacion),
+         region = as_factor(region),
+         comuna = as_factor(comuna),
+         edad = as.numeric(edad),
+         fexp = as.numeric(fexp),
+         sexo = as_factor(sexo),
+         educ = as_factor(educ),
+         activ = as_factor(activ),
+         quintil = as_factor(quintil),
+         zona = as_factor(zona),
+         exp_riesgos = as.numeric(exp_riesgos),
+         sen_seguridad = as.numeric(sen_seguridad),
+         cond_preventivas = as.numeric(cond_preventivas),
+         acce_seguridad = as.numeric(acce_seguridad),
+         conf_interp = as.numeric(conf_interp),
+         conf_instituciones = as.numeric(conf_instituciones),
+         disc = as.factor(disc))
+```
 
--   Nivel educacional (Casen)
+## Hipótesis de la investigación
 
--   Situación laboral: empleado, desempleado, informal (Casen)
+1.  Las personas que residen en zonas urbanas tienen mayor probabilidad de ser víctimas de delitos en comparación con quienes viven en zonas rurales, debido a la mayor densidad de población y actividad delictual.
 
--   Ingresos (Casen: ytoth - Ingreso total del hogar)
+2.  Las personas que viven en sectores con **menor** acceso a instancias de seguridad tienen una mayor probabilidad de ser víctimas de delitos en comparación con aquellas en sectores con **mayor** acceso a instancias de seguridad.
 
--   Zona de residencia: urbana/rural (zona en Casen)
+## Análisis descriptivo
 
--   Exposición a situaciones de riesgo (h3 y h5 en EBS)
+En primera instancia, se realiza un análisis descriptivo para evaluar la distribución de las variables de interés. Las variables se analizan en su interacción con la victimización, que es la variable principal del análisis.
 
--   Percepción de inseguridad (h4 en EBS)
 
--   Accesibilidad a instancias de seguridad (h6 en EBS)
+```{r}
+#| label: fig-2
+#| fig-cap: "Distribución por sexo según victimización"
 
--   Accesibilidad a servicios: k5 en EBS
+Grafico_Sexo <- base_consolidada_2 %>%
+  group_by(victimizacion, sexo) %>%
+  summarise(Conteo = n(), .groups = "drop") %>%
+  group_by(victimizacion) %>%
+  mutate(Porcentaje = Conteo / sum(Conteo) * 100,
+         victimizacion = factor(victimizacion, levels = c(0,1), labels = c("No víctima", "Víctima"))) %>%  
+  ggplot(aes(x = victimizacion, y = Porcentaje, fill = sexo)) +
+  geom_bar(stat = "identity", position = "fill", color = "black") +  
+  coord_flip() + 
+  labs(
+    title = "Distribución de Sexo por Victimización",
+    x = "Victimización",  
+    y = "Porcentaje",
+    fill = "Sexo"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right", 
+    plot.title = element_text(hjust = 0.5),  
+    axis.text.x = element_blank(),   
+    axis.ticks.x = element_blank()   
+  ) +
+  geom_text(
+    aes(label = scales::percent(Porcentaje / 100, accuracy = 0.1)),  
+    position = position_fill(vjust = 0.5), 
+    color = "white"
+  )
 
--   Confianza interpersonal (e4 en EBS)
+ggplotly(Grafico_Sexo, tooltip = "text")
+```
 
--   Confianza en instituciones (f1 en EBS)
+```{r}
+#| label: fig-3
+#| fig-cap: "Distribución por zona de residencia según victimización"
 
--   Situación de discapacidad (l4 en EBS)
+Grafico_Zona <- base_consolidada_2 %>%
+  group_by(victimizacion, zona) %>%
+  summarise(Conteo = n(), .groups = "drop") %>%
+  group_by(victimizacion) %>%
+  mutate(Porcentaje = Conteo / sum(Conteo) * 100,
+         victimizacion = factor(victimizacion, levels = c(0,1), labels = c("No víctima", "Víctima"))) %>%  
+  ggplot(aes(x = victimizacion, y = Porcentaje, fill = zona)) +
+  geom_bar(stat = "identity", position = "fill", color = "black") +  
+  coord_flip() + 
+  labs(
+    title = "Distribución de Zona por Victimización",
+    x = "Victimización",  
+    y = "Porcentaje",
+    fill = "Zona"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right", 
+    plot.title = element_text(hjust = 0.5),  
+    axis.text.x = element_blank(),   
+    axis.ticks.x = element_blank()   
+  ) +
+  geom_text(
+    aes(label = scales::percent(Porcentaje / 100, accuracy = 0.1)),  
+    position = position_fill(vjust = 0.5), 
+    color = "white"
+  )
+
+ggplotly(Grafico_Zona, tooltip = "text")
+```
+
+```{r}
+base_consolidada_2 <- base_consolidada_2 %>%
+  mutate(
+    disc2 = case_when(
+      disc==1 ~ "Sin discapacidad",
+      disc==2 ~ "Con discapacidad"))
+```
+
+
+```{r}
+#| label: fig-4
+#| fig-cap: "Distribución por situación de discapacidad según victimización"
+
+Grafico_Disc <- base_consolidada_2 %>%
+  group_by(victimizacion, disc2) %>%
+  summarise(Conteo = n(), .groups = "drop") %>%
+  group_by(victimizacion) %>%
+  mutate(Porcentaje = Conteo / sum(Conteo) * 100) %>%
+  ungroup() %>%  
+  mutate(
+    victimizacion = factor(victimizacion, levels = c(0,1), labels = c("No víctima", "Víctima"))
+  ) %>%  
+  ggplot(aes(x = victimizacion, y = Porcentaje, fill = disc2)) +
+  geom_bar(stat = "identity", position = "fill", color = "black") +  
+  coord_flip() + 
+  labs(
+    title = "Distribución de discapacidad por victimización",
+    x = "Victimización",  
+    y = "Porcentaje",
+    fill = "Discapacidad"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right", 
+    plot.title = element_text(hjust = 0.5),  
+    axis.text.x = element_blank(),   
+    axis.ticks.x = element_blank()   
+  ) +
+  geom_text(
+    aes(label = paste0(round(Porcentaje, 1), "%")),  
+    position = position_fill(vjust = 0.5), 
+    color = "white",
+    size = 3
+  )
+
+ggplotly(Grafico_Disc, tooltip = "text")
+
+```
+
+
+
+```{r}
+#| label: fig-5
+#| fig-cap: "Distribución por situación laboral según victimización"
+
+Grafico_Activ <- base_consolidada_2 %>%
+  group_by(victimizacion, activ) %>%
+  summarise(Conteo = n(), .groups = "drop") %>%
+  group_by(victimizacion) %>%
+  mutate(Porcentaje = Conteo / sum(Conteo) * 100,
+         victimizacion = factor(victimizacion, levels = c(0,1), labels = c("No víctima", "Víctima"))) %>%  
+  ggplot(aes(x = victimizacion, y = Porcentaje, fill = activ)) +
+  geom_bar(stat = "identity", position = "fill", color = "black") +  
+  coord_flip() + 
+  labs(
+    title = "Distribución de situación laboral por victimización",
+    x = "Victimización",  
+    y = "Porcentaje",
+    fill = "Situación laboral"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right", 
+    plot.title = element_text(hjust = 0.5),  
+    axis.text.x = element_blank(),   
+    axis.ticks.x = element_blank()   
+  ) +
+  geom_text(
+    aes(label = scales::percent(Porcentaje / 100, accuracy = 0.1)),  
+    position = position_fill(vjust = 0.5), 
+    color = "white",
+    size = 3
+  )
+
+ggplotly(Grafico_Activ, tooltip = "text")
+```
+
+
+
+
+## Correlaciones
+
+### Matriz de correlación
+
+```{r}
+#Crear la matriz de correlación
+corr_selected <- base_consolidada_2 %>%    
+  mutate(across(c(victimizacion, edad, sexo, educ, activ, quintil, zona, 
+                  exp_riesgos, sen_seguridad, cond_preventivas, acce_seguridad, 
+                  conf_interp, conf_instituciones, disc), as.numeric)) %>%
+  select(victimizacion, edad, sexo, educ, activ, quintil, zona, 
+         exp_riesgos, sen_seguridad, cond_preventivas, acce_seguridad, 
+         conf_interp, conf_instituciones, disc) %>%
+  cor(use = "pairwise.complete.obs", method = "pearson") %>%
+  round(1)
+
+# Definir etiquetas personalizadas
+colnames(corr_selected) <- c("Victimización",
+                             "Edad",
+                             "Sexo",
+                             "Nivel educacional",
+                             "Situación laboral",
+                             "Quintil de ingreso",
+                             "Zona de residencia (Urbano/Rural)",
+                             "Exposición a situaciones de riesgo",
+                             "Sensación de seguridad",
+                             "Conductas preventivas",
+                             "Accesibilidad a instancias de seguridad",
+                             "Confianza Interpersonal",
+                             "Confianza en las instituciones",
+                             "Situación de discapacidad")
+
+rownames(corr_selected) <- colnames(corr_selected)
+```
+
+```{r}
+#| label: fig-6
+#| fig-cap: "Matriz de correlación entre variables del modelo"
+# Crear el gráfico de correlación con etiquetas personalizadas
+ggcorrplot(corr_selected, type = "lower", lab = T, show.legend = T,
+           colors = c("blue", "white", "red"),
+           legend.title = "Correlación")
+```
+
+### Correlaciones bivariadas relevantes
+
+**Correlación entre victimización y exposición a situaciones de riesgo**
+
+```{r}
+#| label: fig-7
+#| fig-cap: "Correlación entre victimización y exposición a situaciones de riesgo"
+
+correlacion1 <- cor(as.numeric(base_consolidada_2$victimizacion), 
+                   base_consolidada_2$exp_riesgos, 
+                   use = "complete.obs")
+
+ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = exp_riesgos)) +
+  geom_point(position = position_jitter(width = 0.1), color = "purple", alpha = 0.6) +
+  geom_smooth(method = "lm", color = "darkblue", se = FALSE, aes(group = 1)) + 
+  labs(x = "Victimización",
+       y = "Exposición a situaciones de riesgo") +
+  scale_x_discrete(labels = c("No ha sido víctima","Ha sido víctima")) +
+  scale_y_continuous(limits = c(1,7), breaks = 1:7) +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_line(color = "lightgray", size = 0.5),
+        axis.text.x = element_text(size = 12),  
+        axis.text.y = element_text(size = 12),  
+        axis.title.x = element_text(size = 14), 
+        axis.title.y = element_text(size = 14)) +
+  geom_label(
+    aes(x = 2, y = 7, 
+        label = paste0("Correlación: ", round(correlacion1, 1))),
+    size = 5, 
+    fill = "white",  
+    color = "darkblue",  
+    label.size = 0.5,  
+    hjust = 1, 
+    vjust = 1
+  )
+
+```
+
+**Correlación entre victimización y sensación de seguridad**
+
+```{r}
+#| label: fig-8
+#| fig-cap: "Correlación entre victimización y sensación de seguridad"
+
+correlacion2 <- cor(as.numeric(base_consolidada_2$victimizacion), 
+                   base_consolidada_2$sen_seguridad, 
+                   use = "complete.obs")
+
+ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = sen_seguridad)) +
+  geom_point(position = position_jitter(width = 0.1), color = "purple", alpha = 0.6) +
+  geom_smooth(method = "lm", color = "darkblue", se = FALSE, aes(group = 1)) + 
+  labs(x = "Victimización",
+       y = "Sensación de seguridad") +
+  scale_x_discrete(labels = c("No ha sido víctima","Ha sido víctima")) +
+  scale_y_continuous(limits = c(1,7), breaks = 1:7) +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_line(color = "lightgray", size = 0.5),
+        axis.text.x = element_text(size = 12),  
+        axis.text.y = element_text(size = 12),  
+        axis.title.x = element_text(size = 14), 
+        axis.title.y = element_text(size = 14)) +
+  geom_label(
+    aes(x = 2, y = 7, 
+        label = paste0("Correlación: ", round(correlacion2, 1))),
+    size = 5, 
+    fill = "white",  
+    color = "darkblue", 
+    label.size = 0.5, 
+    hjust = 1, 
+    vjust = 1
+  )
+
+```
+
+
+**Correlación entre victimización y conductas preventivas**
+
+```{r}
+#| label: fig-9
+#| fig-cap: "Correlación entre victimización y conductas preventivas"
+
+correlacion3 <- cor(as.numeric(base_consolidada_2$victimizacion), 
+                   base_consolidada_2$cond_preventivas, 
+                   use = "complete.obs")
+
+ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = cond_preventivas)) +
+  geom_point(position = position_jitter(width = 0.1), color = "purple", alpha = 0.6) +
+  geom_smooth(method = "lm", color = "darkblue", se = FALSE, aes(group = 1)) + 
+  labs(x = "Victimización",
+       y = "Conductas preventivas") +
+  scale_x_discrete(labels = c("No ha sido víctima","Ha sido víctima")) +
+  scale_y_continuous(limits = c(1,7), breaks = 1:7) +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_line(color = "lightgray", size = 0.5),
+        axis.text.x = element_text(size = 12),  
+        axis.text.y = element_text(size = 12),  
+        axis.title.x = element_text(size = 14), 
+        axis.title.y = element_text(size = 14)) +
+  geom_label(
+    aes(x = 2, y = 7, 
+        label = paste0("Correlación: ", round(correlacion3, 1))),
+    size = 5, 
+    fill = "white",  
+    color = "darkblue", 
+    label.size = 0.5, 
+    hjust = 1, 
+    vjust = 1
+  )
+
+```
+## Análisis predictivo: Regresión Logística
+
+```{r}
+set.seed(100)
+train <- sample(1:nrow(base_consolidada_2), 0.8*nrow(base_consolidada_2))
+t_train <- base_consolidada_2[train,]
+t_test <- base_consolidada_2[-train,]
+```
+
+```{r}
+model1 <- glm(victimizacion ~ sexo + edad + educ + activ + quintil + zona + exp_riesgos + sen_seguridad + cond_preventivas + acce_seguridad + conf_interp + conf_instituciones + disc, family = binomial, data = t_train)
+```
+
+```{r}
+summary(model1)
+```
+
+```{r}
+pre_risk_model1 <- predict(model1, newdata = t_test, type = "response")
+pre_risk_model1
+```
+```{r}
+pc1 <- pre_risk_model1[t_test[,8] == 1]
+nc1 <- pre_risk_model1[t_test[,8] == 0]
+roc1 <- roc.curve(scores.class0 = pc1, scores.class1 = nc1, curve = T)
+
+```
+
+```{r}
+roc1
+plot(roc1, scale.color = heat.colors(100))
+```
+
+
+```{r}
+pre_risk_model1_bi <- as.factor(ifelse(pre_risk_model1 > 0.5, 1, 0)) 
+
+confusionMatrix(pre_risk_model1_bi, t_test$victimizacion, mode = "everything", positive = "1")
+
+```
+
