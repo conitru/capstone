@@ -68,10 +68,9 @@ packages <- c("knitr",
             "readr",
             "flextable",
             "DT",
+            "httr",
             "ggplot2",
             "DiagrammeR",
-            "leaflet",
-            "geojsonio",
             "httr",
             "ggraph",
             "igraph",
@@ -261,11 +260,31 @@ ggraph(grafo, layout = "circle") +  # Cambio a diseño circular
 ## Carga de bases de datos
 
 ```{r, results = 'hide'}
-#Carga de base de datos
+#Importación base de datos CASEN (desde un zip en github)
+url_zip <- "https://raw.githubusercontent.com/conitru/capstone/28c8fdccb68d21d46f6960a78286f8ebb98d4bae/bbdd/CASEN2020.zip"
 
-ebs <- read_dta("data/EBS2021.dta")
-casen <- read_dta("data/CASEN2020.dta")
+##Guardar el archivo .zip en un archivo temporal
+Temporal2 <- GET(url_zip)
+temp_zip <- tempfile(fileext = ".zip")
+writeBin(content(Temporal2, "raw"), temp_zip)
 
+##Descomprimir el archivo .zip en una carpeta temporal
+temp_dir <- tempfile()
+  unzip(temp_zip, exdir = temp_dir)
+
+##Ver los archivos descomprimidos en la carpeta temporal
+files <- list.files(temp_dir)
+print(files)
+
+##Importar el primer archivo CSV encontrado
+file_to_import <- file.path(temp_dir, files[1])  # Asumiendo que el archivo CSV es el primero
+casen <- read_dta(file_to_import)  # Leer el archivo STATA
+
+#Importación base de datos EBS 2021 (desde un archivo en github)
+
+url_dta <- "https://raw.githubusercontent.com/conitru/capstone/28c8fdccb68d21d46f6960a78286f8ebb98d4bae/bbdd/EBS2021.dta"
+
+ebs <- read_dta(url_dta)
 ```
 
 ## Exploración de datos
@@ -333,11 +352,6 @@ Al realizar la unión, se observa que la base efectivamente alcanza un total de 
 Base_consolidada <- left_join(ebs2, casen2, by = c("folio_casen", "id_persona_casen"))
 ```
 
-```{r}
-#Se limpia el Environment sacando las bases que ya no se ocuparan
-#rm(casen,casen2,ebs,ebs2)
-```
-
 ### Transformación de datos
 
 **Variable dependiente**: La victimización se recodifica como una variable dicotómica
@@ -353,7 +367,7 @@ Base_consolidada <- Base_consolidada %>%
 table(Base_consolidada$victimizacion,Base_consolidada$h1)
 ```
 
-**Variables independientes:**
+**Variables independientes:** Las variables independientes se recodifican o calculan indicadores para poder ser sometidos a la regresión logística.
 
 ```{r, results='hide'}
 
@@ -492,6 +506,11 @@ base_consolidada_2 <- base_consolidada_2 %>%
          conf_interp = as.numeric(conf_interp),
          conf_instituciones = as.numeric(conf_instituciones),
          disc = as.factor(disc))
+```
+
+```{r}
+#Limpieza del environment
+rm(aristas, Base_consolidada,casen,casen2,ebs,ebs2,grafo,nodos,Temporal2)
 ```
 
 ## Hipótesis de la investigación
@@ -840,7 +859,7 @@ ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = cond_preventivas))
 
 ## Análisis predictivo: Regresión Logística
 
-Sección en desarrollo, no se incluye para el informe preliminar.
+Sección en desarrollo.
 
 ```{r}
 set.seed(100)
