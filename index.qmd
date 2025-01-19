@@ -496,8 +496,11 @@ base_consolidada_2 <- base_consolidada_2 %>%
 
 ## Análisis descriptivo
 
-En primera instancia, se realiza un análisis descriptivo para evaluar la distribución de las variables de interés. Las variables se analizan en su interacción con la victimización, que es la variable principal del análisis.
+En primera instancia, se realizará un análisis descriptivo para evaluar la distribución de las variables de interés. Las variables se analizan en su interacción con la victimización, que es la variable principal del análisis. En el caso de las variables nominales, se graficará su distribución en gráficos de barra agrupada para cada segmento de victimización. Mientras que en las variables escalares se evaluará su correlación con la victimización, y se realizará un gráfico de nube de puntos en los casos de las variables con mayores niveles de correlación con la victimización.
 
+**Victimización según sexo**
+
+Dentro del segmento de personas que han sido víctimas de un delito, el 54,9% son mujeres, mientras que el 45,1% son hombres. En tanto, en el caso de las personas que no han sido víctimas de un delito, el 58,3% son mujeres, y el restante 41,7% son hombres.
 
 ```{r}
 #| label: fig-2
@@ -534,6 +537,10 @@ Grafico_Sexo <- base_consolidada_2 %>%
 ggplotly(Grafico_Sexo, tooltip = "text")
 ```
 
+**Victimización según zona de residencia**
+
+Entre las personas víctimas existe una mayor proporción de población urbana (90,2%), en comparación a las personas de no víctimas (84,4% en zonas urbanas). Esto permitiría en primera instancia tener una primera aproximación a una respuesta a la hipotesis de que existe una mayor probabilidad de ser víctima en zonas urbanas que en zonas rurales.
+
 ```{r}
 #| label: fig-3
 #| fig-cap: "Distribución por zona de residencia según victimización"
@@ -569,6 +576,10 @@ Grafico_Zona <- base_consolidada_2 %>%
 ggplotly(Grafico_Zona, tooltip = "text")
 ```
 
+**Victimización según situación de discapacidad**
+
+El 15,3% de las personas víctimas indicaron tener alguna situación de discapacidad, mientras que en las personas no víctimas la cifra deciende a 13,8%.
+
 ```{r}
 base_consolidada_2 <- base_consolidada_2 %>%
   mutate(
@@ -576,7 +587,6 @@ base_consolidada_2 <- base_consolidada_2 %>%
       disc==1 ~ "Sin discapacidad",
       disc==2 ~ "Con discapacidad"))
 ```
-
 
 ```{r}
 #| label: fig-4
@@ -617,8 +627,9 @@ Grafico_Disc <- base_consolidada_2 %>%
 ggplotly(Grafico_Disc, tooltip = "text")
 
 ```
+**Victimización según situación laboral**
 
-
+Entre las personas víctimas de algún delito en los últimos 12 meses, el 52,4% indicó estar ocupados/as, cifra que desciende a 48,5% en el caso de las personas no víctimas.
 
 ```{r}
 #| label: fig-5
@@ -657,11 +668,11 @@ ggplotly(Grafico_Activ, tooltip = "text")
 ```
 
 
-
-
 ## Correlaciones
 
 ### Matriz de correlación
+
+La matriz de correlación nos muestra a modo general correlaciones de baja intensidad (ninguna supera el 0,5). En el caso de la interacción con la variable de victimización, aquellas variables con mayores valores en la correlación son la exposición a situaciones de riesgo (0,3), sensación de seguridad (-0,2) y conductas preventivas (0,2). Debido a esto, se evaluará la distribución de estas variables en relación a la victimización por medio de un gráfico de nube de puntos.
 
 ```{r}
 #Crear la matriz de correlación
@@ -707,6 +718,8 @@ ggcorrplot(corr_selected, type = "lower", lab = T, show.legend = T,
 
 **Correlación entre victimización y exposición a situaciones de riesgo**
 
+Existe una correlación positiva entre la exposición a situaciones de riesgo y la victimización, lo que se refleja en la orientación ascendente de la línea de regresión en el gráfico. Esto indica que, a medida que aumenta la exposición a situaciones de riesgo, también lo hace la probabilidad de ser víctima. La correlación de R=0,3 sugiere una relación moderada, lo que implica que la asociación no es extremadamente fuerte, pero sí significativa.
+
 ```{r}
 #| label: fig-7
 #| fig-cap: "Correlación entre victimización y exposición a situaciones de riesgo"
@@ -742,6 +755,8 @@ ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = exp_riesgos)) +
 ```
 
 **Correlación entre victimización y sensación de seguridad**
+
+La correlación entre sensación de seguridad y victimización es negativa, con un valor de R=-0,2, lo que sugiere que a medida que aumenta la sensación de seguridad, disminuye la probabilidad de ser víctima de un delito. La línea de regresión muestra una leve inclinación descendente, indicando que las personas que reportan una mayor sensación de seguridad tienen menos probabilidades de experimentar victimización. Sin embargo, dado que la correlación es débil (R=-0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, sugiriendo que existen otros factores que también influyen en la experiencia de victimización. Es importante recordar que la correlación no implica causalidad, por lo que solo podemos concluir que existe una relación leve entre las variables, pero no afirmar que una cause directamente la otras.
 
 ```{r}
 #| label: fig-8
@@ -780,6 +795,9 @@ ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = sen_seguridad)) +
 
 **Correlación entre victimización y conductas preventivas**
 
+La correlación entre conductas preventivas y victimización es positiva, con un valor de R=0,2, lo que sugiere que a medida que las personas adoptan más conductas preventivas, aumenta la probabilidad de evitar ser víctimas de un delito. La línea de regresión muestra una leve inclinación ascendente, indicando que quienes toman medidas preventivas son ligeramente menos propensos a experimentar victimización. Sin embargo, dado que la correlación es débil (R=0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, lo que sugiere que existen otros factores que también influyen en la probabilidad de ser víctima.
+
+
 ```{r}
 #| label: fig-9
 #| fig-cap: "Correlación entre victimización y conductas preventivas"
@@ -815,6 +833,8 @@ ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = cond_preventivas))
 ```
 ## Análisis predictivo: Regresión Logística
 
+Sección en desarrollo, no se incluye para el informe preliminar.
+
 ```{r}
 set.seed(100)
 train <- sample(1:nrow(base_consolidada_2), 0.8*nrow(base_consolidada_2))
@@ -830,19 +850,22 @@ model1 <- glm(victimizacion ~ sexo + edad + educ + activ + quintil + zona + exp_
 summary(model1)
 ```
 
-```{r}
+```{r, results='hide'}
 pre_risk_model1 <- predict(model1, newdata = t_test, type = "response")
 pre_risk_model1
 ```
-```{r}
+```{r, results='hide'}
 pc1 <- pre_risk_model1[t_test[,8] == 1]
 nc1 <- pre_risk_model1[t_test[,8] == 0]
 roc1 <- roc.curve(scores.class0 = pc1, scores.class1 = nc1, curve = T)
 
 ```
 
-```{r}
+```{r, results='hide'}
 roc1
+```
+
+```{r}
 plot(roc1, scale.color = heat.colors(100))
 ```
 

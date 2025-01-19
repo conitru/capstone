@@ -155,6 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#matriz-de-correlación" id="toc-matriz-de-correlación" class="nav-link" data-scroll-target="#matriz-de-correlación"><span class="header-section-number">1.9.1</span> Matriz de correlación</a></li>
   <li><a href="#correlaciones-bivariadas-relevantes" id="toc-correlaciones-bivariadas-relevantes" class="nav-link" data-scroll-target="#correlaciones-bivariadas-relevantes"><span class="header-section-number">1.9.2</span> Correlaciones bivariadas relevantes</a></li>
   </ul></li>
+  <li><a href="#análisis-predictivo-regresión-logística" id="toc-análisis-predictivo-regresión-logística" class="nav-link" data-scroll-target="#análisis-predictivo-regresión-logística"><span class="header-section-number">1.10</span> Análisis predictivo: Regresión Logística</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -219,11 +220,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>            <span class="st">"igraph"</span>,</span>
 <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ggcorrplot"</span>,</span>
 <span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>            <span class="st">"survey"</span>,</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            <span class="st">"srvyr"</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplica la función a cada paquete</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">capture.output</span>(<span class="fu">sapply</span>(packages, install_and_load)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            <span class="st">"srvyr"</span>,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pROC"</span>,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRROC"</span>,</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>            <span class="st">"caret"</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplica la función a cada paquete</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">capture.output</span>(<span class="fu">sapply</span>(packages, install_and_load)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -720,7 +724,9 @@ Figura&nbsp;1: Diagrama Circular: Factores de Victimización en Chile
 </section>
 <section id="análisis-descriptivo" class="level2" data-number="1.8">
 <h2 data-number="1.8" class="anchored" data-anchor-id="análisis-descriptivo"><span class="header-section-number">1.8</span> Análisis descriptivo</h2>
-<p>En primera instancia, se realiza un análisis descriptivo para evaluar la distribución de las variables de interés. Las variables se analizan en su interacción con la victimización, que es la variable principal del análisis.</p>
+<p>En primera instancia, se realizará un análisis descriptivo para evaluar la distribución de las variables de interés. Las variables se analizan en su interacción con la victimización, que es la variable principal del análisis. En el caso de las variables nominales, se graficará su distribución en gráficos de barra agrupada para cada segmento de victimización. Mientras que en las variables escalares se evaluará su correlación con la victimización, y se realizará un gráfico de nube de puntos en los casos de las variables con mayores niveles de correlación con la victimización.</p>
+<p><strong>Victimización según sexo</strong></p>
+<p>Dentro del segmento de personas que han sido víctimas de un delito, el 54,9% son mujeres, mientras que el 45,1% son hombres. En tanto, en el caso de las personas que no han sido víctimas de un delito, el 58,3% son mujeres, y el restante 41,7% son hombres.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -757,8 +763,8 @@ Figura&nbsp;1: Diagrama Circular: Factores de Victimización en Chile
 <div id="fig-2" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-4f882bbf09baa9b1db9a" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-4f882bbf09baa9b1db9a">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.5825211524044126,0.54861111111111116],"x":[0.4174788475955874,0.45138888888888884],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Hombre","legendgroup":"Hombre","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.5825211524044126,0.54861111111111116],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Mujer","legendgroup":"Mujer","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.79126057620220625,0.77430555555555558],"y":[1,2],"text":["41.7%","45.1%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Hombre","legendgroup":"Hombre","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.2912605762022063,0.27430555555555558],"y":[1,2],"text":["58.3%","54.9%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Mujer","legendgroup":"Mujer","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de Sexo por Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Sexo","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"5c2872366941":{"x":{},"y":{},"fill":{},"type":"bar"},"5c28402e3f2f":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"5c2872366941","visdat":{"5c2872366941":["function (y) ","x"],"5c28402e3f2f":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-481d4e21c5e05a63d678" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-481d4e21c5e05a63d678">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.5825211524044126,0.54861111111111116],"x":[0.4174788475955874,0.45138888888888884],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Hombre","legendgroup":"Hombre","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.5825211524044126,0.54861111111111116],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Mujer","legendgroup":"Mujer","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.79126057620220625,0.77430555555555558],"y":[1,2],"text":["41.7%","45.1%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Hombre","legendgroup":"Hombre","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.2912605762022063,0.27430555555555558],"y":[1,2],"text":["58.3%","54.9%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Mujer","legendgroup":"Mujer","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de Sexo por Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Sexo","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"6240537944c4":{"x":{},"y":{},"fill":{},"type":"bar"},"6240555e1791":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"6240537944c4","visdat":{"6240537944c4":["function (y) ","x"],"6240555e1791":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;2: Distribución por sexo según victimización
@@ -766,6 +772,8 @@ Figura&nbsp;2: Distribución por sexo según victimización
 </figure>
 </div>
 </div>
+<p><strong>Victimización según zona de residencia</strong></p>
+<p>Entre las personas víctimas existe una mayor proporción de población urbana (90,2%), en comparación a las personas de no víctimas (84,4% en zonas urbanas). Esto permitiría en primera instancia tener una primera aproximación a una respuesta a la hipotesis de que existe una mayor probabilidad de ser víctima en zonas urbanas que en zonas rurales.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -802,8 +810,8 @@ Figura&nbsp;2: Distribución por sexo según victimización
 <div id="fig-3" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-8b64bc61c1b37e80affa" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-8b64bc61c1b37e80affa">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.15626004069829713,0.097853535353535359],"x":[0.84373995930170287,0.90214646464646464],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Urbano","legendgroup":"Urbano","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.15626004069829713,0.097853535353535359],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Rural","legendgroup":"Rural","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.57813002034914862,0.54892676767676774],"y":[1,2],"text":["84.4%","90.2%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Urbano","legendgroup":"Urbano","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.078130020349148566,0.04892676767676768],"y":[1,2],"text":["15.6%","9.8%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Rural","legendgroup":"Rural","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de Zona por Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Zona","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"5c2838ca7df6":{"x":{},"y":{},"fill":{},"type":"bar"},"5c28187c3bc":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"5c2838ca7df6","visdat":{"5c2838ca7df6":["function (y) ","x"],"5c28187c3bc":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-5b9b45f86678439b9286" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-5b9b45f86678439b9286">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.15626004069829713,0.097853535353535359],"x":[0.84373995930170287,0.90214646464646464],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Urbano","legendgroup":"Urbano","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.15626004069829713,0.097853535353535359],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Rural","legendgroup":"Rural","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.57813002034914862,0.54892676767676774],"y":[1,2],"text":["84.4%","90.2%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Urbano","legendgroup":"Urbano","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.078130020349148566,0.04892676767676768],"y":[1,2],"text":["15.6%","9.8%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Rural","legendgroup":"Rural","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de Zona por Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Zona","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"62405ab91d88":{"x":{},"y":{},"fill":{},"type":"bar"},"6240754a57e4":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"62405ab91d88","visdat":{"62405ab91d88":["function (y) ","x"],"6240754a57e4":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;3: Distribución por zona de residencia según victimización
@@ -811,6 +819,8 @@ Figura&nbsp;3: Distribución por zona de residencia según victimización
 </figure>
 </div>
 </div>
+<p><strong>Victimización según situación de discapacidad</strong></p>
+<p>El 15,3% de las personas víctimas indicaron tener alguna situación de discapacidad, mientras que en las personas no víctimas la cifra deciende a 13,8%.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -861,8 +871,8 @@ Figura&nbsp;3: Distribución por zona de residencia según victimización
 <div id="fig-4" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-8af12cc4b98408cac223" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-8af12cc4b98408cac223">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.86216129377744455,0.8472222222222221],"x":[0.13783870622255545,0.1527777777777779],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Con discapacidad","legendgroup":"Con discapacidad","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.86216129377744455,0.8472222222222221],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Sin discapacidad","legendgroup":"Sin discapacidad","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.93108064688872227,0.92361111111111105],"y":[1,2],"text":["13.8%","15.3%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Con discapacidad","legendgroup":"Con discapacidad","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.43108064688872227,0.42361111111111105],"y":[1,2],"text":["86.2%","84.7%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Sin discapacidad","legendgroup":"Sin discapacidad","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de discapacidad por victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Discapacidad","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"5c282f591a57":{"x":{},"y":{},"fill":{},"type":"bar"},"5c2830c454d":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"5c282f591a57","visdat":{"5c282f591a57":["function (y) ","x"],"5c2830c454d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-bc28d70d5481b71a5c69" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-bc28d70d5481b71a5c69">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.86216129377744455,0.8472222222222221],"x":[0.13783870622255545,0.1527777777777779],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Con discapacidad","legendgroup":"Con discapacidad","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.86216129377744455,0.8472222222222221],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Sin discapacidad","legendgroup":"Sin discapacidad","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.93108064688872227,0.92361111111111105],"y":[1,2],"text":["13.8%","15.3%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Con discapacidad","legendgroup":"Con discapacidad","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.43108064688872227,0.42361111111111105],"y":[1,2],"text":["86.2%","84.7%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Sin discapacidad","legendgroup":"Sin discapacidad","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de discapacidad por victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Discapacidad","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"624052e4250e":{"x":{},"y":{},"fill":{},"type":"bar"},"624021835239":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"624052e4250e","visdat":{"624052e4250e":["function (y) ","x"],"624021835239":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;4: Distribución por situación de discapacidad según victimización
@@ -870,6 +880,8 @@ Figura&nbsp;4: Distribución por situación de discapacidad según victimizació
 </figure>
 </div>
 </div>
+<p><strong>Victimización según situación laboral</strong></p>
+<p>Entre las personas víctimas de algún delito en los últimos 12 meses, el 52,4% indicó estar ocupados/as, cifra que desciende a 48,5% en el caso de las personas no víctimas.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -907,8 +919,8 @@ Figura&nbsp;4: Distribución por situación de discapacidad según victimizació
 <div id="fig-5" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-f5f77f0c9eed826e25f9" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-f5f77f0c9eed826e25f9">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.51483345828424543,0.47601010101010099],"x":[0.48516654171575457,0.52398989898989901],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Ocupados","legendgroup":"Ocupados","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.44735996572774978,0.38194444444444442],"x":[0.067473492556495651,0.094065656565656575],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Desocupados","legendgroup":"Desocupados","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.44735996572774978,0.38194444444444442],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Inactivos","legendgroup":"Inactivos","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.75741672914212277,0.7380050505050505],"y":[1,2],"text":["48.5%","52.4%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Ocupados","legendgroup":"Ocupados","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.48109671200599757,0.42897727272727271],"y":[1,2],"text":["6.7%","9.4%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Desocupados","legendgroup":"Desocupados","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.22367998286387489,0.19097222222222221],"y":[1,2],"text":["44.7%","38.2%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Inactivos","legendgroup":"Inactivos","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de situación laboral por victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Situación laboral","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"5c28481d965":{"x":{},"y":{},"fill":{},"type":"bar"},"5c285f943166":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"5c28481d965","visdat":{"5c28481d965":["function (y) ","x"],"5c285f943166":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-baec46d476c214cb0e75" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-baec46d476c214cb0e75">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.51483345828424543,0.47601010101010099],"x":[0.48516654171575457,0.52398989898989901],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Ocupados","legendgroup":"Ocupados","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.44735996572774978,0.38194444444444442],"x":[0.067473492556495651,0.094065656565656575],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Desocupados","legendgroup":"Desocupados","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.44735996572774978,0.38194444444444442],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Inactivos","legendgroup":"Inactivos","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.75741672914212277,0.7380050505050505],"y":[1,2],"text":["48.5%","52.4%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Ocupados","legendgroup":"Ocupados","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.48109671200599757,0.42897727272727271],"y":[1,2],"text":["6.7%","9.4%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Desocupados","legendgroup":"Desocupados","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.22367998286387489,0.19097222222222221],"y":[1,2],"text":["44.7%","38.2%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Inactivos","legendgroup":"Inactivos","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de situación laboral por victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Situación laboral","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"6240767e1406":{"x":{},"y":{},"fill":{},"type":"bar"},"624033023f46":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"6240767e1406","visdat":{"6240767e1406":["function (y) ","x"],"624033023f46":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;5: Distribución por situación laboral según victimización
@@ -921,6 +933,7 @@ Figura&nbsp;5: Distribución por situación laboral según victimización
 <h2 data-number="1.9" class="anchored" data-anchor-id="correlaciones"><span class="header-section-number">1.9</span> Correlaciones</h2>
 <section id="matriz-de-correlación" class="level3" data-number="1.9.1">
 <h3 data-number="1.9.1" class="anchored" data-anchor-id="matriz-de-correlación"><span class="header-section-number">1.9.1</span> Matriz de correlación</h3>
+<p>La matriz de correlación nos muestra a modo general correlaciones de baja intensidad (ninguna supera el 0,5). En el caso de la interacción con la variable de victimización, aquellas variables con mayores valores en la correlación son la exposición a situaciones de riesgo (0,3), sensación de seguridad (-0,2) y conductas preventivas (0,2). Debido a esto, se evaluará la distribución de estas variables en relación a la victimización por medio de un gráfico de nube de puntos.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -979,6 +992,7 @@ Figura&nbsp;6: Matriz de correlación entre variables del modelo
 <section id="correlaciones-bivariadas-relevantes" class="level3" data-number="1.9.2">
 <h3 data-number="1.9.2" class="anchored" data-anchor-id="correlaciones-bivariadas-relevantes"><span class="header-section-number">1.9.2</span> Correlaciones bivariadas relevantes</h3>
 <p><strong>Correlación entre victimización y exposición a situaciones de riesgo</strong></p>
+<p>Existe una correlación positiva entre la exposición a situaciones de riesgo y la victimización, lo que se refleja en la orientación ascendente de la línea de regresión en el gráfico. Esto indica que, a medida que aumenta la exposición a situaciones de riesgo, también lo hace la probabilidad de ser víctima. La correlación de R=0,3 sugiere una relación moderada, lo que implica que la asociación no es extremadamente fuerte, pero sí significativa.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -1024,6 +1038,7 @@ Figura&nbsp;7: Correlación entre victimización y exposición a situaciones de 
 </div>
 </div>
 <p><strong>Correlación entre victimización y sensación de seguridad</strong></p>
+<p>La correlación entre sensación de seguridad y victimización es negativa, con un valor de R=-0,2, lo que sugiere que a medida que aumenta la sensación de seguridad, disminuye la probabilidad de ser víctima de un delito. La línea de regresión muestra una leve inclinación descendente, indicando que las personas que reportan una mayor sensación de seguridad tienen menos probabilidades de experimentar victimización. Sin embargo, dado que la correlación es débil (R=-0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, sugiriendo que existen otros factores que también influyen en la experiencia de victimización. Es importante recordar que la correlación no implica causalidad, por lo que solo podemos concluir que existe una relación leve entre las variables, pero no afirmar que una cause directamente la otras.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -1046,7 +1061,7 @@ Figura&nbsp;7: Correlación entre victimización y exposición a situaciones de 
 <span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">+</span></span>
 <span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(</span>
 <span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">7</span>, </span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Correlación: "</span>, <span class="fu">round</span>(correlacion2, <span class="dv">2</span>))),</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Correlación: "</span>, <span class="fu">round</span>(correlacion2, <span class="dv">1</span>))),</span>
 <span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>, </span>
 <span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"white"</span>,  </span>
 <span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"darkblue"</span>, </span>
@@ -1062,13 +1077,14 @@ Figura&nbsp;7: Correlación entre victimización y exposición a situaciones de 
 <img src="index_files/figure-html/fig-8-1.png" class="img-fluid figure-img" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;8: Correlación entre victimización y y sensación de seguridad
+Figura&nbsp;8: Correlación entre victimización y sensación de seguridad
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p><strong>Correlación entre victimización y conductas preventivas</strong></p>
+<p>La correlación entre conductas preventivas y victimización es positiva, con un valor de R=0,2, lo que sugiere que a medida que las personas adoptan más conductas preventivas, aumenta la probabilidad de evitar ser víctimas de un delito. La línea de regresión muestra una leve inclinación ascendente, indicando que quienes toman medidas preventivas son ligeramente menos propensos a experimentar victimización. Sin embargo, dado que la correlación es débil (R=0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, lo que sugiere que existen otros factores que también influyen en la probabilidad de ser víctima.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -1091,7 +1107,7 @@ Figura&nbsp;8: Correlación entre victimización y y sensación de seguridad
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">+</span></span>
 <span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(</span>
 <span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">7</span>, </span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Correlación: "</span>, <span class="fu">round</span>(correlacion2, <span class="dv">2</span>))),</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Correlación: "</span>, <span class="fu">round</span>(correlacion3, <span class="dv">1</span>))),</span>
 <span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>, </span>
 <span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"white"</span>,  </span>
 <span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"darkblue"</span>, </span>
@@ -1107,13 +1123,194 @@ Figura&nbsp;8: Correlación entre victimización y y sensación de seguridad
 <img src="index_files/figure-html/fig-9-1.png" class="img-fluid figure-img" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;9: Correlación entre victimización y y sensación de seguridad
+Figura&nbsp;9: Correlación entre victimización y conductas preventivas
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
+</section>
+<section id="análisis-predictivo-regresión-logística" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="análisis-predictivo-regresión-logística"><span class="header-section-number">1.10</span> Análisis predictivo: Regresión Logística</h2>
+<p>Sección en desarrollo, no se incluye para el informe preliminar.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(base_consolidada_2), <span class="fl">0.8</span><span class="sc">*</span><span class="fu">nrow</span>(base_consolidada_2))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>t_train <span class="ot">&lt;-</span> base_consolidada_2[train,]</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> base_consolidada_2[<span class="sc">-</span>train,]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(victimizacion <span class="sc">~</span> sexo <span class="sc">+</span> edad <span class="sc">+</span> educ <span class="sc">+</span> activ <span class="sc">+</span> quintil <span class="sc">+</span> zona <span class="sc">+</span> exp_riesgos <span class="sc">+</span> sen_seguridad <span class="sc">+</span> cond_preventivas <span class="sc">+</span> acce_seguridad <span class="sc">+</span> conf_interp <span class="sc">+</span> conf_instituciones <span class="sc">+</span> disc, <span class="at">family =</span> binomial, <span class="at">data =</span> t_train)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = victimizacion ~ sexo + edad + educ + activ + quintil + 
+    zona + exp_riesgos + sen_seguridad + cond_preventivas + acce_seguridad + 
+    conf_interp + conf_instituciones + disc, family = binomial, 
+    data = t_train)
+
+Coefficients:
+                                          Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept)                              -1.689356   0.398182  -4.243 2.21e-05
+sexoMujer                                -0.319963   0.068562  -4.667 3.06e-06
+edad                                     -0.009494   0.002309  -4.112 3.92e-05
+educBásica incompleta                     0.300953   0.321924   0.935   0.3499
+educBásica completa                       0.285953   0.323711   0.883   0.3770
+educMedia humanista incompleta            0.328051   0.321321   1.021   0.3073
+educMedia técnica profesional incompleta  0.218065   0.377446   0.578   0.5634
+educMedia humanista completa              0.377969   0.313137   1.207   0.2274
+educMedia técnica profesional completa    0.257251   0.327360   0.786   0.4320
+educTécnico nivel superior incompleta     0.536891   0.340632   1.576   0.1150
+educTécnico nivel superior completo       0.370814   0.328126   1.130   0.2584
+educProfesional incompleto                0.500069   0.324833   1.539   0.1237
+educPostgrado incompleto                  0.434267   0.327262   1.327   0.1845
+educProfesional completo                  0.544387   0.592345   0.919   0.3581
+educPostgrado completo                    0.800807   0.432456   1.852   0.0641
+educNo sabe                               0.659097   0.419991   1.569   0.1166
+activDesocupados                          0.120248   0.119097   1.010   0.3127
+activInactivos                           -0.134102   0.075154  -1.784   0.0744
+quintilII                                 0.101866   0.096007   1.061   0.2887
+quintilIII                                0.042643   0.100123   0.426   0.6702
+quintilIV                                -0.015592   0.108125  -0.144   0.8853
+quintilV                                 -0.188279   0.130963  -1.438   0.1505
+zonaRural                                -0.027555   0.108956  -0.253   0.8003
+exp_riesgos                               0.485273   0.038178  12.711  &lt; 2e-16
+sen_seguridad                            -0.375240   0.042877  -8.752  &lt; 2e-16
+cond_preventivas                          0.162533   0.023595   6.888 5.64e-12
+acce_seguridad                            0.050637   0.031569   1.604   0.1087
+conf_interp                               0.004321   0.031616   0.137   0.8913
+conf_instituciones                       -0.007170   0.043016  -0.167   0.8676
+disc2                                     0.210324   0.096996   2.168   0.0301
+                                            
+(Intercept)                              ***
+sexoMujer                                ***
+edad                                     ***
+educBásica incompleta                       
+educBásica completa                         
+educMedia humanista incompleta              
+educMedia técnica profesional incompleta    
+educMedia humanista completa                
+educMedia técnica profesional completa      
+educTécnico nivel superior incompleta       
+educTécnico nivel superior completo         
+educProfesional incompleto                  
+educPostgrado incompleto                    
+educProfesional completo                    
+educPostgrado completo                   .  
+educNo sabe                                 
+activDesocupados                            
+activInactivos                           .  
+quintilII                                   
+quintilIII                                  
+quintilIV                                   
+quintilV                                    
+zonaRural                                   
+exp_riesgos                              ***
+sen_seguridad                            ***
+cond_preventivas                         ***
+acce_seguridad                              
+conf_interp                                 
+conf_instituciones                          
+disc2                                    *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 7258.1  on 8735  degrees of freedom
+Residual deviance: 6509.0  on 8706  degrees of freedom
+AIC: 6569
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pre_risk_model1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model1, <span class="at">newdata =</span> t_test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>pre_risk_model1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>pc1 <span class="ot">&lt;-</span> pre_risk_model1[t_test[,<span class="dv">8</span>] <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>nc1 <span class="ot">&lt;-</span> pre_risk_model1[t_test[,<span class="dv">8</span>] <span class="sc">==</span> <span class="dv">0</span>]</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>roc1 <span class="ot">&lt;-</span> <span class="fu">roc.curve</span>(<span class="at">scores.class0 =</span> pc1, <span class="at">scores.class1 =</span> nc1, <span class="at">curve =</span> T)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>roc1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc1, <span class="at">scale.color =</span> <span class="fu">heat.colors</span>(<span class="dv">100</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>pre_risk_model1_bi <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(pre_risk_model1 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)) </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(pre_risk_model1_bi, t_test<span class="sc">$</span>victimizacion, <span class="at">mode =</span> <span class="st">"everything"</span>, <span class="at">positive =</span> <span class="st">"1"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+          Reference
+Prediction    0    1
+         0 1857  296
+         1   18   14
+                                          
+               Accuracy : 0.8563          
+                 95% CI : (0.8409, 0.8707)
+    No Information Rate : 0.8581          
+    P-Value [Acc &gt; NIR] : 0.6113          
+                                          
+                  Kappa : 0.0568          
+                                          
+ Mcnemar's Test P-Value : &lt;2e-16          
+                                          
+            Sensitivity : 0.045161        
+            Specificity : 0.990400        
+         Pos Pred Value : 0.437500        
+         Neg Pred Value : 0.862517        
+              Precision : 0.437500        
+                 Recall : 0.045161        
+                     F1 : 0.081871        
+             Prevalence : 0.141876        
+         Detection Rate : 0.006407        
+   Detection Prevalence : 0.014645        
+      Balanced Accuracy : 0.517781        
+                                          
+       'Positive' Class : 1               
+                                          </code></pre>
+</div>
+</div>
 </section>
 </section>
 
