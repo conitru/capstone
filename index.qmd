@@ -93,51 +93,51 @@ renv::snapshot()
 
 ```{css}
 body {
-  font-family: 'Roboto', Arial, sans-serif; /* Fuente moderna */
-  line-height: 1.6; /* Mayor legibilidad */
-  background-color: #f4f0fa; /* Fondo suave en tono lila claro */
-  color: #4a235a; /* Texto en un tono morado oscuro */
+  font-family: 'Roboto', Arial, sans-serif; 
+  line-height: 1.6; 
+  background-color: #FFFFFF; 
+  color: #4a235a; 
   margin: 1em;
 }
 
 h1 {
-  color: #6c3483; /* Morado intenso para títulos principales */
+  color: #6c3483; 
   font-weight: bold;
   text-transform: uppercase;
 }
 
 h2, h3, h4 {
-  color: #8e44ad; /* Morado para subtítulos */
+  color: #8e44ad; 
 }
 
 p {
   text-align: justify;
-  text-indent: 1em; /* Sangría al inicio del párrafo */
+  text-indent: 1em; 
   margin-bottom: 1.2em;
 }
 
 a {
-  color: #af7ac5; /* Enlaces en morado brillante */
+  color: #af7ac5; 
   text-decoration: none;
 }
 
 a:hover {
-  color: #884ea0; /* Cambio de color al pasar el mouse */
+  color: #884ea0; 
   text-decoration: underline;
 }
 
 code {
-  font-family: 'Courier New', monospace; /* Código con fuente clásica */
-  background-color: #dcd3ee; /* Fondo claro en tono lila */
+  font-family: 'Courier New', monospace; 
+  background-color: #dcd3ee; 
   padding: 0.2em 0.4em;
   border-radius: 4px;
 }
 
 blockquote {
   font-style: italic;
-  border-left: 4px solid #8e44ad; /* Borde en morado */
+  border-left: 4px solid #8e44ad; 
   padding-left: 1em;
-  color: #5d3b76; /* Texto de cita en morado oscuro */
+  color: #5d3b76; 
 }
 
 table {
@@ -147,18 +147,18 @@ table {
 }
 
 th, td {
-  border: 1px solid #bb8fce; /* Borde en lila claro */
+  border: 1px solid #bb8fce; 
   padding: 0.5em;
   text-align: left;
 }
 
 th {
-  background-color: #6c3483; /* Fondo de encabezado en morado oscuro */
+  background-color: #6c3483; 
   color: white;
 }
 
 td {
-  background-color: #f4f0fa; /* Fondo de celdas en lila claro */
+  background-color: #f4f0fa; 
 }
 
 ```
@@ -169,11 +169,11 @@ td {
 
 El fenómeno de la victimización es un objeto central de análisis en diversas disciplinas de las ciencias sociales, particularmente en la criminología, la sociología y la ciencia política. Este proyecto se fundamenta en un marco teórico que combina estas perspectivas para entender los factores que determinan la probabilidad de que una persona sea víctima de un delito en el contexto chileno.
 
-La victimización, más allá de sus implicancias materiales o físicas inmediatas, tiene efectos profundos a nivel psicológico y social. La teoría de las oportunidades rutinarias, propuesta por Cohen y Felson en 1979, ofrece un marco útil para entender este fenómeno, al postular que la ocurrencia de un delito depende de la convergencia de tres elementos: un objetivo atractivo, un delincuente motivado y la ausencia de guardianes eficaces. Este enfoque pone de relieve la importancia de las características individuales y contextuales en la exposición al riesgo.
+La victimización, más allá de sus implicancias materiales o físicas inmediatas, tiene efectos profundos a nivel psicológico y social. La teoría de las oportunidades rutinarias, propuesta por Cohen y Felson en 1979 [@cohen2015routine], ofrece un marco útil para entender este fenómeno, al postular que la ocurrencia de un delito depende de la convergencia de tres elementos: un objetivo atractivo, un delincuente motivado y la ausencia de guardianes eficaces. Este enfoque pone de relieve la importancia de las características individuales y contextuales en la exposición al riesgo.
 
-En Chile, un país marcado por una elevada desigualdad social, la relación entre factores socioeconómicos y victimización adquiere especial relevancia. Desde la perspectiva de la teoría de la tensión, formulada por Merton en 1938, se puede interpretar que las disparidades en el acceso a recursos y oportunidades generan frustraciones que incrementan la propensión al delito, ya sea como perpetrador o como víctima. En este sentido, las diferencias en ingresos, nivel educativo, situación laboral y acceso a servicios de seguridad podrían ser determinantes clave en la distribución del riesgo de victimización.
+En Chile, un país marcado por una elevada desigualdad social, la relación entre factores socioeconómicos y victimización adquiere especial relevancia. Desde la perspectiva de la teoría de la tensión, formulada por Merton en 1938 [@merton1997evolving], se puede interpretar que las disparidades en el acceso a recursos y oportunidades generan frustraciones que incrementan la propensión al delito, ya sea como perpetrador o como víctima. En este sentido, las diferencias en ingresos, nivel educativo, situación laboral y acceso a servicios de seguridad podrían ser determinantes clave en la distribución del riesgo de victimización.
 
-La percepción de inseguridad y la confianza en las instituciones constituyen dimensiones fundamentales en este análisis. La percepción de inseguridad, aunque subjetiva, refleja experiencias individuales y colectivas de victimización y afecta la calidad de vida de las personas. Según Skogan, en su análisis de 1986, existe una relación directa entre las experiencias de victimización y el aumento de la sensación de inseguridad. Por otro lado, la confianza en instituciones como la policía y el sistema judicial, siguiendo los planteamientos de Putnam en 1993, puede influir en la disposición de las personas para buscar protección, denunciar delitos o participar en estrategias comunitarias de seguridad.
+La percepción de inseguridad y la confianza en las instituciones constituyen dimensiones fundamentales en este análisis. La percepción de inseguridad, aunque subjetiva, refleja experiencias individuales y colectivas de victimización y afecta la calidad de vida de las personas. Según Skogan [@skogan1986fear], en su análisis de 1986, existe una relación directa entre las experiencias de victimización y el aumento de la sensación de inseguridad. Por otro lado, la confianza en instituciones como la policía y el sistema judicial, siguiendo los planteamientos de Putnam en 1993 [@putnam1993prosperous], puede influir en la disposición de las personas para buscar protección, denunciar delitos o participar en estrategias comunitarias de seguridad.
 
 Además de los factores individuales y socioeconómicos, los aspectos geográficos y comunitarios también desempeñan un papel crítico. La ecología del delito, inspirada en las teorías de la Escuela de Chicago, sugiere que el entorno físico y social de una comunidad afecta la incidencia y la percepción del delito. En el caso chileno, las diferencias entre zonas urbanas y rurales, regiones y comunas, junto con los niveles de cohesión social y acceso a servicios, ofrecen un campo fértil para el análisis de patrones de victimización.
 
@@ -308,6 +308,8 @@ glimpse(casen)
 
 ## Transformación y limpieza de datos
 
+En esta sección se seleccionan las variables de las bases EBS 2021 y Casen 2020 que son relevantes para el proyecto. Asimismo, se realiza la unión de ambas bases en una sola consolidada, utilizando las variables clave de unión. Posteriormente, se realiza la transformación de las variables para su utilización en el análisis.
+
 ```{r}
 # Seleccionar variables relevantes en EBS 2021
 ebs2 <- ebs %>% 
@@ -323,12 +325,12 @@ casen2 <- casen %>%
 
 ### Unión de bases de datos
 
+Debido a la información de la nota técnica sobre la cantidad de casos que deberían mantenerse, se utilizará un left join, manteniendo la data de la base EBS 2021.
+
+Al realizar la unión, se observa que la base efectivamente alcanza un total de 10921 observaciones, tal y como indica la nota técnica. Por esto, la unión se considera exitosa.
+
 ```{r}
-#Paso 1: Unir las bases. Debido a la información de la nota técnica sobre la cantidad de casos que deberían mantenerse, se utilizará un left join, manteniendo la data de la base EBS 2021.
-
 Base_consolidada <- left_join(ebs2, casen2, by = c("folio_casen", "id_persona_casen"))
-
-#La base efectivamente alcanza un total de 10921 observaciones, tal y como indica la nota técnica, por lo que la unión se considera exitosa.
 ```
 
 ```{r}
@@ -338,9 +340,10 @@ Base_consolidada <- left_join(ebs2, casen2, by = c("folio_casen", "id_persona_ca
 
 ### Transformación de datos
 
+**Variable dependiente**: La victimización se recodifica como una variable dicotómica
+
 ```{r, results='hide'}
 
-#Variable dependiente: La victimización se recodifica como una variable dicotómica.
 Base_consolidada <- Base_consolidada %>% 
   mutate(victimizacion=case_when(
     h1==1~0,
@@ -350,8 +353,9 @@ Base_consolidada <- Base_consolidada %>%
 table(Base_consolidada$victimizacion,Base_consolidada$h1)
 ```
 
+**Variables independientes:**
+
 ```{r, results='hide'}
-#Variables independientes.
 
 ##1. Edad
 table(Base_consolidada$l1)
@@ -438,9 +442,11 @@ table(Base_consolidada$disc)
 
 ```
 
+### Limpieza de base de datos
+
+Se realiza una nueva selección de variables para conservar una base de datos que sólo contenga las variables de interés para el estudio. Posteriormente, se transforman las variables a factor o numéricas según corresponda.
+
 ```{r}
-##Limpieza de base de datos
-#Se realiza una nueva selección de variables para conservar una base de datos que sólo contenga las bases de interés para el estudio.
 
 base_consolidada_2 <- Base_consolidada %>% 
   select(folio,
@@ -467,7 +473,7 @@ disc)
 
 
 ```{r}
-##Se transforman las variables a factor, para poder usarlas en las gráficas posteriores (actualmente están como haven_labelled al haber sido importadas de stata)
+##Se transforman las variables a factor, para poder usarlas en las gráficas posteriores (actualmente están como haven_labelled al haber sido importadas de Stata)
 base_consolidada_2 <- base_consolidada_2 %>%
   mutate(victimizacion = as_factor(victimizacion),
          region = as_factor(region),
@@ -490,7 +496,7 @@ base_consolidada_2 <- base_consolidada_2 %>%
 
 ## Hipótesis de la investigación
 
-1.  Las personas que residen en zonas urbanas tienen mayor probabilidad de ser víctimas de delitos en comparación con quienes viven en zonas rurales, debido a la mayor densidad de población y actividad delictual.
+1.  Las personas que residen en zonas urbanas tienen **mayor** probabilidad de ser víctimas de delitos en comparación con quienes viven en zonas rurales, debido a la mayor densidad de población y actividad delictual.
 
 2.  Las personas que viven en sectores con **menor** acceso a instancias de seguridad tienen una mayor probabilidad de ser víctimas de delitos en comparación con aquellas en sectores con **mayor** acceso a instancias de seguridad.
 
@@ -795,7 +801,7 @@ ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = sen_seguridad)) +
 
 **Correlación entre victimización y conductas preventivas**
 
-La correlación entre conductas preventivas y victimización es positiva, con un valor de R=0,2, lo que sugiere que a medida que las personas adoptan más conductas preventivas, aumenta la probabilidad de evitar ser víctimas de un delito. La línea de regresión muestra una leve inclinación ascendente, indicando que quienes toman medidas preventivas son ligeramente menos propensos a experimentar victimización. Sin embargo, dado que la correlación es débil (R=0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, lo que sugiere que existen otros factores que también influyen en la probabilidad de ser víctima.
+La correlación entre conductas preventivas y victimización es positiva, con un valor de R=0,2, lo que sugiere que a medida que las personas adoptan más conductas preventivas, aumenta la probabilidad de evitar ser víctimas de un delito. La línea de regresión muestra una leve inclinación ascendente, indicando que quienes toman medidas preventivas son ligeramente menos propensos a experimentar victimización. Sin embargo, dado que la correlación es débil (R=0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, lo que sugiere que existen otros factores que también influyen en la probabilidad de ser víctima de un delito.
 
 
 ```{r}
@@ -831,6 +837,7 @@ ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = cond_preventivas))
   )
 
 ```
+
 ## Análisis predictivo: Regresión Logística
 
 Sección en desarrollo, no se incluye para el informe preliminar.
@@ -846,7 +853,7 @@ t_test <- base_consolidada_2[-train,]
 model1 <- glm(victimizacion ~ sexo + edad + educ + activ + quintil + zona + exp_riesgos + sen_seguridad + cond_preventivas + acce_seguridad + conf_interp + conf_instituciones + disc, family = binomial, data = t_train)
 ```
 
-```{r}
+```{r, results = 'hide'}
 summary(model1)
 ```
 
@@ -866,11 +873,14 @@ roc1
 ```
 
 ```{r}
+#| label: fig-10
+#| fig-cap: "Curva ROC"
+
 plot(roc1, scale.color = heat.colors(100))
 ```
 
 
-```{r}
+```{r, results='hide'}
 pre_risk_model1_bi <- as.factor(ifelse(pre_risk_model1 > 0.5, 1, 0)) 
 
 confusionMatrix(pre_risk_model1_bi, t_test$victimizacion, mode = "everything", positive = "1")

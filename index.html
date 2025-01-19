@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="index_files/libs/clipboard/clipboard.min.js"></script>
@@ -147,6 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#unión-de-bases-de-datos" id="toc-unión-de-bases-de-datos" class="nav-link" data-scroll-target="#unión-de-bases-de-datos"><span class="header-section-number">1.6.1</span> Unión de bases de datos</a></li>
   <li><a href="#transformación-de-datos" id="toc-transformación-de-datos" class="nav-link" data-scroll-target="#transformación-de-datos"><span class="header-section-number">1.6.2</span> Transformación de datos</a></li>
+  <li><a href="#limpieza-de-base-de-datos" id="toc-limpieza-de-base-de-datos" class="nav-link" data-scroll-target="#limpieza-de-base-de-datos"><span class="header-section-number">1.6.3</span> Limpieza de base de datos</a></li>
   </ul></li>
   <li><a href="#hipótesis-de-la-investigación" id="toc-hipótesis-de-la-investigación" class="nav-link" data-scroll-target="#hipótesis-de-la-investigación"><span class="header-section-number">1.7</span> Hipótesis de la investigación</a></li>
   <li><a href="#análisis-descriptivo" id="toc-análisis-descriptivo" class="nav-link" data-scroll-target="#análisis-descriptivo"><span class="header-section-number">1.8</span> Análisis descriptivo</a></li>
@@ -240,51 +261,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>body {</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Roboto'</span><span class="op">,</span> <span class="dv">Arial</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span> <span class="co">/* Fuente moderna */</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">line-height</span><span class="ch">:</span> <span class="dv">1.6</span><span class="op">;</span> <span class="co">/* Mayor legibilidad */</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#f4f0fa</span><span class="op">;</span> <span class="co">/* Fondo suave en tono lila claro */</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#4a235a</span><span class="op">;</span> <span class="co">/* Texto en un tono morado oscuro */</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Roboto'</span><span class="op">,</span> <span class="dv">Arial</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">line-height</span><span class="ch">:</span> <span class="dv">1.6</span><span class="op">;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#FFFFFF</span><span class="op">;</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#4a235a</span><span class="op">;</span> </span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>h1 {</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#6c3483</span><span class="op">;</span> <span class="co">/* Morado intenso para títulos principales */</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#6c3483</span><span class="op">;</span> </span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">bold</span><span class="op">;</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-transform</span><span class="ch">:</span> <span class="dv">uppercase</span><span class="op">;</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>h2<span class="op">,</span> h3<span class="op">,</span> h4 {</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#8e44ad</span><span class="op">;</span> <span class="co">/* Morado para subtítulos */</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#8e44ad</span><span class="op">;</span> </span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>p {</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">justify</span><span class="op">;</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-indent</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span> <span class="co">/* Sangría al inicio del párrafo */</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-indent</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span> </span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin-bottom</span><span class="ch">:</span> <span class="dv">1.2</span><span class="dt">em</span><span class="op">;</span></span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>a {</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#af7ac5</span><span class="op">;</span> <span class="co">/* Enlaces en morado brillante */</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#af7ac5</span><span class="op">;</span> </span>
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-decoration</span><span class="ch">:</span> <span class="dv">none</span><span class="op">;</span></span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>a<span class="in">:hover</span> {</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#884ea0</span><span class="op">;</span> <span class="co">/* Cambio de color al pasar el mouse */</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#884ea0</span><span class="op">;</span> </span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-decoration</span><span class="ch">:</span> <span class="dv">underline</span><span class="op">;</span></span>
 <span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>code {</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Courier New'</span><span class="op">,</span> <span class="dv">monospace</span><span class="op">;</span> <span class="co">/* Código con fuente clásica */</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#dcd3ee</span><span class="op">;</span> <span class="co">/* Fondo claro en tono lila */</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Courier New'</span><span class="op">,</span> <span class="dv">monospace</span><span class="op">;</span> </span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#dcd3ee</span><span class="op">;</span> </span>
 <span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span><span class="ch">:</span> <span class="dv">0.2</span><span class="dt">em</span> <span class="dv">0.4</span><span class="dt">em</span><span class="op">;</span></span>
 <span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-radius</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></span>
 <span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>blockquote {</span>
 <span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">italic</span><span class="op">;</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-left</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#8e44ad</span><span class="op">;</span> <span class="co">/* Borde en morado */</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-left</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#8e44ad</span><span class="op">;</span> </span>
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding-left</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">em</span><span class="op">;</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#5d3b76</span><span class="op">;</span> <span class="co">/* Texto de cita en morado oscuro */</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#5d3b76</span><span class="op">;</span> </span>
 <span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>table {</span>
@@ -294,67 +315,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>th<span class="op">,</span> td {</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#bb8fce</span><span class="op">;</span> <span class="co">/* Borde en lila claro */</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#bb8fce</span><span class="op">;</span> </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span><span class="ch">:</span> <span class="dv">0.5</span><span class="dt">em</span><span class="op">;</span></span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">left</span><span class="op">;</span></span>
 <span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>th {</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#6c3483</span><span class="op">;</span> <span class="co">/* Fondo de encabezado en morado oscuro */</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#6c3483</span><span class="op">;</span> </span>
 <span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">white</span><span class="op">;</span></span>
 <span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>td {</span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#f4f0fa</span><span class="op">;</span> <span class="co">/* Fondo de celdas en lila claro */</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="cn">#f4f0fa</span><span class="op">;</span> </span>
 <span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <style type="text/css">
 body {
-  font-family: 'Roboto', Arial, sans-serif; /* Fuente moderna */
-  line-height: 1.6; /* Mayor legibilidad */
-  background-color: #f4f0fa; /* Fondo suave en tono lila claro */
-  color: #4a235a; /* Texto en un tono morado oscuro */
+  font-family: 'Roboto', Arial, sans-serif; 
+  line-height: 1.6; 
+  background-color: #FFFFFF; 
+  color: #4a235a; 
   margin: 1em;
 }
 
 h1 {
-  color: #6c3483; /* Morado intenso para títulos principales */
+  color: #6c3483; 
   font-weight: bold;
   text-transform: uppercase;
 }
 
 h2, h3, h4 {
-  color: #8e44ad; /* Morado para subtítulos */
+  color: #8e44ad; 
 }
 
 p {
   text-align: justify;
-  text-indent: 1em; /* Sangría al inicio del párrafo */
+  text-indent: 1em; 
   margin-bottom: 1.2em;
 }
 
 a {
-  color: #af7ac5; /* Enlaces en morado brillante */
+  color: #af7ac5; 
   text-decoration: none;
 }
 
 a:hover {
-  color: #884ea0; /* Cambio de color al pasar el mouse */
+  color: #884ea0; 
   text-decoration: underline;
 }
 
 code {
-  font-family: 'Courier New', monospace; /* Código con fuente clásica */
-  background-color: #dcd3ee; /* Fondo claro en tono lila */
+  font-family: 'Courier New', monospace; 
+  background-color: #dcd3ee; 
   padding: 0.2em 0.4em;
   border-radius: 4px;
 }
 
 blockquote {
   font-style: italic;
-  border-left: 4px solid #8e44ad; /* Borde en morado */
+  border-left: 4px solid #8e44ad; 
   padding-left: 1em;
-  color: #5d3b76; /* Texto de cita en morado oscuro */
+  color: #5d3b76; 
 }
 
 table {
@@ -364,18 +385,18 @@ table {
 }
 
 th, td {
-  border: 1px solid #bb8fce; /* Borde en lila claro */
+  border: 1px solid #bb8fce; 
   padding: 0.5em;
   text-align: left;
 }
 
 th {
-  background-color: #6c3483; /* Fondo de encabezado en morado oscuro */
+  background-color: #6c3483; 
   color: white;
 }
 
 td {
-  background-color: #f4f0fa; /* Fondo de celdas en lila claro */
+  background-color: #f4f0fa; 
 }
 
 </style>
@@ -385,9 +406,9 @@ td {
 <section id="contexto" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="contexto"><span class="header-section-number">1.1</span> Contexto</h2>
 <p>El fenómeno de la victimización es un objeto central de análisis en diversas disciplinas de las ciencias sociales, particularmente en la criminología, la sociología y la ciencia política. Este proyecto se fundamenta en un marco teórico que combina estas perspectivas para entender los factores que determinan la probabilidad de que una persona sea víctima de un delito en el contexto chileno.</p>
-<p>La victimización, más allá de sus implicancias materiales o físicas inmediatas, tiene efectos profundos a nivel psicológico y social. La teoría de las oportunidades rutinarias, propuesta por Cohen y Felson en 1979, ofrece un marco útil para entender este fenómeno, al postular que la ocurrencia de un delito depende de la convergencia de tres elementos: un objetivo atractivo, un delincuente motivado y la ausencia de guardianes eficaces. Este enfoque pone de relieve la importancia de las características individuales y contextuales en la exposición al riesgo.</p>
-<p>En Chile, un país marcado por una elevada desigualdad social, la relación entre factores socioeconómicos y victimización adquiere especial relevancia. Desde la perspectiva de la teoría de la tensión, formulada por Merton en 1938, se puede interpretar que las disparidades en el acceso a recursos y oportunidades generan frustraciones que incrementan la propensión al delito, ya sea como perpetrador o como víctima. En este sentido, las diferencias en ingresos, nivel educativo, situación laboral y acceso a servicios de seguridad podrían ser determinantes clave en la distribución del riesgo de victimización.</p>
-<p>La percepción de inseguridad y la confianza en las instituciones constituyen dimensiones fundamentales en este análisis. La percepción de inseguridad, aunque subjetiva, refleja experiencias individuales y colectivas de victimización y afecta la calidad de vida de las personas. Según Skogan, en su análisis de 1986, existe una relación directa entre las experiencias de victimización y el aumento de la sensación de inseguridad. Por otro lado, la confianza en instituciones como la policía y el sistema judicial, siguiendo los planteamientos de Putnam en 1993, puede influir en la disposición de las personas para buscar protección, denunciar delitos o participar en estrategias comunitarias de seguridad.</p>
+<p>La victimización, más allá de sus implicancias materiales o físicas inmediatas, tiene efectos profundos a nivel psicológico y social. La teoría de las oportunidades rutinarias, propuesta por Cohen y Felson en 1979<span class="citation" data-cites="cohen2015routine"><sup><a href="#ref-cohen2015routine" role="doc-biblioref">1</a></sup></span>, ofrece un marco útil para entender este fenómeno, al postular que la ocurrencia de un delito depende de la convergencia de tres elementos: un objetivo atractivo, un delincuente motivado y la ausencia de guardianes eficaces. Este enfoque pone de relieve la importancia de las características individuales y contextuales en la exposición al riesgo.</p>
+<p>En Chile, un país marcado por una elevada desigualdad social, la relación entre factores socioeconómicos y victimización adquiere especial relevancia. Desde la perspectiva de la teoría de la tensión, formulada por Merton en 1938<span class="citation" data-cites="merton1997evolving"><sup><a href="#ref-merton1997evolving" role="doc-biblioref">2</a></sup></span>, se puede interpretar que las disparidades en el acceso a recursos y oportunidades generan frustraciones que incrementan la propensión al delito, ya sea como perpetrador o como víctima. En este sentido, las diferencias en ingresos, nivel educativo, situación laboral y acceso a servicios de seguridad podrían ser determinantes clave en la distribución del riesgo de victimización.</p>
+<p>La percepción de inseguridad y la confianza en las instituciones constituyen dimensiones fundamentales en este análisis. La percepción de inseguridad, aunque subjetiva, refleja experiencias individuales y colectivas de victimización y afecta la calidad de vida de las personas. Según Skogan<span class="citation" data-cites="skogan1986fear"><sup><a href="#ref-skogan1986fear" role="doc-biblioref">3</a></sup></span>, en su análisis de 1986, existe una relación directa entre las experiencias de victimización y el aumento de la sensación de inseguridad. Por otro lado, la confianza en instituciones como la policía y el sistema judicial, siguiendo los planteamientos de Putnam en 1993<span class="citation" data-cites="putnam1993prosperous"><sup><a href="#ref-putnam1993prosperous" role="doc-biblioref">4</a></sup></span>, puede influir en la disposición de las personas para buscar protección, denunciar delitos o participar en estrategias comunitarias de seguridad.</p>
 <p>Además de los factores individuales y socioeconómicos, los aspectos geográficos y comunitarios también desempeñan un papel crítico. La ecología del delito, inspirada en las teorías de la Escuela de Chicago, sugiere que el entorno físico y social de una comunidad afecta la incidencia y la percepción del delito. En el caso chileno, las diferencias entre zonas urbanas y rurales, regiones y comunas, junto con los niveles de cohesión social y acceso a servicios, ofrecen un campo fértil para el análisis de patrones de victimización.</p>
 <p>En conjunto, este marco teórico sustenta el análisis de los factores que influyen en la victimización en Chile, integrando perspectivas que abarcan tanto las dinámicas individuales como las estructuras sociales más amplias. Al hacerlo, el proyecto busca no solo aportar al entendimiento académico del fenómeno, sino también generar insumos prácticos para el diseño de políticas públicas orientadas a la prevención del delito y la promoción de la seguridad ciudadana.</p>
 </section>
@@ -522,6 +543,7 @@ Figura&nbsp;1: Diagrama Circular: Factores de Victimización en Chile
 </section>
 <section id="transformación-y-limpieza-de-datos" class="level2" data-number="1.6">
 <h2 data-number="1.6" class="anchored" data-anchor-id="transformación-y-limpieza-de-datos"><span class="header-section-number">1.6</span> Transformación y limpieza de datos</h2>
+<p>En esta sección se seleccionan las variables de las bases EBS 2021 y Casen 2020 que son relevantes para el proyecto. Asimismo, se realiza la unión de ambas bases en una sola consolidada, utilizando las variables clave de unión. Posteriormente, se realiza la transformación de las variables para su utilización en el análisis.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -538,14 +560,12 @@ Figura&nbsp;1: Diagrama Circular: Factores de Victimización en Chile
 </div>
 <section id="unión-de-bases-de-datos" class="level3" data-number="1.6.1">
 <h3 data-number="1.6.1" class="anchored" data-anchor-id="unión-de-bases-de-datos"><span class="header-section-number">1.6.1</span> Unión de bases de datos</h3>
+<p>Debido a la información de la nota técnica sobre la cantidad de casos que deberían mantenerse, se utilizará un left join, manteniendo la data de la base EBS 2021.</p>
+<p>Al realizar la unión, se observa que la base efectivamente alcanza un total de 10921 observaciones, tal y como indica la nota técnica. Por esto, la unión se considera exitosa.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Paso 1: Unir las bases. Debido a la información de la nota técnica sobre la cantidad de casos que deberían mantenerse, se utilizará un left join, manteniendo la data de la base EBS 2021.</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> <span class="fu">left_join</span>(ebs2, casen2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"folio_casen"</span>, <span class="st">"id_persona_casen"</span>))</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#La base efectivamente alcanza un total de 10921 observaciones, tal y como indica la nota técnica, por lo que la unión se considera exitosa.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> <span class="fu">left_join</span>(ebs2, casen2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"folio_casen"</span>, <span class="st">"id_persona_casen"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -558,141 +578,141 @@ Figura&nbsp;1: Diagrama Circular: Factores de Victimización en Chile
 </section>
 <section id="transformación-de-datos" class="level3" data-number="1.6.2">
 <h3 data-number="1.6.2" class="anchored" data-anchor-id="transformación-de-datos"><span class="header-section-number">1.6.2</span> Transformación de datos</h3>
+<p><strong>Variable dependiente</strong>: La victimización se recodifica como una variable dicotómica</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Variable dependiente: La victimización se recodifica como una variable dicotómica.</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">victimizacion=</span><span class="fu">case_when</span>(</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    h1<span class="sc">==</span><span class="dv">1</span><span class="sc">~</span><span class="dv">0</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    h1<span class="sc">==</span><span class="dv">2</span><span class="sc">~</span><span class="dv">1</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    h1<span class="sc">==</span><span class="dv">3</span><span class="sc">~</span><span class="dv">1</span>))</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>victimizacion,Base_consolidada<span class="sc">$</span>h1)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">victimizacion=</span><span class="fu">case_when</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    h1<span class="sc">==</span><span class="dv">1</span><span class="sc">~</span><span class="dv">0</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    h1<span class="sc">==</span><span class="dv">2</span><span class="sc">~</span><span class="dv">1</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    h1<span class="sc">==</span><span class="dv">3</span><span class="sc">~</span><span class="dv">1</span>))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>victimizacion,Base_consolidada<span class="sc">$</span>h1)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<p><strong>Variables independientes:</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Variables independientes.</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="do">##1. Edad</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>l1)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>l1)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">edad =</span> l1)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="do">##2. Sexo</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>sexo)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="do">##3.Nivel educacional</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="do">###Esta variable presenta 110 valores perdidos (No sabe/No responde)</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>educ)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="do">##4. Situación laboral</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="do">###No hay casos perdidos en esta variable.</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>activ)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="do">##5. Quintil de ingreso nacional</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>qaut)</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">quintil =</span> qaut)</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="do">##6. Zona de residencia (urbano/rural)</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>zona)</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="do">##7. H3: Exposición a riesgos.</span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"h3_1"</span>, <span class="st">"h3_2"</span>, <span class="st">"h3_3"</span>, <span class="st">"h3_4"</span>, <span class="st">"h3_5"</span>, <span class="st">"h3_6"</span>)], table)</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="do">##No hay casos perdidos en estas variables.</span></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="do">###Se calcula un promedio simple para crear un indicador único de exposición a riesgos.</span></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">exp_riesgos=</span>((h3_1<span class="sc">+</span>h3_2<span class="sc">+</span>h3_3<span class="sc">+</span>h3_4<span class="sc">+</span>h3_5<span class="sc">+</span>h3_6)<span class="sc">/</span><span class="dv">6</span>))</span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">##1. Edad</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>l1)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>l1)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">edad =</span> l1)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="do">##2. Sexo</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>sexo)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="do">##3.Nivel educacional</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="do">###Esta variable presenta 110 valores perdidos (No sabe/No responde)</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>educ)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="do">##4. Situación laboral</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="do">###No hay casos perdidos en esta variable.</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>activ)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="do">##5. Quintil de ingreso nacional</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>qaut)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">quintil =</span> qaut)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="do">##6. Zona de residencia (urbano/rural)</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>zona)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="do">##7. H3: Exposición a riesgos.</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"h3_1"</span>, <span class="st">"h3_2"</span>, <span class="st">"h3_3"</span>, <span class="st">"h3_4"</span>, <span class="st">"h3_5"</span>, <span class="st">"h3_6"</span>)], table)</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="do">##No hay casos perdidos en estas variables.</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="do">###Se calcula un promedio simple para crear un indicador único de exposición a riesgos.</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">exp_riesgos=</span>((h3_1<span class="sc">+</span>h3_2<span class="sc">+</span>h3_3<span class="sc">+</span>h3_4<span class="sc">+</span>h3_5<span class="sc">+</span>h3_6)<span class="sc">/</span><span class="dv">6</span>))</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>exp_riesgos)</span>
 <span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>exp_riesgos)</span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="do">##8.H4. Sensación de seguridad.</span></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"h4_1"</span>, <span class="st">"h4_2"</span>, <span class="st">"h4_3"</span>, <span class="st">"h4_4"</span>)], table)</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="do">###Se calcula un promedio simple para crear un indicador único de sensación de seguridad.</span></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sen_seguridad=</span>((h4_1<span class="sc">+</span>h4_2<span class="sc">+</span>h4_3<span class="sc">+</span>h4_4)<span class="sc">/</span><span class="dv">4</span>))</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="do">##8.H4. Sensación de seguridad.</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"h4_1"</span>, <span class="st">"h4_2"</span>, <span class="st">"h4_3"</span>, <span class="st">"h4_4"</span>)], table)</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="do">###Se calcula un promedio simple para crear un indicador único de sensación de seguridad.</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sen_seguridad=</span>((h4_1<span class="sc">+</span>h4_2<span class="sc">+</span>h4_3<span class="sc">+</span>h4_4)<span class="sc">/</span><span class="dv">4</span>))</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>sen_seguridad)</span>
 <span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>sen_seguridad)</span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a><span class="do">##9.H5. Conductas de prevención</span></span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"h5_1"</span>, <span class="st">"h5_2"</span>, <span class="st">"h5_3"</span>, <span class="st">"h5_4"</span>, <span class="st">"h5_5"</span>)], table)</span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="do">###Esta variable tiene alternativas de respuesta "No aplica" y "No sabe/No responde", por lo que se calculará un indicador aditivo, considerando solo la cantidad total de conductas preventivas que ha tomado cada persona (H5=1 para cada indicador).</span></span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cond_preventivas =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., h5_1<span class="sc">:</span>h5_5) <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>cond_preventivas)</span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>cond_preventivas)</span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a><span class="do">##9.H5. Accesibilidad a instancias de seguridad</span></span>
-<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"h6_1"</span>, <span class="st">"h6_2"</span>, <span class="st">"h6_3"</span>, <span class="st">"h6_4"</span>)], table)</span>
-<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a><span class="do">###Esta variable tiene alternativas de respuesta "No sabe/No responde", por lo que se calculará un indicador aditivo, considerando solo la cantidad total de instancias de seguridad accesibles que tiene cada persona (H6=1 para cada indicador).</span></span>
-<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
-<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">acce_seguridad =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., h6_1<span class="sc">:</span>h6_4) <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>acce_seguridad)</span>
-<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>acce_seguridad)</span>
-<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a><span class="do">##10.e4. Confianza interpersonal</span></span>
-<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a><span class="co">#No hay casos perdidos, solo se cambia el nombre para que sea más reconocible.</span></span>
-<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>e4)</span>
-<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
-<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">conf_interp =</span> e4)</span>
-<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a><span class="do">##11. f1: confianza en instituciones.</span></span>
-<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"f1_1"</span>, <span class="st">"f1_2"</span>, <span class="st">"f1_3"</span>, <span class="st">"f1_4"</span>, <span class="st">"f1_5"</span>)], table)</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="do">##9.H5. Conductas de prevención</span></span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"h5_1"</span>, <span class="st">"h5_2"</span>, <span class="st">"h5_3"</span>, <span class="st">"h5_4"</span>, <span class="st">"h5_5"</span>)], table)</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="do">###Esta variable tiene alternativas de respuesta "No aplica" y "No sabe/No responde", por lo que se calculará un indicador aditivo, considerando solo la cantidad total de conductas preventivas que ha tomado cada persona (H5=1 para cada indicador).</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cond_preventivas =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., h5_1<span class="sc">:</span>h5_5) <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>cond_preventivas)</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>cond_preventivas)</span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a><span class="do">##9.H5. Accesibilidad a instancias de seguridad</span></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"h6_1"</span>, <span class="st">"h6_2"</span>, <span class="st">"h6_3"</span>, <span class="st">"h6_4"</span>)], table)</span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a><span class="do">###Esta variable tiene alternativas de respuesta "No sabe/No responde", por lo que se calculará un indicador aditivo, considerando solo la cantidad total de instancias de seguridad accesibles que tiene cada persona (H6=1 para cada indicador).</span></span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">acce_seguridad =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., h6_1<span class="sc">:</span>h6_4) <span class="sc">==</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>acce_seguridad)</span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>acce_seguridad)</span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a><span class="do">##10.e4. Confianza interpersonal</span></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a><span class="co">#No hay casos perdidos, solo se cambia el nombre para que sea más reconocible.</span></span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>e4)</span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">conf_interp =</span> e4)</span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a><span class="do">##11. f1: confianza en instituciones.</span></span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Base_consolidada[, <span class="fu">c</span>(<span class="st">"f1_1"</span>, <span class="st">"f1_2"</span>, <span class="st">"f1_3"</span>, <span class="st">"f1_4"</span>, <span class="st">"f1_5"</span>)], table)</span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a><span class="do">##No hay casos perdidos en estas variables.</span></span>
 <span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a><span class="do">##No hay casos perdidos en estas variables.</span></span>
-<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a><span class="do">###Se calcula un promedio simple para crear un indicador único de confianza en instituciones.</span></span>
-<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
-<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">conf_instituciones=</span>((f1_1<span class="sc">+</span>f1_2<span class="sc">+</span>f1_3<span class="sc">+</span>f1_4<span class="sc">+</span>f1_5)<span class="sc">/</span><span class="dv">5</span>))</span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a><span class="do">###Se calcula un promedio simple para crear un indicador único de confianza en instituciones.</span></span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>Base_consolidada <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">conf_instituciones=</span>((f1_1<span class="sc">+</span>f1_2<span class="sc">+</span>f1_3<span class="sc">+</span>f1_4<span class="sc">+</span>f1_5)<span class="sc">/</span><span class="dv">5</span>))</span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>conf_instituciones)</span>
 <span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Base_consolidada<span class="sc">$</span>conf_instituciones)</span>
-<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a><span class="do">##12. l4: Discapacidad.</span></span>
-<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>disc)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a><span class="do">##12. l4: Discapacidad.</span></span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Base_consolidada<span class="sc">$</span>disc)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="limpieza-de-base-de-datos" class="level3" data-number="1.6.3">
+<h3 data-number="1.6.3" class="anchored" data-anchor-id="limpieza-de-base-de-datos"><span class="header-section-number">1.6.3</span> Limpieza de base de datos</h3>
+<p>Se realiza una nueva selección de variables para conservar una base de datos que sólo contenga las variables de interés para el estudio. Posteriormente, se transforman las variables a factor o numéricas según corresponda.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>base_consolidada_2 <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(folio,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>folio_casen,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>id_persona_casen,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>region,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>comuna,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>edad,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>fexp,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>victimizacion,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>sexo,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>educ,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>activ,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>quintil,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>zona,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>exp_riesgos,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>sen_seguridad,</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>cond_preventivas,</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>acce_seguridad,</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>conf_interp,</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>conf_instituciones,</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>disc)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Limpieza de base de datos</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Se realiza una nueva selección de variables para conservar una base de datos que sólo contenga las bases de interés para el estudio.</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>base_consolidada_2 <span class="ot">&lt;-</span> Base_consolidada <span class="sc">%&gt;%</span> </span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(folio,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>folio_casen,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>id_persona_casen,</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>region,</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>comuna,</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>edad,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>fexp,</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>victimizacion,</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>sexo,</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>educ,</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>activ,</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>quintil,</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>zona,</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>exp_riesgos,</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>sen_seguridad,</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>cond_preventivas,</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>acce_seguridad,</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>conf_interp,</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>conf_instituciones,</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>disc)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Código</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Se transforman las variables a factor, para poder usarlas en las gráficas posteriores (actualmente están como haven_labelled al haber sido importadas de stata)</span></span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Se transforman las variables a factor, para poder usarlas en las gráficas posteriores (actualmente están como haven_labelled al haber sido importadas de Stata)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>base_consolidada_2 <span class="ot">&lt;-</span> base_consolidada_2 <span class="sc">%&gt;%</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">victimizacion =</span> <span class="fu">as_factor</span>(victimizacion),</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">region =</span> <span class="fu">as_factor</span>(region),</span>
@@ -718,7 +738,7 @@ Figura&nbsp;1: Diagrama Circular: Factores de Victimización en Chile
 <section id="hipótesis-de-la-investigación" class="level2" data-number="1.7">
 <h2 data-number="1.7" class="anchored" data-anchor-id="hipótesis-de-la-investigación"><span class="header-section-number">1.7</span> Hipótesis de la investigación</h2>
 <ol type="1">
-<li><p>Las personas que residen en zonas urbanas tienen mayor probabilidad de ser víctimas de delitos en comparación con quienes viven en zonas rurales, debido a la mayor densidad de población y actividad delictual.</p></li>
+<li><p>Las personas que residen en zonas urbanas tienen <strong>mayor</strong> probabilidad de ser víctimas de delitos en comparación con quienes viven en zonas rurales, debido a la mayor densidad de población y actividad delictual.</p></li>
 <li><p>Las personas que viven en sectores con <strong>menor</strong> acceso a instancias de seguridad tienen una mayor probabilidad de ser víctimas de delitos en comparación con aquellas en sectores con <strong>mayor</strong> acceso a instancias de seguridad.</p></li>
 </ol>
 </section>
@@ -763,8 +783,8 @@ Figura&nbsp;1: Diagrama Circular: Factores de Victimización en Chile
 <div id="fig-2" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-481d4e21c5e05a63d678" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-481d4e21c5e05a63d678">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.5825211524044126,0.54861111111111116],"x":[0.4174788475955874,0.45138888888888884],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Hombre","legendgroup":"Hombre","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.5825211524044126,0.54861111111111116],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Mujer","legendgroup":"Mujer","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.79126057620220625,0.77430555555555558],"y":[1,2],"text":["41.7%","45.1%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Hombre","legendgroup":"Hombre","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.2912605762022063,0.27430555555555558],"y":[1,2],"text":["58.3%","54.9%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Mujer","legendgroup":"Mujer","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de Sexo por Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Sexo","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"6240537944c4":{"x":{},"y":{},"fill":{},"type":"bar"},"6240555e1791":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"6240537944c4","visdat":{"6240537944c4":["function (y) ","x"],"6240555e1791":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-a4f119a1bcf7aa7f4e9c" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-a4f119a1bcf7aa7f4e9c">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.5825211524044126,0.54861111111111116],"x":[0.4174788475955874,0.45138888888888884],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Hombre","legendgroup":"Hombre","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.5825211524044126,0.54861111111111116],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Mujer","legendgroup":"Mujer","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.79126057620220625,0.77430555555555558],"y":[1,2],"text":["41.7%","45.1%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Hombre","legendgroup":"Hombre","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.2912605762022063,0.27430555555555558],"y":[1,2],"text":["58.3%","54.9%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Mujer","legendgroup":"Mujer","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de Sexo por Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Sexo","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"364c74f3603":{"x":{},"y":{},"fill":{},"type":"bar"},"364c56202789":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"364c74f3603","visdat":{"364c74f3603":["function (y) ","x"],"364c56202789":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;2: Distribución por sexo según victimización
@@ -810,8 +830,8 @@ Figura&nbsp;2: Distribución por sexo según victimización
 <div id="fig-3" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-5b9b45f86678439b9286" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-5b9b45f86678439b9286">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.15626004069829713,0.097853535353535359],"x":[0.84373995930170287,0.90214646464646464],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Urbano","legendgroup":"Urbano","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.15626004069829713,0.097853535353535359],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Rural","legendgroup":"Rural","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.57813002034914862,0.54892676767676774],"y":[1,2],"text":["84.4%","90.2%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Urbano","legendgroup":"Urbano","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.078130020349148566,0.04892676767676768],"y":[1,2],"text":["15.6%","9.8%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Rural","legendgroup":"Rural","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de Zona por Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Zona","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"62405ab91d88":{"x":{},"y":{},"fill":{},"type":"bar"},"6240754a57e4":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"62405ab91d88","visdat":{"62405ab91d88":["function (y) ","x"],"6240754a57e4":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-dd03e4357b1781b9fe2f" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-dd03e4357b1781b9fe2f">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.15626004069829713,0.097853535353535359],"x":[0.84373995930170287,0.90214646464646464],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Urbano","legendgroup":"Urbano","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.15626004069829713,0.097853535353535359],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Rural","legendgroup":"Rural","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.57813002034914862,0.54892676767676774],"y":[1,2],"text":["84.4%","90.2%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Urbano","legendgroup":"Urbano","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.078130020349148566,0.04892676767676768],"y":[1,2],"text":["15.6%","9.8%"],"hovertext":["",""],"textfont":{"size":14.66456692913386,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Rural","legendgroup":"Rural","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de Zona por Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Zona","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"364c685b71a5":{"x":{},"y":{},"fill":{},"type":"bar"},"364c50a5527c":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"364c685b71a5","visdat":{"364c685b71a5":["function (y) ","x"],"364c50a5527c":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;3: Distribución por zona de residencia según victimización
@@ -871,8 +891,8 @@ Figura&nbsp;3: Distribución por zona de residencia según victimización
 <div id="fig-4" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-bc28d70d5481b71a5c69" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-bc28d70d5481b71a5c69">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.86216129377744455,0.8472222222222221],"x":[0.13783870622255545,0.1527777777777779],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Con discapacidad","legendgroup":"Con discapacidad","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.86216129377744455,0.8472222222222221],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Sin discapacidad","legendgroup":"Sin discapacidad","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.93108064688872227,0.92361111111111105],"y":[1,2],"text":["13.8%","15.3%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Con discapacidad","legendgroup":"Con discapacidad","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.43108064688872227,0.42361111111111105],"y":[1,2],"text":["86.2%","84.7%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Sin discapacidad","legendgroup":"Sin discapacidad","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de discapacidad por victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Discapacidad","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"624052e4250e":{"x":{},"y":{},"fill":{},"type":"bar"},"624021835239":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"624052e4250e","visdat":{"624052e4250e":["function (y) ","x"],"624021835239":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-48c74d13da5013202bec" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-48c74d13da5013202bec">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.86216129377744455,0.8472222222222221],"x":[0.13783870622255545,0.1527777777777779],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Con discapacidad","legendgroup":"Con discapacidad","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.86216129377744455,0.8472222222222221],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Sin discapacidad","legendgroup":"Sin discapacidad","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.93108064688872227,0.92361111111111105],"y":[1,2],"text":["13.8%","15.3%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Con discapacidad","legendgroup":"Con discapacidad","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.43108064688872227,0.42361111111111105],"y":[1,2],"text":["86.2%","84.7%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Sin discapacidad","legendgroup":"Sin discapacidad","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de discapacidad por victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Discapacidad","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"364c12d46183":{"x":{},"y":{},"fill":{},"type":"bar"},"364c700d709d":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"364c12d46183","visdat":{"364c12d46183":["function (y) ","x"],"364c700d709d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;4: Distribución por situación de discapacidad según victimización
@@ -919,8 +939,8 @@ Figura&nbsp;4: Distribución por situación de discapacidad según victimizació
 <div id="fig-5" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-baec46d476c214cb0e75" style="width:100%;height:487px;"></div>
-<script type="application/json" data-for="htmlwidget-baec46d476c214cb0e75">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.51483345828424543,0.47601010101010099],"x":[0.48516654171575457,0.52398989898989901],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Ocupados","legendgroup":"Ocupados","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.44735996572774978,0.38194444444444442],"x":[0.067473492556495651,0.094065656565656575],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Desocupados","legendgroup":"Desocupados","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.44735996572774978,0.38194444444444442],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Inactivos","legendgroup":"Inactivos","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.75741672914212277,0.7380050505050505],"y":[1,2],"text":["48.5%","52.4%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Ocupados","legendgroup":"Ocupados","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.48109671200599757,0.42897727272727271],"y":[1,2],"text":["6.7%","9.4%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Desocupados","legendgroup":"Desocupados","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.22367998286387489,0.19097222222222221],"y":[1,2],"text":["44.7%","38.2%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Inactivos","legendgroup":"Inactivos","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de situación laboral por victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Situación laboral","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"6240767e1406":{"x":{},"y":{},"fill":{},"type":"bar"},"624033023f46":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"6240767e1406","visdat":{"6240767e1406":["function (y) ","x"],"624033023f46":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-527cfb376d6d7fb10b8d" style="width:100%;height:487px;"></div>
+<script type="application/json" data-for="htmlwidget-527cfb376d6d7fb10b8d">{"x":{"data":[{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.51483345828424543,0.47601010101010099],"x":[0.48516654171575457,0.52398989898989901],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Ocupados","legendgroup":"Ocupados","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0.44735996572774978,0.38194444444444442],"x":[0.067473492556495651,0.094065656565656575],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Desocupados","legendgroup":"Desocupados","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[0.44735996572774978,0.38194444444444442],"y":[1,2],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"name":"Inactivos","legendgroup":"Inactivos","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.75741672914212277,0.7380050505050505],"y":[1,2],"text":["48.5%","52.4%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Ocupados","legendgroup":"Ocupados","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.48109671200599757,0.42897727272727271],"y":[1,2],"text":["6.7%","9.4%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Desocupados","legendgroup":"Desocupados","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.22367998286387489,0.19097222222222221],"y":[1,2],"text":["44.7%","38.2%"],"hovertext":["",""],"textfont":{"size":11.338582677165356,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Inactivos","legendgroup":"Inactivos","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.275494672754945,"r":7.3059360730593621,"b":28.006088280060887,"l":84.018264840182681},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Distribución de situación laboral por victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.050000000000000003,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Porcentaje","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["No víctima","Víctima"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["No víctima","Víctima"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716894984},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Victimización","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Situación laboral","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"364c5fd72611":{"x":{},"y":{},"fill":{},"type":"bar"},"364c7f66c4f":{"x":{},"y":{},"fill":{},"label":{}}},"cur_data":"364c5fd72611","visdat":{"364c5fd72611":["function (y) ","x"],"364c7f66c4f":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;5: Distribución por situación laboral según victimización
@@ -1084,7 +1104,7 @@ Figura&nbsp;8: Correlación entre victimización y sensación de seguridad
 </div>
 </div>
 <p><strong>Correlación entre victimización y conductas preventivas</strong></p>
-<p>La correlación entre conductas preventivas y victimización es positiva, con un valor de R=0,2, lo que sugiere que a medida que las personas adoptan más conductas preventivas, aumenta la probabilidad de evitar ser víctimas de un delito. La línea de regresión muestra una leve inclinación ascendente, indicando que quienes toman medidas preventivas son ligeramente menos propensos a experimentar victimización. Sin embargo, dado que la correlación es débil (R=0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, lo que sugiere que existen otros factores que también influyen en la probabilidad de ser víctima.</p>
+<p>La correlación entre conductas preventivas y victimización es positiva, con un valor de R=0,2, lo que sugiere que a medida que las personas adoptan más conductas preventivas, aumenta la probabilidad de evitar ser víctimas de un delito. La línea de regresión muestra una leve inclinación ascendente, indicando que quienes toman medidas preventivas son ligeramente menos propensos a experimentar victimización. Sin embargo, dado que la correlación es débil (R=0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, lo que sugiere que existen otros factores que también influyen en la probabilidad de ser víctima de un delito.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -1154,119 +1174,42 @@ Figura&nbsp;9: Correlación entre victimización y conductas preventivas
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = victimizacion ~ sexo + edad + educ + activ + quintil + 
-    zona + exp_riesgos + sen_seguridad + cond_preventivas + acce_seguridad + 
-    conf_interp + conf_instituciones + disc, family = binomial, 
-    data = t_train)
-
-Coefficients:
-                                          Estimate Std. Error z value Pr(&gt;|z|)
-(Intercept)                              -1.689356   0.398182  -4.243 2.21e-05
-sexoMujer                                -0.319963   0.068562  -4.667 3.06e-06
-edad                                     -0.009494   0.002309  -4.112 3.92e-05
-educBásica incompleta                     0.300953   0.321924   0.935   0.3499
-educBásica completa                       0.285953   0.323711   0.883   0.3770
-educMedia humanista incompleta            0.328051   0.321321   1.021   0.3073
-educMedia técnica profesional incompleta  0.218065   0.377446   0.578   0.5634
-educMedia humanista completa              0.377969   0.313137   1.207   0.2274
-educMedia técnica profesional completa    0.257251   0.327360   0.786   0.4320
-educTécnico nivel superior incompleta     0.536891   0.340632   1.576   0.1150
-educTécnico nivel superior completo       0.370814   0.328126   1.130   0.2584
-educProfesional incompleto                0.500069   0.324833   1.539   0.1237
-educPostgrado incompleto                  0.434267   0.327262   1.327   0.1845
-educProfesional completo                  0.544387   0.592345   0.919   0.3581
-educPostgrado completo                    0.800807   0.432456   1.852   0.0641
-educNo sabe                               0.659097   0.419991   1.569   0.1166
-activDesocupados                          0.120248   0.119097   1.010   0.3127
-activInactivos                           -0.134102   0.075154  -1.784   0.0744
-quintilII                                 0.101866   0.096007   1.061   0.2887
-quintilIII                                0.042643   0.100123   0.426   0.6702
-quintilIV                                -0.015592   0.108125  -0.144   0.8853
-quintilV                                 -0.188279   0.130963  -1.438   0.1505
-zonaRural                                -0.027555   0.108956  -0.253   0.8003
-exp_riesgos                               0.485273   0.038178  12.711  &lt; 2e-16
-sen_seguridad                            -0.375240   0.042877  -8.752  &lt; 2e-16
-cond_preventivas                          0.162533   0.023595   6.888 5.64e-12
-acce_seguridad                            0.050637   0.031569   1.604   0.1087
-conf_interp                               0.004321   0.031616   0.137   0.8913
-conf_instituciones                       -0.007170   0.043016  -0.167   0.8676
-disc2                                     0.210324   0.096996   2.168   0.0301
-                                            
-(Intercept)                              ***
-sexoMujer                                ***
-edad                                     ***
-educBásica incompleta                       
-educBásica completa                         
-educMedia humanista incompleta              
-educMedia técnica profesional incompleta    
-educMedia humanista completa                
-educMedia técnica profesional completa      
-educTécnico nivel superior incompleta       
-educTécnico nivel superior completo         
-educProfesional incompleto                  
-educPostgrado incompleto                    
-educProfesional completo                    
-educPostgrado completo                   .  
-educNo sabe                                 
-activDesocupados                            
-activInactivos                           .  
-quintilII                                   
-quintilIII                                  
-quintilIV                                   
-quintilV                                    
-zonaRural                                   
-exp_riesgos                              ***
-sen_seguridad                            ***
-cond_preventivas                         ***
-acce_seguridad                              
-conf_interp                                 
-conf_instituciones                          
-disc2                                    *  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 7258.1  on 8735  degrees of freedom
-Residual deviance: 6509.0  on 8706  degrees of freedom
-AIC: 6569
-
-Number of Fisher Scoring iterations: 5</code></pre>
-</div>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pre_risk_model1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model1, <span class="at">newdata =</span> t_test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>pre_risk_model1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pre_risk_model1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model1, <span class="at">newdata =</span> t_test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>pre_risk_model1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>pc1 <span class="ot">&lt;-</span> pre_risk_model1[t_test[,<span class="dv">8</span>] <span class="sc">==</span> <span class="dv">1</span>]</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>nc1 <span class="ot">&lt;-</span> pre_risk_model1[t_test[,<span class="dv">8</span>] <span class="sc">==</span> <span class="dv">0</span>]</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>roc1 <span class="ot">&lt;-</span> <span class="fu">roc.curve</span>(<span class="at">scores.class0 =</span> pc1, <span class="at">scores.class1 =</span> nc1, <span class="at">curve =</span> T)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pc1 <span class="ot">&lt;-</span> pre_risk_model1[t_test[,<span class="dv">8</span>] <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>nc1 <span class="ot">&lt;-</span> pre_risk_model1[t_test[,<span class="dv">8</span>] <span class="sc">==</span> <span class="dv">0</span>]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>roc1 <span class="ot">&lt;-</span> <span class="fu">roc.curve</span>(<span class="at">scores.class0 =</span> pc1, <span class="at">scores.class1 =</span> nc1, <span class="at">curve =</span> T)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>roc1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>roc1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc1, <span class="at">scale.color =</span> <span class="fu">heat.colors</span>(<span class="dv">100</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc1, <span class="at">scale.color =</span> <span class="fu">heat.colors</span>(<span class="dv">100</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="768"></p>
+<div id="fig-10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-10-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;10: Curva ROC
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1274,47 +1217,29 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>pre_risk_model1_bi <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(pre_risk_model1 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)) </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(pre_risk_model1_bi, t_test<span class="sc">$</span>victimizacion, <span class="at">mode =</span> <span class="st">"everything"</span>, <span class="at">positive =</span> <span class="st">"1"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pre_risk_model1_bi <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(pre_risk_model1 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)) </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(pre_risk_model1_bi, t_test<span class="sc">$</span>victimizacion, <span class="at">mode =</span> <span class="st">"everything"</span>, <span class="at">positive =</span> <span class="st">"1"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Confusion Matrix and Statistics
+</div>
 
-          Reference
-Prediction    0    1
-         0 1857  296
-         1   18   14
-                                          
-               Accuracy : 0.8563          
-                 95% CI : (0.8409, 0.8707)
-    No Information Rate : 0.8581          
-    P-Value [Acc &gt; NIR] : 0.6113          
-                                          
-                  Kappa : 0.0568          
-                                          
- Mcnemar's Test P-Value : &lt;2e-16          
-                                          
-            Sensitivity : 0.045161        
-            Specificity : 0.990400        
-         Pos Pred Value : 0.437500        
-         Neg Pred Value : 0.862517        
-              Precision : 0.437500        
-                 Recall : 0.045161        
-                     F1 : 0.081871        
-             Prevalence : 0.141876        
-         Detection Rate : 0.006407        
-   Detection Prevalence : 0.014645        
-      Balanced Accuracy : 0.517781        
-                                          
-       'Positive' Class : 1               
-                                          </code></pre>
-</div>
-</div>
 </section>
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-cohen2015routine" class="csl-entry" role="listitem">
+1. Cohen, L. E., &amp; Felson, M. (2015). Routine activity theory: A routine activity approach. En <em>Criminology theory</em> (pp. 313-321). Routledge.
+</div>
+<div id="ref-merton1997evolving" class="csl-entry" role="listitem">
+2. Merton, R. K. (1997). On the evolving synthesis of differential association and anomie theory: A perspective from the sociology of science. <em>Criminology</em>, <em>35</em>, 517.
+</div>
+<div id="ref-skogan1986fear" class="csl-entry" role="listitem">
+3. Skogan, W. (1986). Fear of crime and neighborhood change. <em>Crime and justice</em>, <em>8</em>, 203-229.
+</div>
+<div id="ref-putnam1993prosperous" class="csl-entry" role="listitem">
+4. Putnam, R. D. (1993). The prosperous community. <em>The american prospect</em>, <em>4</em>(13), 35-42.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
