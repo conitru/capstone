@@ -462,7 +462,6 @@ table(Base_consolidada$disc)
 Se realiza una nueva selección de variables para conservar una base de datos que sólo contenga las variables de interés para el estudio. Posteriormente, se transforman las variables a factor o numéricas según corresponda.
 
 ```{r}
-
 base_consolidada_2 <- Base_consolidada %>% 
   select(folio,
 folio_casen,
@@ -485,7 +484,6 @@ conf_interp,
 conf_instituciones,
 disc)
 ```
-
 
 ```{r}
 ##Se transforman las variables a factor, para poder usarlas en las gráficas posteriores (actualmente están como haven_labelled al haber sido importadas de Stata)
@@ -648,6 +646,7 @@ Grafico_Disc <- base_consolidada_2 %>%
 ggplotly(Grafico_Disc, tooltip = "text")
 
 ```
+
 **Victimización según situación laboral**
 
 Entre las personas víctimas de algún delito en los últimos 12 meses, el 52,4% indicó estar ocupados/as, cifra que desciende a 48,5% en el caso de las personas no víctimas.
@@ -687,7 +686,6 @@ Grafico_Activ <- base_consolidada_2 %>%
 
 ggplotly(Grafico_Activ, tooltip = "text")
 ```
-
 
 ## Correlaciones
 
@@ -813,11 +811,9 @@ ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = sen_seguridad)) +
 
 ```
 
-
 **Correlación entre victimización y conductas preventivas**
 
 La correlación entre conductas preventivas y victimización es positiva, con un valor de R=0,2, lo que sugiere que a medida que las personas adoptan más conductas preventivas, aumenta la probabilidad de evitar ser víctimas de un delito. La línea de regresión muestra una leve inclinación ascendente, indicando que quienes toman medidas preventivas son ligeramente menos propensos a experimentar victimización. Sin embargo, dado que la correlación es débil (R=0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, lo que sugiere que existen otros factores que también influyen en la probabilidad de ser víctima de un delito.
-
 
 ```{r}
 #| label: fig-9
@@ -853,8 +849,6 @@ ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = cond_preventivas))
 
 ```
 
-
-
 ## Análisis predictivo: Regresión Logística
 
 Sección en desarrollo.
@@ -870,8 +864,6 @@ t_train_filtrado <- t_train %>%
 
 t_test_filtrado <- t_test %>%
   filter(educ != "No sabe")
-
-
 ```
 
 ```{r}
@@ -925,29 +917,18 @@ resultados$Significancia <- cut(
   right = FALSE
 )
 
-
-datatable(
-  resultados,
-  caption = "Resultados del Modelo de Regresión Logística",
-  options = list(
-    pageLength = 30,  # Mostrar 30 filas por página
-    autoWidth = TRUE, # Ajustar automáticamente el ancho de las columnas
-    fixedHeader = TRUE # Fijar la primera fila al desplazarse
-  ),
-  rownames = FALSE
-)
-
-
+# Asegurarse de que el data frame no tenga nombres de fila
+row.names(resultados) <- NULL  # Elimina los nombres de fila si están presentes
 ```
 
 ```{r}
-# Asegurarse de que el data frame no tenga nombres de fila
-row.names(resultados) <- NULL  # Elimina los nombres de fila si están presentes
+#| label: tbl-tabla1
+#| tbl-cap: "Tabla de Resultados del Modelo de Regresión Logística"
 
-# Generar la tabla con kable
+#Tabla de resultados de la regresión Logística}
 kable(
   resultados,  # Data frame con los resultados
-  caption = "Resultados del Modelo de Regresión Logística",  # Título de la tabla
+  caption = "",  
   col.names = c("Variable", "Coeficiente", "Error Estándar", "Valor Z", "Valor P", "Significancia"),  # Etiquetas de las columnas
   digits = 3,  # Número de decimales
   format = "html"  # Salida en formato HTML
@@ -958,13 +939,14 @@ kable(
     position = "center"  # Centrar la tabla
   ) %>%
   row_spec(0, bold = TRUE, background = "#f2f2f2")  # Resaltar la fila de encabezados
+
+# Asegurarse de que el data frame no tenga nombres de fila
+row.names(resultados) <- NULL  # Elimina los nombres de fila si están presentes
 ```
+
 
 ```{r, results = 'hide'}
 summary(model1)
-
-
-
 ```
 
 ```{r, results='hide'}
@@ -1003,52 +985,44 @@ resultado_cm <- data.frame(
             cm$byClass["Specificity"], 
             cm$byClass["Pos Pred Value"], 
             cm$byClass["F1"]))
+```
+
+```{r}
+#| label: tbl-tabla2
+#| tbl-cap: "Tabla de Métricas de la Matriz de Confusión"
 
 kable(
   resultado_cm,
-  caption = "Métricas de la Matriz de Confusión",
+  caption = "",
   col.names = c("Métrica", "Valor"),
-  digits = 3
+  digits = 3,
+  align = "ccc"  # Centrar todas las columnas
 ) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
 
-Opción 1 con datatable
 
 ```{r}
-conf_matrix <- as.data.frame(as.table(cm$table))
-datatable(
-  conf_matrix,
-  caption = "Matriz de Confusión",
-  options = list(pageLength = 5, autoWidth = TRUE),
-  rownames = FALSE
-)
+#| label: tbl-tabla3
+#| tbl-cap: "Matriz de Confusión"
 
-
-```
-
-Opción 2 con kable
-
-```{r}
 conf_matrix <- as.data.frame(as.table(cm$table))
 
 kable(
   conf_matrix,  # Data frame de la matriz de confusión
-  caption = "Matriz de Confusión",  # Título de la tabla
+  caption = "", 
   col.names = c("Referencia", "Predicción", "Frecuencia"),  # Nombres de las columnas
   digits = 0,  # Sin decimales
-  format = "html"  # Salida en formato HTML
+  format = "html",  # Salida en formato HTML
+  align = "ccc"  # Centrar todas las columnas
 ) %>%
   kable_styling(
-    bootstrap_options = c("striped", "hover", "condensed", "responsive"),  # Opciones de estilo
-    full_width = FALSE,  # Ajustar el ancho al contenido
-    position = "center"  # Centrar la tabla
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),  
+    full_width = FALSE,  
+    position = "center"  
   ) %>%
   row_spec(0, bold = TRUE, background = "#f2f2f2")  # Resaltar la fila de encabezado
 ```
-
-
-
 
 ## Análisis predictivo: Random Forest
 
@@ -1090,25 +1064,30 @@ predictions <- predict(rf_model, testData)
 conf_matrix <- confusionMatrix(predictions, testData$victimizacion)
 print(conf_matrix)
 ```
+
 ## Visualización de resultados
 
 ### Matriz de confusión en tabla
+
 ```{r}
 conf_matrix_df <- as.data.frame(conf_matrix$table)
 print(conf_matrix_df)
 ```
 
 ### Importancia de variables
+
 ```{r}
 varImpPlot(rf_model)
 ```
 
 ### Error del modelo vs. Número de árboles
+
 ```{r}
 plot(rf_model)
 ```
 
 ### Curva ROC (Solo para clasificación binaria)
+
 ```{r}
 roc_curve <- roc(testData$victimizacion, as.numeric(predictions))
 plot(roc_curve, col = "blue")
