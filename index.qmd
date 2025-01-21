@@ -70,7 +70,6 @@ packages <- c("knitr",
             "DT",
             "httr",
             "ggplot2",
-            "DiagrammeR",
             "httr",
             "ggraph",
             "igraph",
@@ -79,7 +78,9 @@ packages <- c("knitr",
             "srvyr",
             "pROC",
             "PRROC",
-            "caret"
+            "caret",
+            "randomForest",
+            "e1071"
             )
 
 # Aplica la función a cada paquete
@@ -852,6 +853,8 @@ ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = cond_preventivas))
 
 ```
 
+
+
 ## Análisis predictivo: Regresión Logística
 
 Sección en desarrollo.
@@ -861,24 +864,117 @@ set.seed(100)
 train <- sample(1:nrow(base_consolidada_2), 0.8*nrow(base_consolidada_2))
 t_train <- base_consolidada_2[train,]
 t_test <- base_consolidada_2[-train,]
+
+t_train_filtrado <- t_train %>%
+  filter(educ != "No sabe")
+
+t_test_filtrado <- t_test %>%
+  filter(educ != "No sabe")
+
+
 ```
 
 ```{r}
-model1 <- glm(victimizacion ~ sexo + edad + educ + activ + quintil + zona + exp_riesgos + sen_seguridad + cond_preventivas + acce_seguridad + conf_interp + conf_instituciones + disc, family = binomial, data = t_train)
+model1 <- glm(victimizacion ~ sexo + edad + educ + activ + quintil + zona + exp_riesgos + sen_seguridad + cond_preventivas + acce_seguridad + conf_interp + conf_instituciones + disc, 
+              family = binomial, 
+              data = t_train_filtrado)
+
+summary_model <- summary(model1)
+coef_table <- summary_model$coefficients
+
+resultados <- data.frame(
+  Variable = c("Intercepto",
+               "Sexo - Mujer",
+               "Edad",
+               "Niv. Educ. - Básica Incompleta",
+               "Niv. Educ. - Básica Completa",
+               "Niv. Educ. - Media H. Incompleta",
+               "Niv. Educ. - Media Téc. Prof. Incompleta",
+               "Niv. Educ. - Media H. Completa",
+               "Niv. Educ. - Media Téc. Prof. Completa",
+               "Niv. Educ. - Técnico Sup. Incompleta",
+               "Niv. Educ. - Técnico Sup. Completa",
+               "Niv. Educ. - Profesional Incompleto",
+               "Niv. Educ. - Postgrado Incompleto",
+               "Niv. Educ. - Profesional Completo",
+               "Niv. Educ. - Postgrado Completo",
+               "Actividad - Desocupados",
+               "Actividad - Inactivos",
+               "Quintil II",
+               "Quintil III",
+               "Quintil VI",
+               "Quintil V",
+               "Zona Rural",
+               "Exposición a Riesgos",
+               "Sensación de seguridad",
+               "Conductas Preventivas",
+               "Accesibilidad Instancias de Seguridad",
+               "Confianza Interpersonal",
+               "Confianza en Instituciones",
+               "Situación de Discapacidad"),
+  Coeficiente = round(coef_table[, "Estimate"], 3),
+  `Error Estándar` = round(coef_table[, "Std. Error"], 3),
+  `Valor Z` = round(coef_table[, "z value"], 3),
+  `Valor P` = ifelse(coef_table[, "Pr(>|z|)"] < 0.001, "<0.001", round(coef_table[, "Pr(>|z|)"], 3))
+)
+
+resultados$Significancia <- cut(
+  coef_table[, "Pr(>|z|)"],
+  breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
+  labels = c("***", "**", "*", ".", " "),
+  right = FALSE
+)
+
+
+datatable(
+  resultados,
+  caption = "Resultados del Modelo de Regresión Logística",
+  options = list(
+    pageLength = 30,  # Mostrar 30 filas por página
+    autoWidth = TRUE, # Ajustar automáticamente el ancho de las columnas
+    fixedHeader = TRUE # Fijar la primera fila al desplazarse
+  ),
+  rownames = FALSE
+)
+
+
+```
+
+```{r}
+# Asegurarse de que el data frame no tenga nombres de fila
+row.names(resultados) <- NULL  # Elimina los nombres de fila si están presentes
+
+# Generar la tabla con kable
+kable(
+  resultados,  # Data frame con los resultados
+  caption = "Resultados del Modelo de Regresión Logística",  # Título de la tabla
+  col.names = c("Variable", "Coeficiente", "Error Estándar", "Valor Z", "Valor P", "Significancia"),  # Etiquetas de las columnas
+  digits = 3,  # Número de decimales
+  format = "html"  # Salida en formato HTML
+) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),  # Opciones de estilo
+    full_width = FALSE,  # Ajustar el ancho de la tabla al contenido
+    position = "center"  # Centrar la tabla
+  ) %>%
+  row_spec(0, bold = TRUE, background = "#f2f2f2")  # Resaltar la fila de encabezados
 ```
 
 ```{r, results = 'hide'}
 summary(model1)
+
+
+
 ```
 
 ```{r, results='hide'}
-pre_risk_model1 <- predict(model1, newdata = t_test, type = "response")
+pre_risk_model1 <- predict(model1, newdata = t_test_filtrado, type = "response")
 pre_risk_model1
 ```
 
 ```{r, results='hide'}
-pc1 <- pre_risk_model1[t_test[,8] == 1]
-nc1 <- pre_risk_model1[t_test[,8] == 0]
+pc1 <- pre_risk_model1[t_test_filtrado[,8] == 1]
+nc1 <- pre_risk_model1[t_test_filtrado[,8] == 0]
 roc1 <- roc.curve(scores.class0 = pc1, scores.class1 = nc1, curve = T)
 
 ```
@@ -894,11 +990,126 @@ roc1
 plot(roc1, scale.color = heat.colors(100))
 ```
 
-
 ```{r, results='hide'}
 pre_risk_model1_bi <- as.factor(ifelse(pre_risk_model1 > 0.5, 1, 0)) 
 
-confusionMatrix(pre_risk_model1_bi, t_test$victimizacion, mode = "everything", positive = "1")
+cm <- confusionMatrix(pre_risk_model1_bi, t_test_filtrado$victimizacion, mode = "everything", positive = "1")
+
+
+resultado_cm <- data.frame(
+  Métrica = c("Exactitud", "Sensibilidad (Recall)", "Especificidad", "Precisión (PPV)", "F1-Score"),
+  Valor = c(cm$overall["Accuracy"], 
+            cm$byClass["Sensitivity"], 
+            cm$byClass["Specificity"], 
+            cm$byClass["Pos Pred Value"], 
+            cm$byClass["F1"]))
+
+kable(
+  resultado_cm,
+  caption = "Métricas de la Matriz de Confusión",
+  col.names = c("Métrica", "Valor"),
+  digits = 3
+) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+Opción 1 con datatable
+
+```{r}
+conf_matrix <- as.data.frame(as.table(cm$table))
+datatable(
+  conf_matrix,
+  caption = "Matriz de Confusión",
+  options = list(pageLength = 5, autoWidth = TRUE),
+  rownames = FALSE
+)
+
 
 ```
 
+Opción 2 con kable
+
+```{r}
+conf_matrix <- as.data.frame(as.table(cm$table))
+
+kable(
+  conf_matrix,  # Data frame de la matriz de confusión
+  caption = "Matriz de Confusión",  # Título de la tabla
+  col.names = c("Referencia", "Predicción", "Frecuencia"),  # Nombres de las columnas
+  digits = 0,  # Sin decimales
+  format = "html"  # Salida en formato HTML
+) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),  # Opciones de estilo
+    full_width = FALSE,  # Ajustar el ancho al contenido
+    position = "center"  # Centrar la tabla
+  ) %>%
+  row_spec(0, bold = TRUE, background = "#f2f2f2")  # Resaltar la fila de encabezado
+```
+
+
+
+
+## Análisis predictivo: Random Forest
+
+### Carga de datos
+
+```{r}
+df <- base_consolidada_2
+```
+
+### Preprocesamiento de datos
+
+```{r}
+# Filtrar variables categóricas con demasiados niveles
+categorical_vars <- names(df)[sapply(df, function(x) is.factor(x) & nlevels(x) > 53)]
+df <- df %>% select(-all_of(categorical_vars))
+```
+
+### División en conjunto de entrenamiento y prueba
+
+```{r}
+set.seed(123)
+trainIndex <- createDataPartition(df$victimizacion, p = 0.7, list = FALSE)
+trainData <- df[trainIndex, ]
+testData <- df[-trainIndex, ]
+```
+
+### Modelo de Random Forest
+
+```{r}
+set.seed(123)
+rf_model <- randomForest(victimizacion ~ ., data = trainData, ntree = 500, mtry = sqrt(ncol(trainData) - 1), importance = TRUE)
+print(rf_model)
+```
+
+### Evaluación del modelo
+
+```{r}
+predictions <- predict(rf_model, testData)
+conf_matrix <- confusionMatrix(predictions, testData$victimizacion)
+print(conf_matrix)
+```
+## Visualización de resultados
+
+### Matriz de confusión en tabla
+```{r}
+conf_matrix_df <- as.data.frame(conf_matrix$table)
+print(conf_matrix_df)
+```
+
+### Importancia de variables
+```{r}
+varImpPlot(rf_model)
+```
+
+### Error del modelo vs. Número de árboles
+```{r}
+plot(rf_model)
+```
+
+### Curva ROC (Solo para clasificación binaria)
+```{r}
+roc_curve <- roc(testData$victimizacion, as.numeric(predictions))
+plot(roc_curve, col = "blue")
+```
