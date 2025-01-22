@@ -979,6 +979,48 @@ roc1 <- roc.curve(scores.class0 = pc1, scores.class1 = nc1, curve = T)
 
 ```
 
+```{r}
+pred1 <- as.factor(ifelse(pre_risk_model1 > 0.5, "1","0"))
+confusionMatrix(pred1, t_test_filtrado$victimizacion, positive = "1")
+
+# CURVA ROC
+curva_roc <- roc(t_test_filtrado$victimizacion, pre_risk_model1)
+coords(curva_roc, "best") # threshold nos da el punto de corte
+# que maximiza la especificidad y la sensibilidad
+plot(curva_roc, print.thres="best")
+pred2 <- as.factor(ifelse(pre_risk_model1 >= 0.142, "1","0"))
+confusionMatrix(pred2, t_test_filtrado$victimizacion, positive = "1")
+```
+```{r}
+# REGRESIÓN LOGÍSTICA
+set.seed(123)
+index <- createDataPartition(data$target, p = 0.7, list = F)
+train <- data[index,]
+test <- data[-index,]
+
+mod_logit <- glm(target~., data = train, family = "binomial")
+prob <- predict(mod_logit, test, type = "response")
+
+# Con el predict, obtuvimos la probabilidad de que una persona
+# tenga un ataque al corazón.
+# la gran pregunta es qué puntaje de corte deberíamos considerar?
+# atenteriormente, usamos un punto de corte del 50%
+pred1 <- as.factor(ifelse(prob >
+José Ruiz-Tagle
+17:44
+pred1 <- as.factor(ifelse(prob > 0.5, "1","0"))
+confusionMatrix(pred1, test$target, positive = "1")
+
+# CURVA ROC
+curva_roc <- roc(test$target, prob)
+coords(curva_roc, "best") # threshold nos da el punto de corte
+# que maximiza la especificidad y la sensibilidad
+plot(curva_roc, print.thres="best")
+pred2 <- as.factor(ifelse(prob >= 0.538, "1","0"))
+confusionMatrix(pred2, test$target, positive = "1")
+```
+
+
 ```{r, results='hide'}
 roc1
 ```
