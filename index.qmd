@@ -729,7 +729,7 @@ ggcorrplot(corr_selected, type = "lower", lab = T, show.legend = T,
 
 **Relación entre victimización y exposición a situaciones de riesgo**
 
-Existe una correlación positiva entre la exposición a situaciones de riesgo y la victimización, lo que se refleja en la orientación ascendente de la línea de regresión en el gráfico. Esto indica que, a medida que aumenta la exposición a situaciones de riesgo, también lo hace la probabilidad de ser víctima. La correlación de R=0,3 sugiere una relación moderada, lo que implica que la asociación no es extremadamente fuerte, pero sí significativa.
+El análisis del box plot muestra que existirían diferencias en la exposición a situaciones de riesgos entre las personas víctimas y no víctimas. En promedio, los individuos que han sido víctimas tienen una exposición a riesgos significativamente mayor, con un promedio de 2,34 frente a 1,69 en el grupo de no víctimas. Además, la mediana para los víctimas también es más alta, lo que indica que la tendencia central de este grupo se encuentra en valores más elevados de exposición a riesgos. Estos resultados sugieren que la victimización está asociada con una mayor exposición a factores de riesgo, lo que podría implicar que las personas más expuestas a estos riesgos tienen una probabilidad mayor de ser víctimas.
 
 ```{r}
 #| label: fig-7
@@ -751,10 +751,9 @@ plotly_plot1 <- ggplotly(ggplot_plot1, tooltip = "text")
 plotly_plot1
 ```
 
-
 **Relación entre victimización y sensación de seguridad**
 
-La correlación entre sensación de seguridad y victimización es negativa, con un valor de R=-0,2, lo que sugiere que a medida que aumenta la sensación de seguridad, disminuye la probabilidad de ser víctima de un delito. La línea de regresión muestra una leve inclinación descendente, indicando que las personas que reportan una mayor sensación de seguridad tienen menos probabilidades de experimentar victimización. Sin embargo, dado que la correlación es débil (R=-0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, sugiriendo que existen otros factores que también influyen en la experiencia de victimización. Es importante recordar que la correlación no implica causalidad, por lo que solo podemos concluir que existe una relación leve entre las variables, pero no afirmar que una cause directamente la otras.
+El análisis del box plot que compara la sensación de seguridad con la victimización muestra que las personas que no han sido víctimas tienen una sensación de seguridad significativamente mayor, con un promedio de 3,42, frente a 2,93 en el grupo de víctimas. Esta diferencia en la media sugiere que una menor sensación de seguridad podría estar asociada con una mayor probabilidad de ser o haber sido víctima. Este hallazgo plantea la hipótesis de que la sensación de seguridad podría ser un factor protector o un indicador de vulnerabilidad frente a la victimización.
 
 ```{r}
 #| label: fig-8
@@ -778,7 +777,7 @@ plotly_plot2
 
 **Relación entre victimización y conductas preventivas**
 
-La correlación entre conductas preventivas y victimización es positiva, con un valor de R=0,2, lo que sugiere que a medida que las personas adoptan más conductas preventivas, aumenta la probabilidad de evitar ser víctimas de un delito. La línea de regresión muestra una leve inclinación ascendente, indicando que quienes toman medidas preventivas son ligeramente menos propensos a experimentar victimización. Sin embargo, dado que la correlación es débil (R=0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, lo que sugiere que existen otros factores que también influyen en la probabilidad de ser víctima de un delito.
+El análisis del box plot que compara la victimización con las conductas preventivas muestra diferencias importantes entre los dos grupos. En promedio, las personas que han sido víctimas presentan un mayor nivel de conductas preventivas, con un promedio de 2,44, frente a 1,65 en el grupo de no víctimas. Este resultado sugiere que las personas que han experimentado victimización podrían estar más motivadas a adoptar conductas preventivas, posiblemente como una respuesta a su experiencia y como medida para evitar futuros incidentes.
 
 ```{r}
 #| label: fig-9
@@ -802,7 +801,7 @@ plotly_plot3
 
 ## Análisis predictivo: Regresión Logística
 
-Sección en desarrollo.
+El modelo de regresión logística es particularmente adecuado para analizar fenómenos como la victimización debido a que la variable dependiente en este caso es binaria, es decir, tiene dos posibles resultados: ser víctima o no ser víctima. La regresión logística permite modelar la probabilidad de que ocurra uno de estos dos eventos en función de una o más variables predictoras, que pueden ser tanto cuantitativas como cualitativas.
 
 ```{r}
 set.seed(100)
@@ -810,17 +809,14 @@ train <- sample(1:nrow(base_consolidada_2), 0.8*nrow(base_consolidada_2))
 t_train <- base_consolidada_2[train,]
 t_test <- base_consolidada_2[-train,]
 
-t_train_filtrado <- t_train %>%
-  filter(educ != "No sabe")
-
-t_test_filtrado <- t_test %>%
-  filter(educ != "No sabe")
+t_train$educ[t_train$educ == "No sabe"] <- NA
+t_test$educ[t_test$educ == "No sabe"] <- NA
 ```
 
 ```{r}
 model1 <- glm(victimizacion ~ sexo + edad + educ + activ + quintil + zona + exp_riesgos + sen_seguridad + cond_preventivas + acce_seguridad + conf_interp + conf_instituciones + disc, 
               family = binomial, 
-              data = t_train_filtrado)
+              data = t_train)
 
 summary_model <- summary(model1)
 coef_table <- summary_model$coefficients
@@ -872,6 +868,22 @@ resultados$Significancia <- cut(
 row.names(resultados) <- NULL  # Elimina los nombres de fila si están presentes
 ```
 
+El modelo de regresión logística que analiza la victimización a partir de diversas variables predictoras permitió identificar algunas tendencias relevantes entre las variables analizadas, algunos de los hallazgos más destacados son los siguientes:
+
+1.  Sexo: El coeficiente negativo para las mujeres en comparación con los hombres (−0.324, p < 0.001) sugiere que las mujeres tienen una probabilidad significativamente menor de ser víctimas, lo que podría indicar una menor exposición o vulnerabilidad a situaciones de victimización en relación con los hombres.
+
+2.  Edad: La variable edad muestra un coeficiente negativo (−0.009, p < 0.001), lo que indica que a medida que aumenta la edad, la probabilidad de ser víctima disminuye, sugiriendo que los individuos más jóvenes podrían estar más expuestos a la victimización.
+
+3.  Exposición a situaciones de riesgo: El coeficiente es positivo (0.487, p < 0.001) y es uno de los hallazgos más fuertes del modelo. Esto sugiere que las personas que están más expuestas a riesgos tienen una mayor probabilidad de ser víctimas, lo que es coherente con la intuición y los análisis previos que indican que la exposición a situaciones riesgosas aumenta la probabilidad de victimización.
+
+4.  Sensación de seguridad: La sensación de seguridad tiene un coeficiente negativo (−0.380, p < 0.001), por lo que las personas que se sienten menos seguras en su entorno tienen una mayor probabilidad de ser víctimas.
+
+5.  Conductas preventivas: La variable de conductas preventivas muestra una relación significativa (0.165, p < 0.001), indicando que las personas con más conductas preventivas tienen una mayor probabilidad de ser víctimas.
+
+6.  Discapacidad: La variable de situación de discapacidad es significativa (0.209, p = 0.0327), lo que sugiere que las personas que poseen alguna situación de discapacidad tienen una mayor probabilidad de ser víctimas.
+
+Por otro lado, variables como la educación, la situación laboral, la ubicación geográfica (zona rural/urbana), el acceso a instancias de seguridad, y la confianza interpersonal y en las instituciones no muestran efectos significativos en la probabilidad de ser víctima, lo que sugiere que, en este modelo particular, no tienen un impacto fuerte o directo sobre la victimización.
+
 ```{r}
 #| label: tbl-tabla1
 #| tbl-cap: "Tabla de Resultados del Modelo de Regresión Logística"
@@ -895,33 +907,33 @@ kable(
 row.names(resultados) <- NULL  # Elimina los nombres de fila si están presentes
 ```
 
-
 ```{r, results = 'hide'}
 summary(model1)
 ```
 
 ```{r, results='hide'}
-pre_risk_model1 <- predict(model1, newdata = t_test_filtrado, type = "response")
+pre_risk_model1 <- predict(model1, newdata = t_test, type = "response")
 pre_risk_model1
 ```
 
 ```{r, results='hide'}
-pc1 <- pre_risk_model1[t_test_filtrado[,8] == 1]
-nc1 <- pre_risk_model1[t_test_filtrado[,8] == 0]
+pc1 <- pre_risk_model1[t_test[,8] == 1]
+nc1 <- pre_risk_model1[t_test[,8] == 0]
 roc1 <- roc.curve(scores.class0 = pc1, scores.class1 = nc1, curve = T)
 ```
 
 ```{r, results='hide'}
 pred1 <- as.factor(ifelse(pre_risk_model1 > 0.5, "1","0"))
-confusionMatrix(pred1, t_test_filtrado$victimizacion, positive = "1")
+confusionMatrix(pred1, t_test$victimizacion, positive = "1")
 
 # CURVA ROC
-curva_roc <- roc(t_test_filtrado$victimizacion, pre_risk_model1)
+curva_roc <- roc(t_test$victimizacion, pre_risk_model1)
 coords(curva_roc, "best") # threshold nos da el punto de corte
 # que maximiza la especificidad y la sensibilidad
 pred2 <- as.factor(ifelse(pre_risk_model1 >= 0.142, "1","0"))
-confusionMatrix(pred2, t_test_filtrado$victimizacion, positive = "1")
+confusionMatrix(pred2, t_test$victimizacion, positive = "1")
 ```
+
 ```{r}
 #| label: fig-10
 #| fig-cap: "Curva ROC"
@@ -932,7 +944,7 @@ plot(curva_roc, print.thres="best")
 ```{r, results='hide'}
 pre_risk_model1_bi <- as.factor(ifelse(pre_risk_model1 > 0.142, 1, 0)) 
 
-cm <- confusionMatrix(pre_risk_model1_bi, t_test_filtrado$victimizacion, mode = "everything", positive = "1")
+cm <- confusionMatrix(pre_risk_model1_bi, t_test$victimizacion, mode = "everything", positive = "1")
 
 
 resultado_cm <- data.frame(
@@ -989,7 +1001,6 @@ kable(
   ) %>%
   row_spec(0, bold = TRUE, background = "#f2f2f2")  # Resaltar la fila de encabezado
 ```
-
 
 ## Análisis predictivo: Random Forest
 
