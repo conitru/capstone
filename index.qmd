@@ -691,35 +691,27 @@ ggplotly(Grafico_Activ, tooltip = "text")
 
 ### Matriz de correlación
 
-La matriz de correlación nos muestra a modo general correlaciones de baja intensidad (ninguna supera el 0,5). En el caso de la interacción con la variable de victimización, aquellas variables con mayores valores en la correlación son la exposición a situaciones de riesgo (0,3), sensación de seguridad (-0,2) y conductas preventivas (0,2). Debido a esto, se evaluará la distribución de estas variables en relación a la victimización por medio de un gráfico de nube de puntos.
+La matriz de correlación nos muestra a modo general correlaciones de baja intensidad (ninguna supera el ±0,5). En el caso de la interacción entre las variables cuantitativas e independientes que se utilizaran en el modelo, las mayores correlaciones se observan entre las variables sensación de seguridad y conductas preventivas (-0,4), y entre exposición a situaciones de riesgo y sensación de seguridad (-0,4), siendo en ambos casos una correlación de tipo negativo. Estas tres variables que mostraron correlación entre sí van a ser evaluadas en su distribución según la victimización en las gráficas siguientes.
 
 ```{r}
 #Crear la matriz de correlación
 corr_selected <- base_consolidada_2 %>%    
-  mutate(across(c(victimizacion, edad, sexo, educ, activ, quintil, zona, 
-                  exp_riesgos, sen_seguridad, cond_preventivas, acce_seguridad, 
-                  conf_interp, conf_instituciones, disc), as.numeric)) %>%
-  select(victimizacion, edad, sexo, educ, activ, quintil, zona, 
-         exp_riesgos, sen_seguridad, cond_preventivas, acce_seguridad, 
-         conf_interp, conf_instituciones, disc) %>%
+  mutate(across(c(edad, quintil, exp_riesgos, sen_seguridad, cond_preventivas, 
+                  acce_seguridad, conf_interp, conf_instituciones), as.numeric)) %>%
+  select(edad, quintil, exp_riesgos, sen_seguridad, cond_preventivas, acce_seguridad, 
+         conf_interp, conf_instituciones) %>%
   cor(use = "pairwise.complete.obs", method = "pearson") %>%
   round(1)
 
 # Definir etiquetas personalizadas
-colnames(corr_selected) <- c("Victimización",
-                             "Edad",
-                             "Sexo",
-                             "Nivel educacional",
-                             "Situación laboral",
+colnames(corr_selected) <- c("Edad",
                              "Quintil de ingreso",
-                             "Zona de residencia (Urbano/Rural)",
                              "Exposición a situaciones de riesgo",
                              "Sensación de seguridad",
                              "Conductas preventivas",
                              "Accesibilidad a instancias de seguridad",
                              "Confianza Interpersonal",
-                             "Confianza en las instituciones",
-                             "Situación de discapacidad")
+                             "Confianza en las instituciones")
 
 rownames(corr_selected) <- colnames(corr_selected)
 ```
@@ -733,120 +725,79 @@ ggcorrplot(corr_selected, type = "lower", lab = T, show.legend = T,
            legend.title = "Correlación")
 ```
 
-### Correlaciones bivariadas relevantes
+### Distribución de variables cuantitativas según victimización
 
-**Correlación entre victimización y exposición a situaciones de riesgo**
+**Relación entre victimización y exposición a situaciones de riesgo**
 
 Existe una correlación positiva entre la exposición a situaciones de riesgo y la victimización, lo que se refleja en la orientación ascendente de la línea de regresión en el gráfico. Esto indica que, a medida que aumenta la exposición a situaciones de riesgo, también lo hace la probabilidad de ser víctima. La correlación de R=0,3 sugiere una relación moderada, lo que implica que la asociación no es extremadamente fuerte, pero sí significativa.
 
 ```{r}
 #| label: fig-7
-#| fig-cap: "Correlación entre victimización y exposición a situaciones de riesgo"
+#| fig-cap: "Distribución de indicador de exposición a riesgos según victimización"
 
-correlacion1 <- cor(as.numeric(base_consolidada_2$victimizacion), 
-                   base_consolidada_2$exp_riesgos, 
-                   use = "complete.obs")
+ggplot_plot1 <- ggplot(base_consolidada_2, aes(x = factor(victimizacion, labels = c("No ha sido víctima", "Ha sido víctima")), y = exp_riesgos)) +
+  geom_boxplot(fill = "lightblue", color = "black", aes(text = paste("Mediana:", round(..middle.., 2), "<br>Rango Intercuartil:", round(..upper.. - ..lower.., 2)))) + # Personalización del tooltip
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "red", aes(text = paste("Promedio:", round(..y.., 2)))) +  # Agrega el promedio con tooltip en español
+  scale_y_continuous(labels = comma) +
+  labs(title = "",
+       x = "Victimización",
+       y = "Exposición a riesgos") +
+  theme_minimal()
 
-ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = exp_riesgos)) +
-  geom_point(position = position_jitter(width = 0.1), color = "purple", alpha = 0.6) +
-  geom_smooth(method = "lm", color = "darkblue", se = FALSE, aes(group = 1)) + 
-  labs(x = "Victimización",
-       y = "Exposición a situaciones de riesgo") +
-  scale_x_discrete(labels = c("No ha sido víctima","Ha sido víctima")) +
-  scale_y_continuous(limits = c(1,7), breaks = 1:7) +
-  theme_minimal() +
-  theme(panel.grid.major.y = element_line(color = "lightgray", size = 0.5),
-        axis.text.x = element_text(size = 12),  
-        axis.text.y = element_text(size = 12),  
-        axis.title.x = element_text(size = 14), 
-        axis.title.y = element_text(size = 14)) +
-  geom_label(
-    aes(x = 2, y = 7, 
-        label = paste0("Correlación: ", round(correlacion1, 1))),
-    size = 5, 
-    fill = "white",  
-    color = "darkblue",  
-    label.size = 0.5,  
-    hjust = 1, 
-    vjust = 1
-  )
+# Convertir el gráfico de ggplot a plotly
+plotly_plot1 <- ggplotly(ggplot_plot1, tooltip = "text")
 
+# Mostrar el gráfico interactivo
+plotly_plot1
 ```
 
-**Correlación entre victimización y sensación de seguridad**
+
+**Relación entre victimización y sensación de seguridad**
 
 La correlación entre sensación de seguridad y victimización es negativa, con un valor de R=-0,2, lo que sugiere que a medida que aumenta la sensación de seguridad, disminuye la probabilidad de ser víctima de un delito. La línea de regresión muestra una leve inclinación descendente, indicando que las personas que reportan una mayor sensación de seguridad tienen menos probabilidades de experimentar victimización. Sin embargo, dado que la correlación es débil (R=-0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, sugiriendo que existen otros factores que también influyen en la experiencia de victimización. Es importante recordar que la correlación no implica causalidad, por lo que solo podemos concluir que existe una relación leve entre las variables, pero no afirmar que una cause directamente la otras.
 
 ```{r}
 #| label: fig-8
-#| fig-cap: "Correlación entre victimización y sensación de seguridad"
+#| fig-cap: "Distribución de indicador de sensación de seguridad según victimización"
 
-correlacion2 <- cor(as.numeric(base_consolidada_2$victimizacion), 
-                   base_consolidada_2$sen_seguridad, 
-                   use = "complete.obs")
+ggplot_plot2 <- ggplot(base_consolidada_2, aes(x = factor(victimizacion, labels = c("No ha sido víctima", "Ha sido víctima")), y = sen_seguridad)) +
+  geom_boxplot(fill = "lightblue", color = "black", aes(text = paste("Mediana:", round(..middle.., 2), "<br>Rango Intercuartil:", round(..upper.. - ..lower.., 2)))) + # Personalización del tooltip
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "red", aes(text = paste("Promedio:", round(..y.., 2)))) +  # Agrega el promedio con tooltip en español
+  scale_y_continuous(labels = comma) +
+  labs(title = "",
+       x = "Victimización",
+       y = "Sensación de Seguridad") +
+  theme_minimal()
 
-ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = sen_seguridad)) +
-  geom_point(position = position_jitter(width = 0.1), color = "purple", alpha = 0.6) +
-  geom_smooth(method = "lm", color = "darkblue", se = FALSE, aes(group = 1)) + 
-  labs(x = "Victimización",
-       y = "Sensación de seguridad") +
-  scale_x_discrete(labels = c("No ha sido víctima","Ha sido víctima")) +
-  scale_y_continuous(limits = c(1,7), breaks = 1:7) +
-  theme_minimal() +
-  theme(panel.grid.major.y = element_line(color = "lightgray", size = 0.5),
-        axis.text.x = element_text(size = 12),  
-        axis.text.y = element_text(size = 12),  
-        axis.title.x = element_text(size = 14), 
-        axis.title.y = element_text(size = 14)) +
-  geom_label(
-    aes(x = 2, y = 7, 
-        label = paste0("Correlación: ", round(correlacion2, 1))),
-    size = 5, 
-    fill = "white",  
-    color = "darkblue", 
-    label.size = 0.5, 
-    hjust = 1, 
-    vjust = 1
-  )
+# Convertir el gráfico de ggplot a plotly
+plotly_plot2 <- ggplotly(ggplot_plot2, tooltip = "text")
 
+# Mostrar el gráfico interactivo
+plotly_plot2
 ```
 
-**Correlación entre victimización y conductas preventivas**
+**Relación entre victimización y conductas preventivas**
 
 La correlación entre conductas preventivas y victimización es positiva, con un valor de R=0,2, lo que sugiere que a medida que las personas adoptan más conductas preventivas, aumenta la probabilidad de evitar ser víctimas de un delito. La línea de regresión muestra una leve inclinación ascendente, indicando que quienes toman medidas preventivas son ligeramente menos propensos a experimentar victimización. Sin embargo, dado que la correlación es débil (R=0,2), esta relación no es lo suficientemente fuerte como para considerarse un factor determinante, lo que sugiere que existen otros factores que también influyen en la probabilidad de ser víctima de un delito.
 
 ```{r}
 #| label: fig-9
-#| fig-cap: "Correlación entre victimización y conductas preventivas"
+#| fig-cap: "Distribución de indicador de conductas preventivas según victimización"
 
-correlacion3 <- cor(as.numeric(base_consolidada_2$victimizacion), 
-                   base_consolidada_2$cond_preventivas, 
-                   use = "complete.obs")
+ggplot_plot3 <- ggplot(base_consolidada_2, aes(x = factor(victimizacion, labels = c("No ha sido víctima", "Ha sido víctima")), y = cond_preventivas)) +
+  geom_boxplot(fill = "lightblue", color = "black", aes(text = paste("Mediana:", round(..middle.., 2), "<br>Rango Intercuartil:", round(..upper.. - ..lower.., 2)))) + # Personalización del tooltip
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "red", aes(text = paste("Promedio:", round(..y.., 2)))) +  # Agrega el promedio con tooltip en español
+  scale_y_continuous(labels = comma) +
+  labs(title = "",
+       x = "Victimización",
+       y = "Conductas Preventivas") +
+  theme_minimal()
 
-ggplot(base_consolidada_2, aes(x = factor(victimizacion), y = cond_preventivas)) +
-  geom_point(position = position_jitter(width = 0.1), color = "purple", alpha = 0.6) +
-  geom_smooth(method = "lm", color = "darkblue", se = FALSE, aes(group = 1)) + 
-  labs(x = "Victimización",
-       y = "Conductas preventivas") +
-  scale_x_discrete(labels = c("No ha sido víctima","Ha sido víctima")) +
-  scale_y_continuous(limits = c(1,7), breaks = 1:7) +
-  theme_minimal() +
-  theme(panel.grid.major.y = element_line(color = "lightgray", size = 0.5),
-        axis.text.x = element_text(size = 12),  
-        axis.text.y = element_text(size = 12),  
-        axis.title.x = element_text(size = 14), 
-        axis.title.y = element_text(size = 14)) +
-  geom_label(
-    aes(x = 2, y = 7, 
-        label = paste0("Correlación: ", round(correlacion3, 1))),
-    size = 5, 
-    fill = "white",  
-    color = "darkblue", 
-    label.size = 0.5, 
-    hjust = 1, 
-    vjust = 1
-  )
+# Convertir el gráfico de ggplot a plotly
+plotly_plot3 <- ggplotly(ggplot_plot3, tooltip = "text")
 
+# Mostrar el gráfico interactivo
+plotly_plot3
 ```
 
 ## Análisis predictivo: Regresión Logística
@@ -958,10 +909,9 @@ pre_risk_model1
 pc1 <- pre_risk_model1[t_test_filtrado[,8] == 1]
 nc1 <- pre_risk_model1[t_test_filtrado[,8] == 0]
 roc1 <- roc.curve(scores.class0 = pc1, scores.class1 = nc1, curve = T)
-
 ```
 
-```{r}
+```{r, results='hide'}
 pred1 <- as.factor(ifelse(pre_risk_model1 > 0.5, "1","0"))
 confusionMatrix(pred1, t_test_filtrado$victimizacion, positive = "1")
 
@@ -969,53 +919,18 @@ confusionMatrix(pred1, t_test_filtrado$victimizacion, positive = "1")
 curva_roc <- roc(t_test_filtrado$victimizacion, pre_risk_model1)
 coords(curva_roc, "best") # threshold nos da el punto de corte
 # que maximiza la especificidad y la sensibilidad
-plot(curva_roc, print.thres="best")
 pred2 <- as.factor(ifelse(pre_risk_model1 >= 0.142, "1","0"))
 confusionMatrix(pred2, t_test_filtrado$victimizacion, positive = "1")
 ```
 ```{r}
-# REGRESIÓN LOGÍSTICA
-set.seed(123)
-index <- createDataPartition(data$target, p = 0.7, list = F)
-train <- data[index,]
-test <- data[-index,]
-
-mod_logit <- glm(target~., data = train, family = "binomial")
-prob <- predict(mod_logit, test, type = "response")
-
-# Con el predict, obtuvimos la probabilidad de que una persona
-# tenga un ataque al corazón.
-# la gran pregunta es qué puntaje de corte deberíamos considerar?
-# atenteriormente, usamos un punto de corte del 50%
-pred1 <- as.factor(ifelse(prob >
-José Ruiz-Tagle
-17:44
-pred1 <- as.factor(ifelse(prob > 0.5, "1","0"))
-confusionMatrix(pred1, test$target, positive = "1")
-
-# CURVA ROC
-curva_roc <- roc(test$target, prob)
-coords(curva_roc, "best") # threshold nos da el punto de corte
-# que maximiza la especificidad y la sensibilidad
-plot(curva_roc, print.thres="best")
-pred2 <- as.factor(ifelse(prob >= 0.538, "1","0"))
-confusionMatrix(pred2, test$target, positive = "1")
-```
-
-
-```{r, results='hide'}
-roc1
-```
-
-```{r}
 #| label: fig-10
 #| fig-cap: "Curva ROC"
 
-plot(roc1, scale.color = heat.colors(100))
+plot(curva_roc, print.thres="best")
 ```
 
 ```{r, results='hide'}
-pre_risk_model1_bi <- as.factor(ifelse(pre_risk_model1 > 0.5, 1, 0)) 
+pre_risk_model1_bi <- as.factor(ifelse(pre_risk_model1 > 0.142, 1, 0)) 
 
 cm <- confusionMatrix(pre_risk_model1_bi, t_test_filtrado$victimizacion, mode = "everything", positive = "1")
 
@@ -1043,17 +958,26 @@ kable(
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
 
-
 ```{r}
 #| label: tbl-tabla3
 #| tbl-cap: "Matriz de Confusión"
 
+# Crear una tabla de la matriz de confusión
 conf_matrix <- as.data.frame(as.table(cm$table))
 
+# Reestructurar la tabla para que las predicciones queden como columnas
+conf_matrix_wide <- conf_matrix %>%
+  pivot_wider(
+    names_from = Prediction,  # Las categorías de Predicción se convertirán en columnas
+    values_from = Freq,       # Los valores de frecuencia se pondrán en las celdas de cruce
+    values_fill = list(Freq = 0)  # Rellenar valores vacíos con 0 (en caso de no haber una combinación)
+  )
+
+# Visualizar la tabla reestructurada con kable
 kable(
-  conf_matrix,  # Data frame de la matriz de confusión
-  caption = "", 
-  col.names = c("Referencia", "Predicción", "Frecuencia"),  # Nombres de las columnas
+  conf_matrix_wide,  # Tabla reestructurada
+  caption = "Matriz de Confusión", 
+  col.names = c("Referencia", "Predicción 0", "Predicción 1"),  # Nombres de las columnas
   digits = 0,  # Sin decimales
   format = "html",  # Salida en formato HTML
   align = "ccc"  # Centrar todas las columnas
@@ -1065,6 +989,7 @@ kable(
   ) %>%
   row_spec(0, bold = TRUE, background = "#f2f2f2")  # Resaltar la fila de encabezado
 ```
+
 
 ## Análisis predictivo: Random Forest
 
