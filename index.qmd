@@ -463,13 +463,9 @@ Se realiza una nueva selección de variables para conservar una base de datos qu
 
 ```{r}
 base_consolidada_2 <- Base_consolidada %>% 
-  select(folio,
-folio_casen,
-id_persona_casen,
-region,
+  select(region,
 comuna,
 edad,
-fexp,
 victimizacion,
 sexo,
 educ,
@@ -492,7 +488,6 @@ base_consolidada_2 <- base_consolidada_2 %>%
          region = as_factor(region),
          comuna = as_factor(comuna),
          edad = as.numeric(edad),
-         fexp = as.numeric(fexp),
          sexo = as_factor(sexo),
          educ = as_factor(educ),
          activ = as_factor(activ),
@@ -1004,6 +999,8 @@ kable(
 
 ## Análisis predictivo: Random Forest
 
+Usamos Random Forest porque es un modelo de aprendizaje automático supervisado que combina múltiples árboles de decisión para mejorar la precisión y estabilidad de las predicciones. Es útil porque reduce el sobreajuste, maneja bien datos con muchas variables y es robusto ante valores atípicos y ruido. Además, permite evaluar la importancia de las variables en la predicción.
+
 ### Carga de datos
 
 ```{r}
@@ -1013,60 +1010,88 @@ df <- base_consolidada_2
 ### Preprocesamiento de datos
 
 ```{r}
-# Filtrar variables categóricas con demasiados niveles
+# Filtrar variables categóricas con más de 53 niveles
 categorical_vars <- names(df)[sapply(df, function(x) is.factor(x) & nlevels(x) > 53)]
 df <- df %>% select(-all_of(categorical_vars))
+
+# Verificar que el filtrado funcionó
+str(df)  # Revisa la estructura para confirmar que las variables categóricas problemáticas fueron eliminadas
 ```
 
-### División en conjunto de entrenamiento y prueba
 
 ```{r}
+# Divide los datos en entrenamiento y prueba
 set.seed(123)
 trainIndex <- createDataPartition(df$victimizacion, p = 0.7, list = FALSE)
 trainData <- df[trainIndex, ]
 testData <- df[-trainIndex, ]
-```
 
-### Modelo de Random Forest
-
-```{r}
+# Ajuste del modelo Random Forest
 set.seed(123)
 rf_model <- randomForest(victimizacion ~ ., data = trainData, ntree = 500, mtry = sqrt(ncol(trainData) - 1), importance = TRUE)
+
+# Imprime el modelo entrenado para verificar
 print(rf_model)
 ```
-
-### Evaluación del modelo
-
+### Predicciones en probabilidades
 ```{r}
-predictions <- predict(rf_model, testData)
-conf_matrix <- confusionMatrix(predictions, testData$victimizacion)
-print(conf_matrix)
+# Obtener probabilidades en lugar de clases
+pred_probs <- predict(rf_model, testData, type = "prob")
 ```
 
-## Visualización de resultados
-
-### Matriz de confusión en tabla
+### Curva ROC
 
 ```{r}
-conf_matrix_df <- as.data.frame(conf_matrix$table)
-print(conf_matrix_df)
+# Asegurar que la variable objetivo es un factor
+testData$victimizacion <- as.factor(testData$victimizacion)
+
+# Calcular la curva ROC
+roc_curve <- roc(testData$victimizacion, pred_probs[, 2])  # Tomamos la probabilidad de la clase positiva
+plot(roc_curve, main="Curva ROC - Random Forest")
+
+# Calcular el Área Bajo la Curva (AUC)
+auc_value <- auc(roc_curve)
+print(paste("Área bajo la curva (AUC):", auc_value))
 ```
 
-### Importancia de variables
+La Curva ROC es una herramienta para evaluar el desempeño de un modelo de clasificación, midiendo la relación entre la tasa de verdaderos positivos (sensibilidad) y la tasa de falsos positivos (1 - especificidad).
+
+El punto de corte de 0.157 significa que el modelo clasificará como víctima a cualquier caso cuya probabilidad estimada sea superior a este umbral, en lugar de usar el estándar de 0.5. Este valor se elige porque maximiza la diferencia entre sensibilidad y especificidad, lo que permite un mejor balance en la clasificación.
+
+En este caso, el umbral bajo **favorece la detección de más casos positivos**, aumentando la sensibilidad a costa de un posible incremento en los falsos positivos.
+
+### Encontrar el punto de corte
+
+```{r}
+# Encontrar el mejor punto de corte
+opt_cutoff <- coords(roc_curve, "best", ret="threshold")
+print(paste("Punto óptimo de corte:", opt_cutoff))
+
+```
+
+### Aplicación del punto de corte
+
+La aplicación del punto de corte en un modelo de Random Forest ajusta la clasificación de los casos según un umbral óptimo determinado por la Curva ROC. En lugar de usar el valor predeterminado de 0.5, se emplea el punto de corte 0.157, que maximiza la sensibilidad y especificidad del modelo. Esto significa que, si la probabilidad predicha de ser víctima es mayor a 0.157, el modelo clasificará el caso como 1 (víctima); de lo contrario, lo clasificará como 0 (no víctima).
+
+```{r}
+# Aplicar el punto de corte óptimo
+adjusted_predictions <- ifelse(pred_probs[, 2] > 0.157, 1, 0)
+
+# Convertir a factor para la matriz de confusión
+adjusted_predictions <- factor(adjusted_predictions, levels = levels(testData$victimizacion))
+
+# Nueva matriz de confusión con el umbral ajustado
+conf_matrix_adjusted <- confusionMatrix(adjusted_predictions, testData$victimizacion)
+print(conf_matrix_adjusted)
+```
+
+### Importancia de las variables
+
+El gráfico de importancia de las variables en un modelo de Random Forest muestra qué variables contribuyen más a la predicción del modelo.
+
+Interpretación de gráfico.
 
 ```{r}
 varImpPlot(rf_model)
 ```
 
-### Error del modelo vs. Número de árboles
-
-```{r}
-plot(rf_model)
-```
-
-### Curva ROC (Solo para clasificación binaria)
-
-```{r}
-roc_curve <- roc(testData$victimizacion, as.numeric(predictions))
-plot(roc_curve, col = "blue")
-```
