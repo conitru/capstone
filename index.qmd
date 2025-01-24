@@ -221,7 +221,7 @@ Variables independientes:
 
 ### Modelo Conceptual
 
-**Gráfico circular.** Para el modelo conceptual de presentación de variables se utiliza un gráfico circular, similar al modelo de estrella, dado que este permite dar cuenta de manera visualmente clara la relación entre las variables explicativas y la variable dependiente (victimización). Dado que el el objetivo de este proyecto es realizar un análisis explicativo sobre la ocurrencia de un fenómeno concreto (la victimización), el diagrama circular se establece como una mejor alternativa de visualización que el modelo entidad-relación, ya que no se busca estructurar y normalizar una base de datos. Adicionalmente, se tomó en consideración que los factores que se analizarán como potenciales elementos explicativos de la victimización (sexo, edad, percepción de seguridad, zona de residencia, confianza en instituciones, confianza interpersonal, accesibilidad a servicios, entre otras) no constituyen entidades independientes con relaciones jerárquicas, sino que representan variables explicativas que interactúan con el fenómeno central.
+**Diagrama circular.** Para el modelo conceptual de presentación de variables se utiliza un diagrama circular, similar al modelo de estrella, dado que este permite dar cuenta de manera visualmente clara la relación entre las variables explicativas y la variable dependiente (victimización). Dado que el el objetivo de este proyecto es realizar un análisis explicativo sobre la ocurrencia de un fenómeno concreto (la victimización), el diagrama circular se establece como una mejor alternativa de visualización que el modelo entidad-relación, ya que no se busca estructurar y normalizar una base de datos. Adicionalmente, se tomó en consideración que los factores que se analizarán como potenciales elementos explicativos de la victimización (sexo, edad, percepción de seguridad, zona de residencia, confianza en instituciones, confianza interpersonal, accesibilidad a servicios, entre otras) no constituyen entidades independientes con relaciones jerárquicas, sino que representan variables explicativas que interactúan con el fenómeno central.
 
 ```{r}
 #| label: fig-1
@@ -748,7 +748,7 @@ plotly_plot1
 
 **Relación entre victimización y sensación de seguridad**
 
-El análisis del box plot que compara la sensación de seguridad con la victimización muestra que las personas que no han sido víctimas tienen una sensación de seguridad significativamente mayor, con un promedio de 3,42, frente a 2,93 en el grupo de víctimas. Esta diferencia en la media sugiere que una menor sensación de seguridad podría estar asociada con una mayor probabilidad de ser o haber sido víctima. Este hallazgo plantea la hipótesis de que la sensación de seguridad podría ser un factor protector o un indicador de vulnerabilidad frente a la victimización.
+El análisis del box plot que compara la sensación de seguridad con la victimización muestra que las personas que no han sido víctimas tienen una sensación de seguridad significativamente mayor, con un promedio de 3,42, frente a 2,93 en el grupo de víctimas. Esta diferencia en la media sugiere que una menor sensación de seguridad podría estar asociada con una mayor probabilidad de ser víctima. Este hallazgo plantea la hipótesis de que la sensación de seguridad podría ser un factor protector o un indicador de vulnerabilidad frente a la victimización.
 
 ```{r}
 #| label: fig-8
@@ -929,12 +929,22 @@ pred2 <- as.factor(ifelse(pre_risk_model1 >= 0.142, "1","0"))
 confusionMatrix(pred2, t_test$victimizacion, positive = "1")
 ```
 
+El modelo predictivo que se llevó a cabo tiene como objetivo predecir la probabilidad de victimización a partir de un conjunto de variables independientes relacionadas con características sociodemográficas, comportamientos, percepciones y contextos de los individuos. Utilizando un modelo de regresión logística, se busca identificar patrones y relaciones significativas entre factores como el sexo, la edad, el nivel educativo, la exposición a riesgos, la sensación de seguridad y las conductas preventivas, entre otros, y su impacto en la probabilidad de ser víctima.
+
+Para evaluar el modelo predictivo, se realizó una división de la base de datos en dos subconjuntos: un conjunto de entrenamiento (t_train) y un conjunto de prueba (t_test). Esta división es fundamental en el proceso de modelado predictivo, ya que permite entrenar el modelo utilizando una parte de los datos y luego evaluar su desempeño en un conjunto de datos independiente, asegurando así la generalización de los resultados.
+
+En esta etapa, el 80% de los datos se asignaron al conjunto de entrenamiento y el 20% restante al conjunto de prueba. Además, para garantizar la calidad del modelo y evitar posibles sesgos en las predicciones, los registros con valores de "No sabe" en la variable nivel educacional se trataron asignándoles valores perdidos (NA) tanto en el conjunto de entrenamiento como en el de prueba.
+
+Inicialmente, se calcularon los indicadores de la matriz de confusión y la curva ROC para evaluar el desempeño del modelo predictivo en un escenario de punto de corte estándar de 0,5 para clasificar las predicciones en víctimas y no víctimas. Luego se procedió a calcular el punto de corte óptimo que maximiza la especificidad y la sensibilidad, estableciendo este punto de corte en 0,142. A partir de este punto de corte se recalculó la matriz de confusión y la curva Roc, resultados que se presentan en la siguiente figura y tablas.
+
 ```{r}
 #| label: fig-10
 #| fig-cap: "Curva ROC"
 
 plot(curva_roc, print.thres="best")
 ```
+
+La exactitud del modelo es de 0,679, lo que indica que, en general, el modelo tiene una capacidad moderada para predecir correctamente los casos de victimización y no victimización. El valor de sensibilidad (0,687) es relativamente alto, lo que sugiere que el modelo tiene una capacidad decente para identificar correctamente los casos de victimización, es decir, los verdaderos positivos. Sin embargo, la especificidad, que es de 0,678, indica que el modelo tiene una capacidad similar para identificar correctamente los casos negativos, es decir, los verdaderos negativos. La precisión (PPV) de 0.261 es baja, lo que sugiere que, cuando el modelo predice que alguien ha sido víctima, hay una alta probabilidad de que esta predicción sea incorrecta. Uno de los motivos que explican estos resultados es el desbalence en la muestra entre personas víctimas y no víctimas, ya que al haber muchas más personas no víctimas, el modelo en general es mucho más efectivo para predecir este grupo, mientras que presenta una menor precisión en el caso del grupo más pequeño de víctimas.
 
 ```{r, results='hide'}
 pre_risk_model1_bi <- as.factor(ifelse(pre_risk_model1 > 0.142, 1, 0)) 
@@ -964,6 +974,8 @@ kable(
 ) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
+
+Relacionado con lo anterior, la matriz de confusión muestra que el modelo tiene dificultades para predecir correctamente las víctimas (clase 1), ya que identifica correctamente solo 211 casos como víctimas (verdaderos positivos), mientras que comete 96 falsos negativos, es decir, no reconoce a muchas víctimas.
 
 ```{r}
 #| label: tbl-tabla3
@@ -999,7 +1011,7 @@ kable(
 
 ## Análisis predictivo: Random Forest
 
-Usamos Random Forest porque es un modelo de aprendizaje automático supervisado que combina múltiples árboles de decisión para mejorar la precisión y estabilidad de las predicciones. Es útil porque reduce el sobreajuste, maneja bien datos con muchas variables y es robusto ante valores atípicos y ruido. Además, permite evaluar la importancia de las variables en la predicción.
+Se utiliza Random Forest porque es un modelo de aprendizaje automático supervisado que combina múltiples árboles de decisión para mejorar la precisión y estabilidad de las predicciones. Es útil porque reduce el sobreajuste, maneja bien datos con muchas variables y es robusto ante valores atípicos. Además, permite evaluar la importancia de las variables en la predicción.
 
 ### Carga de datos
 
@@ -1009,7 +1021,7 @@ df <- base_consolidada_2
 
 ### Preprocesamiento de datos
 
-```{r}
+```{r, results='hide'}
 # Filtrar variables categóricas con más de 53 niveles
 categorical_vars <- names(df)[sapply(df, function(x) is.factor(x) & nlevels(x) > 53)]
 df <- df %>% select(-all_of(categorical_vars))
@@ -1018,8 +1030,7 @@ df <- df %>% select(-all_of(categorical_vars))
 str(df)  # Revisa la estructura para confirmar que las variables categóricas problemáticas fueron eliminadas
 ```
 
-
-```{r}
+```{r, results='hide'}
 # Divide los datos en entrenamiento y prueba
 set.seed(123)
 trainIndex <- createDataPartition(df$victimizacion, p = 0.7, list = FALSE)
@@ -1033,7 +1044,24 @@ rf_model <- randomForest(victimizacion ~ ., data = trainData, ntree = 500, mtry 
 # Imprime el modelo entrenado para verificar
 print(rf_model)
 ```
+La matriz de confusión del Random Forest muestra que el modelo fue capaz de predecir correctamente 6453 casos de no victimización y 72 casos de victimización. Sin embargo, clasificó erróneamente 83 casos de no víctimas como víctimas. Esto es, generó 83 falsos positivos. Asimismo, se presentaron 1037 errores al clasificar victimas reales como no victimas (falsos negativos), lo que indica que el modelo presenta dificultades al identificar correctamente a las personas victimizadas. Esto indica que el modelo es preciso al identificar quién no será victima, pero tiene dificultades al detectar correctamente a quienes sí lo serán. 
+
+```{r}
+#| label: tbl-tabla4
+#| tbl-cap: "Matriz de Confusión Random Forest"
+
+conf_matrix_df <- data.frame(
+  Real = c("Clase 0 (No Víctima)", "Clase 1 (Víctima)"),
+  `Predicho 0 (No Victima)` = c(6453, 1037),
+  `Predicho 1 (Victima)` = c(83, 72)
+)
+
+kable(conf_matrix_df, format = "html", align = "c", caption = "Matriz de Confusión del Modelo Random Forest") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
 ### Predicciones en probabilidades
+
 ```{r}
 # Obtener probabilidades en lugar de clases
 pred_probs <- predict(rf_model, testData, type = "prob")
@@ -1041,9 +1069,16 @@ pred_probs <- predict(rf_model, testData, type = "prob")
 
 ### Curva ROC
 
+La Curva ROC es una herramienta para evaluar el desempeño de un modelo de clasificación, midiendo la relación entre la tasa de verdaderos positivos (sensibilidad) y la tasa de falsos positivos (1 - especificidad).
+
+El punto de corte de 0.157 significa que el modelo clasificará como víctima a cualquier caso cuya probabilidad estimada sea superior a este umbral, en lugar de usar el estándar de 0.5. Este valor se elige porque maximiza la diferencia entre sensibilidad y especificidad, lo que permite un mejor balance en la clasificación.
+
+Esto significa que, si la probabilidad predicha de ser víctima es mayor a 0.157, el modelo clasificará el caso como 1 (víctima); de lo contrario, lo clasificará como 0 (no víctima). En este caso, el umbral bajo **favorece la detección de más casos positivos**, aumentando la sensibilidad a costa de un posible incremento en los falsos positivos. 
+
+
 ```{r}
-# Asegurar que la variable objetivo es un factor
-testData$victimizacion <- as.factor(testData$victimizacion)
+#| label: fig-11
+#| fig-cap: "Curva ROC Random Forest"
 
 # Calcular la curva ROC
 roc_curve <- roc(testData$victimizacion, pred_probs[, 2])  # Tomamos la probabilidad de la clase positiva
@@ -1052,17 +1087,7 @@ plot(roc_curve, main="Curva ROC - Random Forest")
 # Calcular el Área Bajo la Curva (AUC)
 auc_value <- auc(roc_curve)
 print(paste("Área bajo la curva (AUC):", auc_value))
-```
 
-La Curva ROC es una herramienta para evaluar el desempeño de un modelo de clasificación, midiendo la relación entre la tasa de verdaderos positivos (sensibilidad) y la tasa de falsos positivos (1 - especificidad).
-
-El punto de corte de 0.157 significa que el modelo clasificará como víctima a cualquier caso cuya probabilidad estimada sea superior a este umbral, en lugar de usar el estándar de 0.5. Este valor se elige porque maximiza la diferencia entre sensibilidad y especificidad, lo que permite un mejor balance en la clasificación.
-
-En este caso, el umbral bajo **favorece la detección de más casos positivos**, aumentando la sensibilidad a costa de un posible incremento en los falsos positivos.
-
-### Encontrar el punto de corte
-
-```{r}
 # Encontrar el mejor punto de corte
 opt_cutoff <- coords(roc_curve, "best", ret="threshold")
 print(paste("Punto óptimo de corte:", opt_cutoff))
@@ -1071,9 +1096,7 @@ print(paste("Punto óptimo de corte:", opt_cutoff))
 
 ### Aplicación del punto de corte
 
-La aplicación del punto de corte en un modelo de Random Forest ajusta la clasificación de los casos según un umbral óptimo determinado por la Curva ROC. En lugar de usar el valor predeterminado de 0.5, se emplea el punto de corte 0.157, que maximiza la sensibilidad y especificidad del modelo. Esto significa que, si la probabilidad predicha de ser víctima es mayor a 0.157, el modelo clasificará el caso como 1 (víctima); de lo contrario, lo clasificará como 0 (no víctima).
-
-```{r}
+```{r, results='hide'}
 # Aplicar el punto de corte óptimo
 adjusted_predictions <- ifelse(pred_probs[, 2] > 0.157, 1, 0)
 
@@ -1084,14 +1107,66 @@ adjusted_predictions <- factor(adjusted_predictions, levels = levels(testData$vi
 conf_matrix_adjusted <- confusionMatrix(adjusted_predictions, testData$victimizacion)
 print(conf_matrix_adjusted)
 ```
+El modelo tiene una precisión del 58.61%, lo que sugiere un desempeño moderado. La sensibilidad es de 55.48%, lo que indica que el modelo identifica correctamente ese porcentaje de los casos de no victimización. Por otra parte, la especificidad muestra que detecta el 77.05% de los casos de victimización. Sin embargo, el calor predictivo negativo (22.69%) es bajo, lo que significa que el modelo aun presenta dificultades para identificar correctamente a las personas victimizadas. El índice Kappa, de 0.1631, sugiere una relación débil entre las predicciones del modelo y la realidad.
+
+```{r}
+#| label: tbl-tabla5
+#| tbl-cap: "Matriz de Confusión Random Forest ajustada al Punto de Corte"
+
+# Crear la matriz de confusión como data frame
+conf_matrix_df <- data.frame(
+  Real = c("Clase 0 (No Víctima)", "Clase 1 (Víctima)"),
+  `Predicho 0 (No Víctima)` = c(1554, 1247),
+  `Predicho 1 (Víctima)` = c(109, 366)
+)
+
+# Crear un data frame con las métricas del modelo
+metrics_df <- data.frame(
+  Métrica = c("Precisión (Accuracy)", "Intervalo de confianza (95% CI)", 
+              "No Information Rate", "P-Value [Acc > NIR]", 
+              "Kappa", "McNemar's Test P-Value",
+              "Sensibilidad", "Especificidad", "Valor predictivo positivo", "Valor predictivo negativo",
+              "Prevalencia", "Detection Rate", "Detection Prevalence", "Balanced Accuracy"),
+  Valor = c("58.61%", "(56.9% - 60.3%)", "85.5%", "1", 
+            "0.1631", "<2e-16", 
+            "55.48%", "77.05%", "93.45%", "22.69%", 
+            "85.5%", "47.44%", "50.76%", "66.27%")
+)
+
+# Mostrar la tabla de la matriz de confusión
+kable(conf_matrix_df, format = "html", align = "c", caption = "Matriz de Confusión del Modelo") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+
+```{r}
+#| label: tbl-tabla6
+#| tbl-cap: "Métricas del Modelo de Clasificación Random Forest"
+
+# Mostrar la tabla de métricas
+kable(metrics_df, format = "html", align = "c", caption = "Métricas del Modelo de Clasificación") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
 
 ### Importancia de las variables
 
-El gráfico de importancia de las variables en un modelo de Random Forest muestra qué variables contribuyen más a la predicción del modelo.
-
-Interpretación de gráfico.
+El gráfico de importancia de las variables en un modelo de Random Forest muestra cómo cada variable contribuye a la reducción de la impureza del modelo. En este caso, si nos basamos en el índice de Gini (MeanDecreaseGini), donde los valores más altos indican una mayor contribución de la variable en la mejora de la precisión del modelo, las variables que serían más relevantes en este análisis son la región, la exposición a situaciones de riesgo, la edad, el nivel educacional, la sensación de seguridad y la confianza en las instituciones.
 
 ```{r}
+#| label: fig-12
+#| fig-cap: "Importancia de las variables"
+
 varImpPlot(rf_model)
 ```
+
+## Conclusiones
+
+El objetivo de este proyecto se enfocó en analizar los factores que influyen en la victimización en Chile, considerando variables individuales, socioeconómicas, geográficas y perceptivas. A través de un enfoque cuantitativo, se utilizan datos secundarios de encuestas nacionales (EBS 2021 y Casen en pandemia 2020) y se aplican modelos estadísticos predictivos como la regresión logística y Random Forest.
+
+El análisis descriptivo revela que las personas que han sido víctimas de delitos tienen una mayor exposición a riesgos y una menor sensación de seguridad en comparación con quienes no lo han sido. Además, las personas víctimas adoptan conductas preventivas más marcadas, lo que sugiere una respuesta adaptativa a experiencias previas de victimización. Por otro lado, las diferencias entre zonas urbanas y rurales, en cuanto a la victimización, se confirman como relevantes, con un mayor porcentaje de víctimas en áreas urbanas. Esto se alinea con la hipótesis inicial sobre la mayor densidad de población y actividad delictiva en estos contextos.
+
+Los modelos predictivos, especialmente el de regresión logística, muestran que **la probabilidad de victimización aumenta con la exposición a situaciones de riesgo y disminuye con una mayor sensación de seguridad**. Sin embargo, el modelo presenta limitaciones en cuanto a la predicción de víctimas debido al desbalance en los datos.
+
+El modelo de Random Forest ha permitido identificar patrones clave en la predicción de la victimización en Chile, utilizando variables socioeconómicas y demográficas. No obstante, si bien ha mostrado una buena capacidad para clasificar correctamente a quienes **no han sido víctimas de delitos**, tiene dificultades en identificar correctamente a quienes **sí lo han sido**, lo que sugiere un posible desbalance en los datos. Por su parte, el análisis de importancia de las variables indica que factores como la **región, la exposición a situaciones de riesgo, la edad, el nivel educacional, la sensación de seguridad y la confianza en las instituciones** juegan un papel relevante en la predicción de la victimización.
 
