@@ -995,7 +995,6 @@ conf_matrix_wide <- conf_matrix %>%
 # Visualizar la tabla reestructurada con kable
 kable(
   conf_matrix_wide,  # Tabla reestructurada
-  caption = "Matriz de Confusión", 
   col.names = c("Referencia", "Predicción 0", "Predicción 1"),  # Nombres de las columnas
   digits = 0,  # Sin decimales
   format = "html",  # Salida en formato HTML
@@ -1052,11 +1051,11 @@ La matriz de confusión del Random Forest muestra que el modelo fue capaz de pre
 
 conf_matrix_df <- data.frame(
   Real = c("Clase 0 (No Víctima)", "Clase 1 (Víctima)"),
-  `Predicho 0 (No Victima)` = c(6453, 1037),
-  `Predicho 1 (Victima)` = c(83, 72)
+  `Predicción 0` = c(6453, 1037),
+  `Predicción 1` = c(83, 72)
 )
 
-kable(conf_matrix_df, format = "html", align = "c", caption = "Matriz de Confusión del Modelo Random Forest") %>%
+kable(conf_matrix_df, format = "html", align = "c") %>%
   kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
 
@@ -1116,8 +1115,8 @@ El modelo tiene una precisión del 58.61%, lo que sugiere un desempeño moderado
 # Crear la matriz de confusión como data frame
 conf_matrix_df <- data.frame(
   Real = c("Clase 0 (No Víctima)", "Clase 1 (Víctima)"),
-  `Predicho 0 (No Víctima)` = c(1554, 1247),
-  `Predicho 1 (Víctima)` = c(109, 366)
+  `Predicción 0` = c(1554, 1247),
+  `Predicción 1` = c(109, 366)
 )
 
 # Crear un data frame con las métricas del modelo
@@ -1134,7 +1133,7 @@ metrics_df <- data.frame(
 )
 
 # Mostrar la tabla de la matriz de confusión
-kable(conf_matrix_df, format = "html", align = "c", caption = "Matriz de Confusión del Modelo") %>%
+kable(conf_matrix_df, format = "html", align = "c") %>%
   kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
 
@@ -1144,7 +1143,7 @@ kable(conf_matrix_df, format = "html", align = "c", caption = "Matriz de Confusi
 #| tbl-cap: "Métricas del Modelo de Clasificación Random Forest"
 
 # Mostrar la tabla de métricas
-kable(metrics_df, format = "html", align = "c", caption = "Métricas del Modelo de Clasificación") %>%
+kable(metrics_df, format = "html", align = "c") %>%
   kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
 
