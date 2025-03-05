@@ -1,6 +1,6 @@
 ---
 title: "Capstone"
-author: "Cristian Sandoval y Constanza Trujillo"
+author: "Constanza Trujillo"
 date: "`r Sys.Date()`" #este es un comando para que aparezca la fecha actual
 lang: es
 format: 
@@ -865,15 +865,15 @@ row.names(resultados) <- NULL  # Elimina los nombres de fila si están presentes
 
 El modelo de regresión logística que analiza la victimización a partir de diversas variables predictoras permitió identificar algunas tendencias relevantes entre las variables analizadas, algunos de los hallazgos más destacados son los siguientes:
 
-1.  Sexo: El coeficiente negativo para las mujeres en comparación con los hombres (−0.324, p < 0.001) sugiere que las mujeres tienen una probabilidad significativamente menor de ser víctimas, lo que podría indicar una menor exposición o vulnerabilidad a situaciones de victimización en relación con los hombres.
+1.  Sexo: El coeficiente negativo para las mujeres en comparación con los hombres (−0.324, p \< 0.001) sugiere que las mujeres tienen una probabilidad significativamente menor de ser víctimas, lo que podría indicar una menor exposición o vulnerabilidad a situaciones de victimización en relación con los hombres.
 
-2.  Edad: La variable edad muestra un coeficiente negativo (−0.009, p < 0.001), lo que indica que a medida que aumenta la edad, la probabilidad de ser víctima disminuye, sugiriendo que los individuos más jóvenes podrían estar más expuestos a la victimización.
+2.  Edad: La variable edad muestra un coeficiente negativo (−0.009, p \< 0.001), lo que indica que a medida que aumenta la edad, la probabilidad de ser víctima disminuye, sugiriendo que los individuos más jóvenes podrían estar más expuestos a la victimización.
 
-3.  Exposición a situaciones de riesgo: El coeficiente es positivo (0.487, p < 0.001) y es uno de los hallazgos más fuertes del modelo. Esto sugiere que las personas que están más expuestas a riesgos tienen una mayor probabilidad de ser víctimas, lo que es coherente con la intuición y los análisis previos que indican que la exposición a situaciones riesgosas aumenta la probabilidad de victimización.
+3.  Exposición a situaciones de riesgo: El coeficiente es positivo (0.487, p \< 0.001) y es uno de los hallazgos más fuertes del modelo. Esto sugiere que las personas que están más expuestas a riesgos tienen una mayor probabilidad de ser víctimas, lo que es coherente con la intuición y los análisis previos que indican que la exposición a situaciones riesgosas aumenta la probabilidad de victimización.
 
-4.  Sensación de seguridad: La sensación de seguridad tiene un coeficiente negativo (−0.380, p < 0.001), por lo que las personas que se sienten menos seguras en su entorno tienen una mayor probabilidad de ser víctimas.
+4.  Sensación de seguridad: La sensación de seguridad tiene un coeficiente negativo (−0.380, p \< 0.001), por lo que las personas que se sienten menos seguras en su entorno tienen una mayor probabilidad de ser víctimas.
 
-5.  Conductas preventivas: La variable de conductas preventivas muestra una relación significativa (0.165, p < 0.001), indicando que las personas con más conductas preventivas tienen una mayor probabilidad de ser víctimas.
+5.  Conductas preventivas: La variable de conductas preventivas muestra una relación significativa (0.165, p \< 0.001), indicando que las personas con más conductas preventivas tienen una mayor probabilidad de ser víctimas.
 
 6.  Discapacidad: La variable de situación de discapacidad es significativa (0.209, p = 0.0327), lo que sugiere que las personas que poseen alguna situación de discapacidad tienen una mayor probabilidad de ser víctimas.
 
@@ -1043,7 +1043,8 @@ rf_model <- randomForest(victimizacion ~ ., data = trainData, ntree = 500, mtry 
 # Imprime el modelo entrenado para verificar
 print(rf_model)
 ```
-La matriz de confusión del Random Forest muestra que el modelo fue capaz de predecir correctamente 6453 casos de no victimización y 72 casos de victimización. Sin embargo, clasificó erróneamente 83 casos de no víctimas como víctimas. Esto es, generó 83 falsos positivos. Asimismo, se presentaron 1037 errores al clasificar victimas reales como no victimas (falsos negativos), lo que indica que el modelo presenta dificultades al identificar correctamente a las personas victimizadas. Esto indica que el modelo es preciso al identificar quién no será victima, pero tiene dificultades al detectar correctamente a quienes sí lo serán. 
+
+La matriz de confusión del Random Forest muestra que el modelo fue capaz de predecir correctamente 6453 casos de no victimización y 72 casos de victimización. Sin embargo, clasificó erróneamente 83 casos de no víctimas como víctimas. Esto es, generó 83 falsos positivos. Asimismo, se presentaron 1037 errores al clasificar victimas reales como no victimas (falsos negativos), lo que indica que el modelo presenta dificultades al identificar correctamente a las personas victimizadas. Esto indica que el modelo es preciso al identificar quién no será victima, pero tiene dificultades al detectar correctamente a quienes sí lo serán.
 
 ```{r}
 #| label: tbl-tabla4
@@ -1072,8 +1073,7 @@ La Curva ROC es una herramienta para evaluar el desempeño de un modelo de clasi
 
 El punto de corte de 0.157 significa que el modelo clasificará como víctima a cualquier caso cuya probabilidad estimada sea superior a este umbral, en lugar de usar el estándar de 0.5. Este valor se elige porque maximiza la diferencia entre sensibilidad y especificidad, lo que permite un mejor balance en la clasificación.
 
-Esto significa que, si la probabilidad predicha de ser víctima es mayor a 0.157, el modelo clasificará el caso como 1 (víctima); de lo contrario, lo clasificará como 0 (no víctima). En este caso, el umbral bajo **favorece la detección de más casos positivos**, aumentando la sensibilidad a costa de un posible incremento en los falsos positivos. 
-
+Esto significa que, si la probabilidad predicha de ser víctima es mayor a 0.157, el modelo clasificará el caso como 1 (víctima); de lo contrario, lo clasificará como 0 (no víctima). En este caso, el umbral bajo **favorece la detección de más casos positivos**, aumentando la sensibilidad a costa de un posible incremento en los falsos positivos.
 
 ```{r}
 #| label: fig-11
@@ -1106,6 +1106,7 @@ adjusted_predictions <- factor(adjusted_predictions, levels = levels(testData$vi
 conf_matrix_adjusted <- confusionMatrix(adjusted_predictions, testData$victimizacion)
 print(conf_matrix_adjusted)
 ```
+
 El modelo tiene una precisión del 58.61%, lo que sugiere un desempeño moderado. La sensibilidad es de 55.48%, lo que indica que el modelo identifica correctamente ese porcentaje de los casos de no victimización. Por otra parte, la especificidad muestra que detecta el 77.05% de los casos de victimización. Sin embargo, el calor predictivo negativo (22.69%) es bajo, lo que significa que el modelo aun presenta dificultades para identificar correctamente a las personas victimizadas. El índice Kappa, de 0.1631, sugiere una relación débil entre las predicciones del modelo y la realidad.
 
 ```{r}
@@ -1137,7 +1138,6 @@ kable(conf_matrix_df, format = "html", align = "c") %>%
   kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
 
-
 ```{r}
 #| label: tbl-tabla6
 #| tbl-cap: "Métricas del Modelo de Clasificación Random Forest"
@@ -1146,7 +1146,6 @@ kable(conf_matrix_df, format = "html", align = "c") %>%
 kable(metrics_df, format = "html", align = "c") %>%
   kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
-
 
 ### Importancia de las variables
 
@@ -1168,4 +1167,3 @@ El análisis descriptivo revela que las personas que han sido víctimas de delit
 Los modelos predictivos, especialmente el de regresión logística, muestran que **la probabilidad de victimización aumenta con la exposición a situaciones de riesgo y disminuye con una mayor sensación de seguridad**. Sin embargo, el modelo presenta limitaciones en cuanto a la predicción de víctimas debido al desbalance en los datos.
 
 El modelo de Random Forest ha permitido identificar patrones clave en la predicción de la victimización en Chile, utilizando variables socioeconómicas y demográficas. No obstante, si bien ha mostrado una buena capacidad para clasificar correctamente a quienes **no han sido víctimas de delitos**, tiene dificultades en identificar correctamente a quienes **sí lo han sido**, lo que sugiere un posible desbalance en los datos. Por su parte, el análisis de importancia de las variables indica que factores como la **región, la exposición a situaciones de riesgo, la edad, el nivel educacional, la sensación de seguridad y la confianza en las instituciones** juegan un papel relevante en la predicción de la victimización.
-
