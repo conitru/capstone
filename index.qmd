@@ -1107,7 +1107,7 @@ conf_matrix_adjusted <- confusionMatrix(adjusted_predictions, testData$victimiza
 print(conf_matrix_adjusted)
 ```
 
-El modelo tiene una precisión del 58.61%, lo que sugiere un desempeño moderado. La sensibilidad es de 55.48%, lo que indica que el modelo identifica correctamente ese porcentaje de los casos de no victimización. Por otra parte, la especificidad muestra que detecta el 77.05% de los casos de victimización. Sin embargo, el calor predictivo negativo (22.69%) es bajo, lo que significa que el modelo aun presenta dificultades para identificar correctamente a las personas victimizadas. El índice Kappa, de 0.1631, sugiere una relación débil entre las predicciones del modelo y la realidad.
+El modelo tiene una precisión del 58.61%, lo que sugiere un desempeño moderado. La sensibilidad es de 55.48%, lo que indica que el modelo identifica correctamente ese porcentaje de los casos de no victimización. Por otra parte, la especificidad muestra que detecta el 77.05% de los casos de victimización. Sin embargo, el valor predictivo negativo (22.69%) es bajo, lo que significa que el modelo aún presenta dificultades para identificar correctamente a las personas victimizadas. El índice Kappa, de 0.1631, sugiere una relación débil entre las predicciones del modelo y la realidad.
 
 ```{r}
 #| label: tbl-tabla5
@@ -1160,7 +1160,7 @@ varImpPlot(rf_model)
 
 ## Conclusiones
 
-El objetivo de este proyecto se enfocó en analizar los factores que influyen en la victimización en Chile, considerando variables individuales, socioeconómicas, geográficas y perceptivas. A través de un enfoque cuantitativo, se utilizan datos secundarios de encuestas nacionales (EBS 2021 y Casen en pandemia 2020) y se aplican modelos estadísticos predictivos como la regresión logística y Random Forest.
+El objetivo de este proyecto se enfocó en analizar los factores que influyen en la victimización en Chile, considerando variables individuales, socioeconómicas, geográficas y perceptivas. A través de un enfoque cuantitativo, se utilizaron datos secundarios de encuestas nacionales (EBS 2021 y Casen en pandemia 2020) y se aplicaron modelos estadísticos predictivos como la regresión logística y Random Forest.
 
 El análisis descriptivo revela que las personas que han sido víctimas de delitos tienen una mayor exposición a riesgos y una menor sensación de seguridad en comparación con quienes no lo han sido. Además, las personas víctimas adoptan conductas preventivas más marcadas, lo que sugiere una respuesta adaptativa a experiencias previas de victimización. Por otro lado, las diferencias entre zonas urbanas y rurales, en cuanto a la victimización, se confirman como relevantes, con un mayor porcentaje de víctimas en áreas urbanas. Esto se alinea con la hipótesis inicial sobre la mayor densidad de población y actividad delictiva en estos contextos.
 
